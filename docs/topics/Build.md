@@ -13,7 +13,6 @@ Ensure that a SRP asset is assigned:
 ![No Objects In Game](ts_settings_srp_asset.png)
 
 
-
 <seealso>
 <!--Give some related links to how-to articles-->
 </seealso>

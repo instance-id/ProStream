@@ -9,7 +9,7 @@
     <toc-element topic="Welcome.md"/>
 
     <!--| Initial Setup - - - - - - - - - - - -->
-    <!--    <toc-element topic="Setup.md"/>-->
+    <!-- <toc-element topic="Setup.md"/> - -  -->
 
     <!--| General Usage - - - - - - - - - - - -->
     <toc-element toc-title="Usage">
