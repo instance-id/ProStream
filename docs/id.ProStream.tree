@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="id.ProStream"
+                  name="ProStream"
+                  start-page="Welcome.md">
+
+    <toc-element topic="Welcome.md"/>
+
+    <!--| Initial Setup - - - - - - - - - - - -->
+    <!--    <toc-element topic="Setup.md"/>-->
+
+    <!--| General Usage - - - - - - - - - - - -->
+    <toc-element toc-title="Usage">
+
+        <toc-element topic="BasicWorkflow.md"/>
+    </toc-element>
+
+    <!--| Major Components - - - - - - -  -->
+    <toc-element toc-title="Major Components">
+
+        <!--| Editor Windows - - - - - -  -->
+        <toc-element toc-title="Editor Windows">
+            <toc-element topic="ProStream-Editor.md"/>
+        </toc-element>
+
+        <!-- MonoBehaviour Components - - -->
+        <toc-element toc-title="MonoBehaviour">
+            <toc-element topic="SceneConnector.md"/>
+            <toc-element topic="SceneSearchFilter.md"/>
+        </toc-element>
+
+        <!--| Engine Components - - - - -  -->
+        <toc-element topic="RuleEngine.md"/>
+        <toc-element topic="ModificationEngine.md"/>
+        <toc-element topic="OperationEngine.md"/>
+        <toc-element topic="StreamingLayers.md"/>
+    </toc-element>
+
+    <!--| Processes - - - - - - - - - - - - - -->
+    <toc-element toc-title="Processes">
+        <toc-element topic="Process-SubScenes.md"/>
+        <toc-element topic="Position-Calculation.md"/>
+    </toc-element>
+
+    <!--| Additional Info - - - - - - - - - - -->
+    <toc-element toc-title="Additional Info">
+        <toc-element topic="Prerequisites.md"/>
+        <toc-element topic="Importance-Of-Prefabs.md"/>
+    </toc-element>
+
+    <!--| Troubleshooting - - - - - - - - - - -->
+    <toc-element toc-title="Troubleshooting">
+        <toc-element topic="Build.md"/>
+    </toc-element>
+
+    <!--| Change Log - - - - - - - - - - - -  -->
+    <toc-element topic="Change-Log.md"/>
+</instance-profile>

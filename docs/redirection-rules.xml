@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rules SYSTEM "https://resources.jetbrains.com/writerside/1.0/redirection-rules.dtd">
+<rules>
+    <!-- format is as follows
+    <rule id="<unique id>">
+        <accepts>page.html</accepts>
+    </rule>
+    -->
+    <rule id="6fa4bcfb">
+        <description>Created after removal of "Welcome" from ProStream</description>
+        <accepts>Welcome.html</accepts>
+    </rule>
+    <rule id="3a83c501">
+        <description>Created after removal of "Troubleshooting" from ProStream</description>
+        <accepts>Troubleshooting.html</accepts>
+    </rule>
+    <rule id="a9526d6">
+        <description>Created after removal of "RuleEngine" from ProStream</description>
+        <accepts>RuleEngine.html</accepts>
+    </rule>
+    <rule id="3a3fdf3">
+        <description>Created after removal of "ModificationEngine" from ProStream</description>
+        <accepts>ModificationEngine.html</accepts>
+    </rule>
+    <rule id="6cb52ff4">
+        <description>Created after removal of "OperationEngine" from ProStream</description>
+        <accepts>OperationEngine.html</accepts>
+    </rule>
+    <rule id="69a744a4">
+        <description>Created after removal of "Streaming Layers" from ProStream</description>
+        <accepts>Streaming-Layers.html</accepts>
+    </rule>
+    <rule id="38de550b">
+        <description><![CDATA[Created after removal of "<LayerData.md>" from ProStream]]></description>
+        <accepts>LayerData.html</accepts>
+    </rule>
+</rules>
