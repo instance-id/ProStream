@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+       id="Installation" title="Installation">
+
+    <title>Installation</title>
+    <p>
+        Upon first importing the ProStream package, the ProStream Installer will appear.
+        For optimal performance use the settings described in the <a href="Prerequisites.md" anchor="recommended-project-settings">Recommended Project Settings</a>.<br/>These settings can be automatically applied in the <code>Recommended Settings</code> window of the installer.
+    </p>
+    
+    <p>If an appropriate SRP (URP/HDRP) is installed, you can press the <code>Install ProStream</code> button to begin the installation.</p>
+
+    <chapter title="Why an Installer?" id="why-an-installer" collapsible="true">
+        ProStream is designed to be installed as a package in order to ensure proper dependency installation and management and will not show up in your <path>Assets/</path> folder.
+        <p>The purpose of the installer is to ensure that the package is installed to the
+            <tooltip term="packageLocation"> correct location</tooltip>
+            and that the necessary dependencies are installed.
+        </p>
+    </chapter>
+
+    <img src="ps_installer.png" alt="ps_installer.png"/>
+    <tip>
+        <p>The installer can also be accessed by navigating to <ui-path>Tools &gt; instance.id &gt; ProStream &gt; (Install/Update) ProStream</ui-path>.</p>
+    </tip>
+</topic>

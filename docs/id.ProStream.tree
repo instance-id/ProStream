@@ -4,9 +4,9 @@
 
 <instance-profile id="id.ProStream"
                   name="ProStream"
-                  start-page="Welcome.md">
+                  start-page="Welcome.topic">
 
-    <toc-element topic="Welcome.md"/>
+    <toc-element topic="Welcome.topic"/>
 
     <!--| Initial Setup - - - - - - - - - - - -->
     <!-- <toc-element topic="Setup.md"/> - -  -->
@@ -14,6 +14,7 @@
     <!--| General Usage - - - - - - - - - - - -->
     <toc-element toc-title="Usage">
 
+        <toc-element topic="Installation.topic"/>
         <toc-element topic="BasicWorkflow.md"/>
     </toc-element>
 
