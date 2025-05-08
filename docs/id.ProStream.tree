@@ -13,7 +13,6 @@
 
     <!--| General Usage - - - - - - - - - - - -->
     <toc-element toc-title="Usage">
-
         <toc-element topic="Installation.topic"/>
         <toc-element topic="BasicWorkflow.md"/>
     </toc-element>
