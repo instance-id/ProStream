@@ -11,7 +11,7 @@ permissions:
 
 env:
   INSTANCE: 'docs/id.ProStream'
-  DOCKER_VERSION: '241.14494' # Updated to latest WriterSide Docker version
+  DOCKER_VERSION: '233.14938' # Updated to latest WriterSide Docker version
 
 jobs:
   build:
