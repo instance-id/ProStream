@@ -32,12 +32,6 @@
 
 ---------
 
-[//]: # (Main Interface: Include MainInterface.md)
-
-## Main Interface
-
-<a href="MainInterface.md" summary="View Additional Details">Main Interface Details</a>
-
 
 [//]: # (Add Scene Search Filter To Scene:  Include SceneSearchFilter.md)
 
@@ -66,7 +60,6 @@
 <a href="StreamingLayers.md" summary="View Additional Details">StreamingLayers Details</a>
 
 <include from="StreamingLayers.md" element-id="streaming_layer_id"/>
-
 
 
 ----------
