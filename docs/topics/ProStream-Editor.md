@@ -44,4 +44,14 @@ A new label will be added to the scene to indicate that it is a streaming scene.
 
 ![streaming_scene_label.png](streaming_scene_label.png)
 
+
+</snippet>
+
+
+## Main Editor Window
+
+<snippet id="prostream_editor_main_window">
+
+![main_ps_editor.png](main_ps_editor.png)
+
 </snippet>

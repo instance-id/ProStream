@@ -32,6 +32,13 @@
 
 ---------
 
+[//]: # (Main Interface: Include MainInterface.md)
+
+## Main Interface
+
+<a href="MainInterface.md" summary="View Additional Details">Main Interface Details</a>
+
+
 [//]: # (Add Scene Search Filter To Scene:  Include SceneSearchFilter.md)
 
 ## Add Scene Search Filters
