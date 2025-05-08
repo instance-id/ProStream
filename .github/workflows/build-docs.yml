@@ -88,8 +88,22 @@ jobs:
         with:
           name: docs
 
+      - name: Get artifact name
+        id: get-artifact-name
+        run: |
+          # Find the zip file in the current directory that matches the pattern
+          ZIP_FILE=$(find . -name "webHelp*.zip" -type f | head -n 1)
+          echo "Found ZIP file: $ZIP_FILE"
+          echo "zip_file=${ZIP_FILE}" >> $GITHUB_OUTPUT
+
       - name: Unzip artifact
-        run: unzip -O UTF-8 -qq '${{ env.ARTIFACT }}' -d dir
+        run: |
+          if [ -z "${{ steps.get-artifact-name.outputs.zip_file }}" ]; then
+            echo "Error: No ZIP file found"
+            ls -la
+            exit 1
+          fi
+          unzip -O UTF-8 -qq "${{ steps.get-artifact-name.outputs.zip_file }}" -d dir
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
