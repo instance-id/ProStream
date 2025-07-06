@@ -14,7 +14,7 @@ Before you start, make sure that you have the following:
             <ul>
                 <li>Unity 2022.3.0f1 or later (Unity 6.1 is recommended)</li>
                 <li>Scriptable Render Pipeline (SRP) installed and configured (URP or HDRP)</li>
-                <li>Scene GameObjects which are not <a href="Importance-Of-Prefabs.md" summary="Importance of Prefabs">Prefabs</a> are ignored</li>
+                <li>Scene GameObjects which are not <a href="importance-of-prefabs.md" summary="Importance of Prefabs">Prefabs</a> are ignored</li>
                 <li>(Recommended) Scene Prefabs are children of an Empty Root-Level Parent GameObject</li>
             </ul>
         </td>

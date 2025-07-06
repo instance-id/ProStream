@@ -41,13 +41,13 @@
         </primary>
 
         <!-- Add several topics that are less important or are relevant only for advanced/experienced users.    -->
-        <!-- <secondary>-->
-        <!--  <title>Explore advanced features</title>-->
-        <!--  <a href=""/>-->
-        <!--  <a href="" summary="With a custom card summary"/>-->
-        <!--  <a href="">Custom card title</a>-->
-        <!--  <a href="" summary="With a custom card summary">Custom card title</a>-->
-        <!-- </secondary>-->
+         <secondary>
+          <title>Explore advanced features</title>
+          <a href=""/>
+          <a href="" summary="With a custom card summary"/>
+             <!--          <a href="">Custom card title</a>-->
+             <!--          <a href="" summary="With a custom card summary">Custom card title</a>-->
+         </secondary>
 
         <!--    Optionally add additional cards and links to topics that are not in this section but may be relevant.    -->
         <misc>
