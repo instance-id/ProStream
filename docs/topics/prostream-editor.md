@@ -37,7 +37,7 @@ Press the "Setup Current Scene" button in the ProStream Editor to add the necess
 
 ![usage_basic_quick_newscene.png](usage_basic_quick_newscene.png){width="500" thumbnail="true"}
 
-This will add [SceneConnector](SceneConnector.md) the following components to the scene:
+This will add [SceneConnector](scene-connector.md) the following components to the scene:
 
 ![scene_connector_object.png](scene_connector_object.png)
 
