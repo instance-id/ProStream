@@ -4,17 +4,17 @@
 
 <instance-profile id="id.ProStream"
                   name="ProStream"
-                  start-page="Welcome.topic">
+                  start-page="welcome.topic">
 
-    <toc-element topic="Welcome.topic"/>
+    <toc-element topic="welcome.topic"/>
 
     <!--| Initial Setup - - - - - - - - - - - -->
     <!-- <toc-element topic="Setup.md"/> - -  -->
 
     <!--| General Usage - - - - - - - - - - - -->
     <toc-element toc-title="Usage">
-        <toc-element topic="Installation.topic"/>
-        <toc-element topic="BasicWorkflow.md"/>
+        <toc-element topic="installation.topic"/>
+        <toc-element topic="basic-workflow.md"/>
     </toc-element>
 
     <!--| Major Components - - - - - - -  -->
@@ -22,39 +22,40 @@
 
         <!--| Editor Windows - - - - - -  -->
         <toc-element toc-title="Editor Windows">
-            <toc-element topic="ProStream-Editor.md"/>
+            <toc-element topic="prostream-editor.md"/>
         </toc-element>
 
         <!-- MonoBehaviour Components - - -->
         <toc-element toc-title="MonoBehaviour">
-            <toc-element topic="SceneConnector.md"/>
-            <toc-element topic="SceneSearchFilter.md"/>
+            <toc-element topic="scene-connector.md"/>
+            <toc-element topic="scene-search-filter.md"/>
         </toc-element>
 
         <!--| Engine Components - - - - -  -->
-        <toc-element topic="RuleEngine.md"/>
-        <toc-element topic="ModificationEngine.md"/>
-        <toc-element topic="OperationEngine.md"/>
-        <toc-element topic="StreamingLayers.md"/>
+        <toc-element topic="rule-engine.md"/>
+        <toc-element topic="modification-engine.md"/>
+        <toc-element topic="operation-engine.md"/>
+        <toc-element topic="streaming-layers.md"/>
     </toc-element>
 
     <!--| Processes - - - - - - - - - - - - - -->
     <toc-element toc-title="Processes">
-        <toc-element topic="Process-SubScenes.md"/>
-        <toc-element topic="Position-Calculation.md"/>
+        <toc-element topic="process-subscenes.md"/>
+        <toc-element topic="position-calculation.md"/>
     </toc-element>
 
     <!--| Additional Info - - - - - - - - - - -->
     <toc-element toc-title="Additional Info">
-        <toc-element topic="Prerequisites.md"/>
-        <toc-element topic="Importance-Of-Prefabs.md"/>
+        <toc-element topic="prerequisites.md"/>
+        <toc-element topic="importance-of-prefabs.md"/>
     </toc-element>
 
     <!--| Troubleshooting - - - - - - - - - - -->
     <toc-element toc-title="Troubleshooting">
-        <toc-element topic="Build.md"/>
+        <toc-element topic="troubleshooting.md"/>
+        <toc-element topic="build-runtime.md"/>
     </toc-element>
 
     <!--| Change Log - - - - - - - - - - - -  -->
-    <toc-element topic="Change-Log.md"/>
+    <toc-element topic="change-log.md"/>
 </instance-profile>

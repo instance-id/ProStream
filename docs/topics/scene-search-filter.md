@@ -1,6 +1,6 @@
 # SceneSearchFilter
 
-<card-summary>Use card summaries to provide context for cards.</card-summary>
+<card-summary>SceneSearchFilter Info</card-summary>
 
 ## Add Scene Search Filters
 

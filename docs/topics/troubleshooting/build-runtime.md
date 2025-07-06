@@ -4,8 +4,8 @@ Common and possible issues related to the Build process, or Runtime issues.
 
 ## No Objects In Game
 
-If you perform a build and there are no objects in the game, it is possible that the SRP asset is not assigned .
-Ensure that a SRP asset is assigned in the following places:
+If you perform a build and you see no objects in the game, it is possible that the SRP asset is not assigned .
+Ensure that an SRP asset is assigned in the following places:
 
 <table>
   <tr>

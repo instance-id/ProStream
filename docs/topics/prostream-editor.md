@@ -2,6 +2,15 @@
 
 ## Access ProStream Editor
 
+## Main Editor Window
+
+<snippet id="prostream_editor_main_window">
+
+![main_ps_editor.png](main_ps_editor.png)
+
+</snippet>
+
+
 <snippet id="access_prostream_editor_id">
 
 ------
@@ -14,7 +23,7 @@ To access the ProStream Editor, you can use the following methods:
 
    ![usage_basic_quick_openeditor.png](usage_basic_quick_openeditor.png){width="400" thumbnail="true"}
 
-3. Go to the following Menu path `Tools` -> `instance.id` -> `ProStream`
+3. Go to the following Menu path `Tools` → `instance.id` → `ProStream`
 
    ![u_b_q_openmenu.png](u_b_q_openmenu.png){width="500" thumbnail="true"}
 
@@ -34,24 +43,13 @@ This will add [SceneConnector](SceneConnector.md) the following components to th
 
     SceneConnector
       SceneConnectorData
-      RemoteSceneManager
-      DataObjectContainer
+      WorkflowContainer
       SceneSearchFilterManager
       SelectionGroupContainer
-      ObjectStorageSceneContainer
 
 A new label will be added to the scene to indicate that it is a streaming scene.
 
 ![streaming_scene_label.png](streaming_scene_label.png)
 
-
-</snippet>
-
-
-## Main Editor Window
-
-<snippet id="prostream_editor_main_window">
-
-![main_ps_editor.png](main_ps_editor.png)
 
 </snippet>

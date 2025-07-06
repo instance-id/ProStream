@@ -6,7 +6,7 @@ The RuleEngine is a system that allows for the creation and use of custom rules 
 
 ## Rule Providers
 
-The RuleEngine system is designed to be extensible enables the use of any number of underlying providers.
+The RuleEngine system is designed to be extensible through the use of Rule Providers.
 
 <table>
     <tr><td> <b>Current Providers</b> </td><td>
