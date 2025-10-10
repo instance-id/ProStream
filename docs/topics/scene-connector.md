@@ -8,6 +8,12 @@ Order: 1
 
 The SceneConnector is a component that is used as the main connecting point for the ProStream systems.
 
+> **Note:** SceneConnector is **automatically created** when you click "Setup Current Scene For ProStream" in the ProStream Editor. Do not manually create this component.
+>
+> {style="note"}
+
+See [ProStream Editor](prostream-editor.md) for setup instructions.
+
 ## Loading Trigger
 
 ---

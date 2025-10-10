@@ -1,0 +1,21 @@
+/* Custom ProStream Documentation Styles */
+
+/* Reduce spacing between list items */
+li {
+    margin-top: 6px !important;
+}
+
+/* Also target nested lists */
+ul li,
+ol li {
+    margin-top: 6px !important;
+}
+
+/* Reduce spacing for definition list items */
+dt {
+    margin-top: 6px !important;
+}
+
+dd {
+    margin-top: 6px !important;
+}

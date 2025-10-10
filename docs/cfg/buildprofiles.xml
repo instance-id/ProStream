@@ -5,6 +5,7 @@
     <build-profile instance="id.ProStream">
         <variables>
             <noindex-content>false</noindex-content>
+            <custom-css>custom.css</custom-css>
         </variables>
     </build-profile>
 

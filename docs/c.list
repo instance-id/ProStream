@@ -4,4 +4,10 @@
 <categories>
     <category id="addInfo" name="Additional Info" order="0"/>
     <category id="engines" name="Engine Details" order="1"/>
+    <category id="processes" name="Processes" order="2"/>
+    <category id="setup" name="Setup" order="3"/>
+    <category id="core-concepts" name="Core Concepts" order="4"/>
+    <category id="getting-started" name="Getting Started" order="5"/>
+    <category id="components" name="Components" order="6"/>
+    <category id="prerequisites" name="Prerequisites" order="7"/>
 </categories>

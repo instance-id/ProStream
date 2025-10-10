@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE topic SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
+<topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
+       id="quick-start" title="Quick Start Guide">
+    <show-structure for="chapter,procedure" depth="2"/>
+    <title>Standard Workflow</title>
+
+    <p>Get up and running with ProStream in just a few minutes! This guide will walk you through the essential steps to set up streaming in a simple scene.</p>
+
+    <chapter title="What You'll Create" id="what-youll-create">
+        <p>By the end of this guide, you'll have:</p>
+        <list>
+            <li>A scene with basic GameObjects</li>
+            <li>ProStream configured and ready</li>
+            <li>Objects organized into streaming layers</li>
+            <li>Distance-based streaming working in Play Mode</li>
+        </list>
+
+        <p>
+            <format style="bold">Time Required:</format>
+            5-10 minutes
+        </p>
+    </chapter>
+
+    <chapter title="Prerequisites" id="prerequisites">
+
+        <include from="prerequisites.md" element-id="prerequisites_id"/>
+
+        <note>
+            <p>If you haven't installed ProStream yet, see <a href="installation.topic"> Installation</a></p>
+        </note>
+    </chapter>
+
+    <chapter title="Quick Start Steps" id="quick-start-steps">
+<!--        <include from="step-1-create-test-scene.md" element-id="step_1_create_test_scene"/>-->
+        <include from="step-2-setup-scene.md" element-id="step_2_setup_scene"/>
+        <include from="step-3-add-search-filters.md" element-id="step_3_add_search_filters"/>
+        <include from="step-4-configure-rules.md" element-id="step_4_configure_rules"/>
+        <include from="step-5-configure-layers.md" element-id="step_5_configure_layers"/>
+        <include from="step-6-calculate-positions.md" element-id="step_6_calculate_positions"/>
+        <include from="step-7-create-subscenes.md" element-id="step_7_create_subscenes"/>
+        <include from="step-8-test-play-mode.md" element-id="step_8_test_play_mode"/>
+    </chapter>
+   
+    <include from="next-steps.md" element-id="next_steps"/>
+    <include from="common-issues.md" element-id="common_quick_start_issues"/>
+    <include from="pro-tips.md" element-id="pro_tips"/>
+    <include from="what-you-learned.md" element-id="what_you_learned"/>
+
+    <seealso>
+        <category ref="getting-started">
+            <a href="installation.topic"> Installation</a>
+            <a href="prerequisites.md"> Prerequisites</a>
+            <a href="basic-workflow.md"> Complete Workflow</a>
+        </category>
+        <category ref="core-concepts">
+            <a href="rule-engine.md">Rule Engine</a>
+            <a href="streaming-layers.md"> Streaming Layers</a>
+            <a href="scene-search-filter.md">Scene Search Filter</a>
+        </category>
+        <category ref="processes">
+            <a href="position-calculation.md">Position Calculation</a>
+            <a href="process-subscenes.md">SubScene Creation</a>
+        </category>
+    </seealso>
+</topic>

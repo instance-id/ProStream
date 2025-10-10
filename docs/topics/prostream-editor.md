@@ -33,23 +33,34 @@ To access the ProStream Editor, you can use the following methods:
 
 <snippet id="prostream_editor_setup_id">
 
-Press the "Setup Current Scene" button in the ProStream Editor to add the necessary components to the scene.
+> **Important:** Save your scene before setup. ProStream requires scenes to be saved to disk.
+>
+> {style="warning"}
+
+Click the <control>Setup Current Scene For ProStream</control> button in the ProStream Editor. The scene will automatically save and reload.
 
 ![usage_basic_quick_newscene.png](usage_basic_quick_newscene.png){width="500" thumbnail="true"}
 
-This will add [SceneConnector](scene-connector.md) the following components to the scene:
+**What happens automatically:**
+- Applies "StreamingScene" label to your scene
+- Creates asset directory structure in `SceneName/SceneData/`
+- Creates ProStream assets (SceneLock, LayerData, SceneSettings, RuleCollection, etc.)
+- Creates [SceneConnector](scene-connector.md) GameObject with child components:
 
 ![scene_connector_object.png](scene_connector_object.png)
 
-    SceneConnector
+    SceneConnector (automatically created)
       SceneConnectorData
       WorkflowContainer
       SceneSearchFilterManager
       SelectionGroupContainer
 
-A new label will be added to the scene to indicate that it is a streaming scene.
+The "StreamingScene" label enables ProStream's asset processor:
 
 ![streaming_scene_label.png](streaming_scene_label.png)
 
+> **Do not** manually create SceneConnector - it is automatically created by the setup process.
+>
+> {style="note"}
 
 </snippet>

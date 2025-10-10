@@ -34,4 +34,8 @@
         <description><![CDATA[Created after removal of "<LayerData.md>" from ProStream]]></description>
         <accepts>LayerData.html</accepts>
     </rule>
+    <rule id="6dccb52d">
+        <description>Created after removal of "Empty MD Topic" from ProStream</description>
+        <accepts>Empty-MD-Topic.html</accepts>
+    </rule>
 </rules>
