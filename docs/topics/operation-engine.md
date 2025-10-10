@@ -526,7 +526,4 @@ public override void PerformOperation(params object[] parameters)
         <a href="position-calculation.md">Position Calculation Process</a>
         <a href="process-subscenes.md">SubScene Creation Process</a>
     </category>
-    <category ref="architecture">
-        <a href="">System Architecture (Coming Soon)</a>
-    </category>
 </seealso>

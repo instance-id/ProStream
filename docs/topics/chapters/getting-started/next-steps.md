@@ -20,9 +20,7 @@
 </chapter>
 
 <chapter title="Learn More" id="learn-more">
-    <p>
-        <b>Essential Reading:</b>
-    </p>
+    <p><b>Essential Reading:</b></p>
     <list>
         <li><a href="basic-workflow.md"> Basic Workflow</a> - Complete workflow overview</li>
         <li><a href="position-calculation.md"> Position Calculation Process</a> - Understand rule matching</li>

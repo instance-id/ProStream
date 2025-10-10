@@ -25,16 +25,14 @@
     <p>Wait for processing to complete (progress bar will show)</p>
 </step>
 
-<code-block lang="markdown">
+<code-block lang="plain text">
 Run Process: CalculateLocations
 Running Phase 3: Rule Matching
-
-- Search Query Matches: 28 objects
-  Running Phase 4: Spatial Calculation
-- QuadTree cells created: 4
-- Objects assigned: 28
-  Position Calculation Complete
-
+  Search Query Matches: 28 objects
+Running Phase 4: Spatial Calculation
+  QuadTree cells created: 4
+  Objects assigned: 28
+Position Calculation Complete
 </code-block>
 
   <warning>

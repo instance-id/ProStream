@@ -32,7 +32,7 @@
     </li>
 </list>
 
-<code-block lang="markdown" collapsible="true" collapsed-title="Hierarchy during Play Mode">
+<code-block lang="text" collapsible="true" collapsed-title="Hierarchy during Play Mode">
 YourScene (Main)
 ├── SceneConnector
 ├── SubSceneRoot

@@ -12,8 +12,8 @@
     <toc-element toc-title="Getting Started">
         <toc-element topic="prerequisites.md"/>
         <toc-element topic="installation.topic"/>
-        <toc-element topic="quick-start.topic"/>
-        <toc-element topic="basic-workflow.md"/>
+        <toc-element topic="standard-workflow.topic"/>
+        <toc-element topic="quick-start.md"/>
     </toc-element>
 
     <!--| Core Concepts - - - - - - - - - - - -->
@@ -65,5 +65,4 @@
         <toc-element topic="change-log.md"/>
         <toc-element topic="install-update.md"/>
     </toc-element>
-    <toc-element topic="step-1-create-test-scene.md"/>
 </instance-profile>

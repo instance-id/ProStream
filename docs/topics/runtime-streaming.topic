@@ -5,45 +5,71 @@
        id="runtime-streaming" title="Runtime Streaming Systems">
 
     <title>Runtime Streaming Systems</title>
-    
+
     <tldr>
         <p>ProStream's runtime streaming systems use Unity's DOTS/ECS for high-performance, distance-based scene streaming.</p>
     </tldr>
 
     <chapter title="Overview" id="overview">
-        <p>ProStream's runtime streaming systems are built on Unity's DOTS (Data-Oriented Technology Stack) and use ECS (Entity Component System) for high-performance, distance-based scene streaming. These systems automatically load and unload SubScenes based on proximity to a loading trigger (typically the player or camera).</p>
+        <p>ProStream's runtime streaming systems are built on Unity's DOTS (Data-Oriented Technology Stack) and use ECS (Entity Component System) for high-performance, distance-based scene streaming. These systems automatically load and unload SubScenes based on proximity to a loading trigger
+            (typically the player or camera).</p>
 
-        <p><format style="bold">Key Runtime Components:</format></p>
+        <p>
+            <format style="bold">Key Runtime Components:</format>
+        </p>
         <list>
-            <li><format style="bold">SubSceneLoadingSystem</format> - Handles loading SubScenes and sections</li>
-            <li><format style="bold">SubSceneUnloadingSystem</format> - Handles unloading SubScenes and sections</li>
-            <li><format style="bold">StreamingManager</format> - Coordinates streaming operations</li>
-            <li><format style="bold">ProStreamSystem</format> - Base system infrastructure</li>
-            <li><format style="bold">Loading Trigger</format> - Reference position for distance calculations (GameObject)</li>
+            <li>
+                <format style="bold">SubSceneLoadingSystem</format>
+                - Handles loading SubScenes and sections
+            </li>
+            <li>
+                <format style="bold">SubSceneUnloadingSystem</format>
+                - Handles unloading SubScenes and sections
+            </li>
+            <li>
+                <format style="bold">StreamingManager</format>
+                - Coordinates streaming operations
+            </li>
+            <li>
+                <format style="bold">ProStreamSystem</format>
+                - Base system infrastructure
+            </li>
+            <li>
+                <format style="bold">Loading Trigger</format>
+                - Reference position for distance calculations (GameObject)
+            </li>
         </list>
     </chapter>
 
     <chapter title="Core Concepts" id="core-concepts">
         <chapter title="Distance-Based Streaming" id="distance-based-streaming">
-            <p>ProStream calculates the distance between the <format style="bold">Loading Trigger</format> (your player/camera) and each SubScene. When the distance falls within configured thresholds, sections are loaded or unloaded.</p>
+            <p>ProStream calculates the distance between the
+                <format style="bold">Loading Trigger</format>
+                (your player/camera) and each SubScene. When the distance falls within configured thresholds, sections are loaded or unloaded.
+            </p>
 
-            <code-block lang="plain" collapsible="true" collapsed-title="Distance Calculation Example">
+            <code-block lang="text" collapsible="true" collapsed-title="Distance Calculation Example">
 Player Position: (0, 0, 0)
 SubScene Position: (100, 0, 50)
 Distance: ~111 units
 
 If Section "LargeObjects" loads at 150m:
-  → Section IS loaded (111m &lt; 150m)
-  
+→ Section IS loaded (111m &lt; 150m)
+
 If Section "SmallObjects" loads at 50m:
-  → Section NOT loaded (111m &gt; 50m)
+→ Section NOT loaded (111m &gt; 50m)
             </code-block>
         </chapter>
 
         <chapter title="Section-Based Loading" id="section-based-loading">
-            <p>Each SubScene contains multiple <format style="bold">sections</format> (Ground, LargeObjects, SmallObjects, etc.). Sections can load/unload independently based on their configured distances.</p>
+            <p>Each SubScene contains multiple
+                <format style="bold">sections</format>
+                (Ground, LargeObjects, SmallObjects, etc.). Sections can load/unload independently based on their configured distances.
+            </p>
 
-            <p><format style="bold">Benefits:</format></p>
+            <p>
+                <format style="bold">Benefits:</format>
+            </p>
             <list>
                 <li>Fine-grained control over what loads when</li>
                 <li>Reduced memory usage (only load what's visible)</li>
@@ -54,20 +80,25 @@ If Section "SmallObjects" loads at 50m:
     </chapter>
 
     <chapter title="SubSceneLoadingSystem" id="subscene-loading-system">
-        <p><format style="bold">Location:</format> <path>Runtime/Scripts/Streaming/SubSceneLoadingSystem.cs</path> (+ Methods.cs, State.cs)</p>
+        <p>
+            <format style="bold">Location:</format>
+            <path>Runtime/Scripts/Streaming/SubSceneLoadingSystem.cs</path>
+            (+ Methods.cs, State.cs)
+        </p>
 
         <chapter title="Purpose" id="loading-purpose">
             <p>Manages the loading of SubScenes and their sections based on distance from the loading trigger.</p>
         </chapter>
 
         <chapter title="How It Works" id="loading-how-it-works">
-            <code-block lang="markdown">
+            <code-block lang="text">
 Every Frame (Update):
-    1. Calculate distance to each SubScene
-    2. Determine which sections should be loaded
-    3. Queue loading requests for new sections
-    4. Execute loading jobs asynchronously
-    5. Update loaded section tracking
+
+1. Calculate distance to each SubScene
+2. Determine which sections should be loaded
+3. Queue loading requests for new sections
+4. Execute loading jobs asynchronously
+5. Update loaded section tracking
             </code-block>
         </chapter>
 
@@ -75,25 +106,25 @@ Every Frame (Update):
             <p>The loading system maintains internal states for each SubScene:</p>
 
             <deflist>
-                <def title="Unloaded">
+                <def id="unloaded" title="Unloaded">
                     <p>SubScene not in memory</p>
                 </def>
-                <def title="Loading">
+                <def id="loading" title="Loading">
                     <p>SubScene being loaded</p>
                 </def>
-                <def title="Loaded">
+                <def id="loaded" title="Loaded">
                     <p>SubScene fully loaded and active</p>
                 </def>
-                <def title="Streaming">
+                <def id="streaming" title="Streaming">
                     <p>Sections loading/unloading dynamically</p>
                 </def>
             </deflist>
 
-            <code-block lang="plain">
+            <code-block lang="text">
 Unloaded → Loading → Loaded → Streaming
-    ↓                              ↓
-    ←──────────────────────────────
-         (Distance exceeds threshold)
+↓ ↓
+←──────────────────────────────
+(Distance exceeds threshold)
             </code-block>
         </chapter>
 
@@ -143,37 +174,51 @@ public struct DistanceCalculationJob : IJobParallelFor
 }
             </code-block>
 
-            <include from="snippets/common-snippets.md" element-id="burst-compiled"/>
+            <include from="common-snippets.md" element-id="burst-compiled"/>
         </chapter>
     </chapter>
 
     <chapter title="SubSceneUnloadingSystem" id="subscene-unloading-system">
-        <p><format style="bold">Location:</format> <path>Runtime/Scripts/Streaming/SubSceneUnloadingSystem.cs</path> (+ Methods.cs, State.cs)</p>
+        <p>
+            <format style="bold">Location:</format>
+            <path>Runtime/Scripts/Streaming/SubSceneUnloadingSystem.cs</path>
+            (+ Methods.cs, State.cs)
+        </p>
 
         <chapter title="Purpose" id="unloading-purpose">
             <p>Manages the unloading of SubScenes and sections when they exceed distance thresholds or when triggered manually.</p>
         </chapter>
 
         <chapter title="How It Works" id="unloading-how-it-works">
-            <code-block lang="plain">
+            <code-block lang="text">
 Every Frame (Update):
-    1. Check loaded sections against distance thresholds
-    2. Identify sections to unload
-    3. Queue unloading requests
-    4. Execute unloading jobs
-    5. Release resources
-    6. Update tracking data
+
+1. Check loaded sections against distance thresholds
+2. Identify sections to unload
+3. Queue unloading requests
+4. Execute unloading jobs
+5. Release resources
+6. Update tracking data
             </code-block>
         </chapter>
 
         <chapter title="Unloading Strategy" id="unloading-strategy" collapsible="true">
-            <p><format style="bold">Hysteresis:</format> ProStream uses slightly different thresholds for loading vs unloading to prevent "flickering" (rapid load/unload cycles).</p>
+            <p>
+                <format style="bold">Hysteresis:</format>
+                ProStream uses slightly different thresholds for loading vs unloading to prevent "flickering" (rapid load/unload cycles).
+            </p>
 
             <tabs>
                 <tab title="Example">
                     <list>
-                        <li><format style="bold">Load at:</format> 150m</li>
-                        <li><format style="bold">Unload at:</format> 160m (10m hysteresis buffer)</li>
+                        <li>
+                            <format style="bold">Load at:</format>
+                            150m
+                        </li>
+                        <li>
+                            <format style="bold">Unload at:</format>
+                            160m (10m hysteresis buffer)
+                        </li>
                     </list>
                     <p>This prevents objects from loading/unloading repeatedly when the player hovers around the threshold.</p>
                 </tab>
@@ -204,7 +249,10 @@ public void ConfigureHysteresis(float buffer)
     </chapter>
 
     <chapter title="StreamingManager" id="streaming-manager">
-        <p><format style="bold">Location:</format> <path>Runtime/Scripts/MonoBehaviour/StreamingManager.cs</path></p>
+        <p>
+            <format style="bold">Location:</format>
+            <path>Runtime/Scripts/MonoBehaviour/StreamingManager.cs</path>
+        </p>
 
         <chapter title="Purpose" id="manager-purpose">
             <p>High-level coordinator for all streaming operations. Acts as the bridge between MonoBehaviour world and ECS systems.</p>
@@ -244,14 +292,25 @@ public void ConfigureHysteresis(float buffer)
         </chapter>
 
         <chapter title="Setup" id="manager-setup">
-            <p>StreamingManager is <format style="bold">automatically created</format> after SubScene creation. You can also add it manually.</p>
+            <p>StreamingManager is
+                <format style="bold">automatically created</format>
+                after SubScene creation. You can also add it manually.
+            </p>
 
             <procedure title="Loading Trigger Configuration" id="configure-trigger">
-                <p><format style="bold">In Inspector:</format></p>
+                <p>
+                    <format style="bold">In Inspector:</format>
+                </p>
                 <step>Select StreamingManager GameObject</step>
-                <step>Assign your Player/Camera to <control>Loading Trigger</control> field</step>
-                
-                <p><format style="bold">In Code:</format></p>
+                <step>Assign your Player/Camera to
+                    <control>Loading Trigger</control>
+                    field
+                </step>
+
+                <p>
+                    <format style="bold">In Code:</format>
+                </p>
+               
                 <code-block lang="c#">
 // Filename: YourPlayerController.cs
 // Method: Start
@@ -264,6 +323,7 @@ private void Start()
     }
 }
                 </code-block>
+
             </procedure>
         </chapter>
     </chapter>
@@ -286,11 +346,14 @@ public static float CalculateDistanceSq(float3 from, float3 to)
 {
     return math.distancesq(from, to);
 }
-            </code-block>
+</code-block>
         </chapter>
 
         <chapter title="Performance Optimization" id="distance-optimization">
-            <p><format style="bold">Distance checks use squared distance</format> when comparing thresholds to avoid expensive square root operations:</p>
+            <p>
+                <format style="bold">Distance checks use squared distance</format>
+                when comparing thresholds to avoid expensive square root operations:
+            </p>
 
             <code-block lang="c#">
 // Filename: Runtime/Scripts/Streaming/SubSceneLoadingSystem.Methods.cs
@@ -302,7 +365,8 @@ private bool ShouldLoad(float3 triggerPos, float3 subScenePos, float threshold)
     float distanceSq = math.distancesq(triggerPos, subScenePos);
     return distanceSq &lt;= thresholdSq;
 }
-            </code-block>
+</code-block>
+
         </chapter>
 
         <chapter title="LOD-Style Distance Bands" id="distance-bands">
@@ -339,53 +403,86 @@ private bool ShouldLoad(float3 triggerPos, float3 subScenePos, float threshold)
     </chapter>
 
     <chapter title="Visualization and Debugging" id="visualization-debugging">
-        <p><format style="bold">Location:</format> <path>Runtime/Scripts/Streaming/Drawing/DebugDistanceSystem/*</path></p>
+        <p>
+            <format style="bold">Location:</format>
+            <path>Runtime/Scripts/Streaming/Drawing/DebugDistanceSystem/*</path>
+        </p>
 
         <chapter title="Features" id="debug-features">
             <list>
-                <li><format style="bold">Distance rings</format> around loading trigger</li>
-                <li><format style="bold">SubScene bounds</format> visualization</li>
-                <li><format style="bold">Loaded/unloaded</format> color coding</li>
-                <li><format style="bold">Section status</format> indicators</li>
-                <li><format style="bold">Performance metrics</format> display</li>
+                <li>
+                    <format style="bold">Distance rings</format>
+                    around loading trigger
+                </li>
+                <li>
+                    <format style="bold">SubScene bounds</format>
+                    visualization
+                </li>
+                <li>
+                    <format style="bold">Loaded/unloaded</format>
+                    color coding
+                </li>
+                <li>
+                    <format style="bold">Section status</format>
+                    indicators
+                </li>
+                <li>
+                    <format style="bold">Performance metrics</format>
+                    display
+                </li>
             </list>
         </chapter>
 
         <procedure title="Enabling Debug Visualization" id="enable-debug">
             <tabs>
                 <tab id="visualization" title="In Code">
-                    <code-block lang="c#">
+                    
+<code-block lang="c#">
 // Filename: Runtime/Scripts/Streaming/Drawing/DebugDistanceSystem/DebugDistanceSystem.cs
 // Property: DebugDistanceSystem.Enabled
 
 DebugDistanceSystem.Instance.Enabled = true;
-                    </code-block>
+</code-block>
+
                 </tab>
                 <tab id="visualization2" title="In Editor">
-                    <step>Select StreamingManager</step>
-                    <step>Check <control>Enable Debug Visualization</control></step>
+                    <list>
+                        <li>Select StreamingManager</li>
+                        <li>Check
+                            <control>Enable Debug Visualization</control>
+                        </li>
+                    </list>
                 </tab>
             </tabs>
         </procedure>
 
         <chapter title="Visualization Features" id="visualization-features" collapsible="true">
             <deflist>
-                <def id="Distance Rings" title="Distance Rings">
+                <def id="distance_rings" title="Distance Rings">
                     <list>
                         <li>Shows configured distance thresholds</li>
                         <li>Updates as loading trigger moves</li>
                         <li>Color-coded by section type</li>
                     </list>
                 </def>
-                <def id="SubScene Bounds" title="SubScene Bounds">
+                <def id="subscene_bounds" title="SubScene Bounds">
                     <list>
                         <li>Wireframe boxes around each SubScene</li>
-                        <li><format color="Green">Green</format> = Loaded</li>
-                        <li><format color="Red">Red</format> = Unloaded</li>
-                        <li><format color="Yellow">Yellow</format> = Loading/Unloading</li>
+                        <li>
+                            <format color="Green">Green</format>
+                            = Loaded
+                        </li>
+                        <li>
+                            <format color="Red">Red</format>
+                            = Unloaded
+                        </li>
+                        <li>
+                            <format color="Yellow">Yellow</format>
+                            = Loading/Unloading
+                        </li>
                     </list>
                 </def>
-                <def id="Section Indicators" title="Section Indicators">
+                <def id="section_indicators" title="Section Indicators">
                     <list>
                         <li>Shows which sections are active</li>
                         <li>Displays section load state</li>
@@ -399,7 +496,7 @@ DebugDistanceSystem.Instance.Enabled = true;
     <chapter title="Runtime Performance" id="runtime-performance">
         <chapter title="Optimization Strategies" id="optimization-strategies">
             <deflist>
-                <def title="1. Job System + Burst">
+                <def id="" title="1. Job System + Burst">
                     <list>
                         <li>All heavy calculations run as Burst-compiled jobs</li>
                         <li>Parallel processing across CPU cores</li>
@@ -431,7 +528,9 @@ DebugDistanceSystem.Instance.Enabled = true;
         </chapter>
 
         <chapter title="Performance Metrics" id="performance-metrics" collapsible="true">
-            <p><format style="bold">Typical Overhead (optimized scene):</format></p>
+            <p>
+                <format style="bold">Typical Overhead (optimized scene):</format>
+            </p>
             <table>
                 <tr>
                     <td>Operation</td>
@@ -450,12 +549,18 @@ DebugDistanceSystem.Instance.Enabled = true;
                     <td>&lt;0.1ms</td>
                 </tr>
                 <tr>
-                    <td><format style="bold">Total streaming overhead</format></td>
-                    <td><format style="bold">&lt;0.5ms</format></td>
+                    <td>
+                        <format style="bold">Total streaming overhead</format>
+                    </td>
+                    <td>
+                        <format style="bold">&lt;0.5ms</format>
+                    </td>
                 </tr>
             </table>
 
-            <p><format style="bold">Scalability:</format></p>
+            <p>
+                <format style="bold">Scalability:</format>
+            </p>
             <list>
                 <li>100 SubScenes: ~0.5ms overhead</li>
                 <li>500 SubScenes: ~1-2ms overhead</li>
@@ -467,7 +572,8 @@ DebugDistanceSystem.Instance.Enabled = true;
     <chapter title="Configuration at Runtime" id="runtime-configuration" collapsible="true">
         <tabs>
             <tab title="Adjust Distances">
-                <code-block lang="c#">
+                
+<code-block lang="c#">
 // Filename: YourGameCode.cs
 // Method: AdjustStreamingDistance
 
@@ -480,10 +586,11 @@ public void AdjustStreamingDistance(string sectionName, float newDistance)
         StreamingManager.Instance.RefreshDistances();
     }
 }
-                </code-block>
+</code-block>
             </tab>
             <tab title="Toggle Streaming">
-                <code-block lang="c#">
+                
+<code-block lang="c#">
 // Filename: YourGameCode.cs
 // Method: ToggleStreaming
 
@@ -491,10 +598,12 @@ public void ToggleStreaming(bool enabled)
 {
     StreamingManager.Instance.StreamingEnabled = enabled;
 }
-                </code-block>
+</code-block>
+
             </tab>
             <tab title="Preload Areas">
-                <code-block lang="c#">
+                
+<code-block lang="c#">
 // Filename: YourGameCode.cs
 // Method: PreloadArea
 
@@ -502,7 +611,7 @@ public void PreloadArea(Vector3 position, float radius)
 {
     StreamingManager.Instance.PreloadArea(position, radius);
 }
-                </code-block>
+</code-block>
             </tab>
         </tabs>
     </chapter>
@@ -547,8 +656,13 @@ public void PreloadArea(Vector3 position, float radius)
     <chapter title="Troubleshooting" id="troubleshooting">
         <deflist>
             <def title="Sections Not Loading">
-                <p><format style="bold">Symptoms:</format> SubScenes never load even when close</p>
-                <p><format style="bold">Check:</format></p>
+                <p>
+                    <format style="bold">Symptoms:</format>
+                    SubScenes never load even when close
+                </p>
+                <p>
+                    <format style="bold">Check:</format>
+                </p>
                 <list>
                     <li>StreamingManager exists in scene</li>
                     <li>Loading trigger is assigned and valid</li>
@@ -559,8 +673,13 @@ public void PreloadArea(Vector3 position, float radius)
             </def>
 
             <def title="Pop-In/Pop-Out">
-                <p><format style="bold">Symptoms:</format> Objects appear/disappear abruptly</p>
-                <p><format style="bold">Solutions:</format></p>
+                <p>
+                    <format style="bold">Symptoms:</format>
+                    Objects appear/disappear abruptly
+                </p>
+                <p>
+                    <format style="bold">Solutions:</format>
+                </p>
                 <list>
                     <li>Increase loading distances</li>
                     <li>Add hysteresis buffer (load at X, unload at X+10)</li>
@@ -571,9 +690,17 @@ public void PreloadArea(Vector3 position, float radius)
             </def>
 
             <def title="Performance Spikes">
-                <p><format style="bold">Symptoms:</format> Frame drops when sections load/unload</p>
-                <p><format style="bold">Causes:</format> Too many objects in single section, synchronous loading, heavy scripts</p>
-                <p><format style="bold">Solutions:</format></p>
+                <p>
+                    <format style="bold">Symptoms:</format>
+                    Frame drops when sections load/unload
+                </p>
+                <p>
+                    <format style="bold">Causes:</format>
+                    Too many objects in single section, synchronous loading, heavy scripts
+                </p>
+                <p>
+                    <format style="bold">Solutions:</format>
+                </p>
                 <list>
                     <li>Split large sections into smaller ones</li>
                     <li>Ensure async loading is enabled</li>
@@ -584,8 +711,13 @@ public void PreloadArea(Vector3 position, float radius)
             </def>
 
             <def title="Memory Leaks">
-                <p><format style="bold">Symptoms:</format> Memory usage grows over time</p>
-                <p><format style="bold">Check:</format></p>
+                <p>
+                    <format style="bold">Symptoms:</format>
+                    Memory usage grows over time
+                </p>
+                <p>
+                    <format style="bold">Check:</format>
+                </p>
                 <list>
                     <li>Sections properly unloading</li>
                     <li>No lingering references to unloaded objects</li>
@@ -594,19 +726,19 @@ public void PreloadArea(Vector3 position, float radius)
                 </list>
             </def>
         </deflist>
-        
+
         <p>For more issues, see <a href="troubleshooting.md">Troubleshooting Guide</a></p>
     </chapter>
 
     <seealso>
         <category ref="setup">
-            <a href="streaming-layers.md">Streaming Layers Configuration</a>
-            <a href="process-subscenes.md">SubScene Creation Process</a>
-            <a href="quick-start.md">Quick Start Guide</a>
+            <a href="streaming-layers.md"> Streaming Layers Configuration</a>
+            <a href="process-subscenes.md"> SubScene Creation Process</a>
+            <a href="standard_workflow.topic"> Quick Start Guide</a>
         </category>
         <category ref="core-concepts">
-            <a href="basic-workflow.md">Basic Workflow</a>
-            <a href="scene-connector.md">SceneConnector Component</a>
+            <a href="basic-workflow.md"> Basic Workflow</a>
+            <a href="scene-connector.md"> SceneConnector Component</a>
         </category>
     </seealso>
 </topic>

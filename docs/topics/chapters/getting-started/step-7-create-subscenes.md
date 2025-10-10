@@ -27,7 +27,7 @@
     <li>Scene is reloaded to finalize changes</li>
 </list>
 
-<code-block lang="markdown">
+<code-block lang="console">
 Creating SubScene Assets...
 Processing SubScenes...
 SubScene creation complete

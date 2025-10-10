@@ -126,7 +126,7 @@ ProStream includes several ready-to-use modifications:
 
 Create a new C# script that inherits from `ModificationEngine`:
 
-```csharp
+```c#
 // Filename: Runtime/CustomModifications/MyCustomModification.cs
 
 using instance.id.ProStream;
@@ -155,7 +155,7 @@ Override methods based on your needs:
 
 #### Per-GameObject Modifications
 
-```csharp
+```c#
 // Filename: Runtime/CustomModifications/MyCustomModification.cs
 // Method: MyCustomModification.ApplyModification
 
@@ -185,7 +185,7 @@ public override Transform ApplyModification(Transform tObject)
 
 #### Per-Section Preparations
 
-```csharp
+```c#
 // Filename: Runtime/CustomModifications/MyCustomModification.cs
 // Method: MyCustomModification.PrepareModification
 
@@ -258,7 +258,7 @@ public override void PrepareModification(List<GameObject> objects)
 
 Use helper methods to control execution:
 
-```csharp
+```c#
 // Filename: Runtime/CustomModifications/AdvancedModification.cs
 // Method: AdvancedModification.ApplyModification
 
@@ -275,7 +275,7 @@ public override GameObject ApplyModification(GameObject gObject)
 
 ### Parameter Validation
 
-```csharp
+```c#
 // Filename: Runtime/CustomModifications/AdvancedModification.cs
 // Method: AdvancedModification.PrepareModification
 
@@ -293,7 +293,7 @@ public override T PrepareModification<T>(params object[] parameters)
 
 ### Lifecycle Callbacks
 
-```csharp
+```c#
 // Filename: Runtime/CustomModifications/AdvancedModification.cs
 // Class: AdvancedModification
 
@@ -405,7 +405,7 @@ public override void UponDisabled()
 
 ## Example: Complete Custom Modification
 
-```csharp
+```c#
 // Filename: Runtime/CustomModifications/RemoveUnusedComponents.cs
 
 using System.Collections.Generic;
@@ -489,8 +489,5 @@ public class RemoveUnusedComponents : ModificationEngine
     <category ref="processes">
         <a href="position-calculation.md">Position Calculation Process</a>
         <a href="process-subscenes.md">SubScene Creation Process</a>
-    </category>
-    <category ref="advanced">
-        <a href="">Custom Development Guide (Coming Soon)</a>
     </category>
 </seealso>

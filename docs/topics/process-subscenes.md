@@ -343,7 +343,7 @@ Modifications allow custom processing at specific stages of SubScene creation.
         <a href="scene-connector.md">SceneConnector Component</a>
         <a href="streaming-layers.md">Streaming Layers Configuration</a>
     </category>
-    <category ref="runtime">
+    <category ref="addInfo">
         <a href="build-runtime.md">Build & Runtime Issues</a>
     </category>
 </seealso>

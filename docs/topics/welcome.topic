@@ -29,8 +29,8 @@
 
         <!--    Add up to 2 topics that you want to promote. Use the "type" attribute to select an icon.    -->
         <spotlight>
-            <a href="quick-start.topic" type="start" summary="%quickstart-summary%"> Quick Start Guide</a>
-            <a href="basic-workflow.md" type="mixed" summary="Complete workflow overview"> Basic Workflow</a>
+            <a href="quick-start.md" type="start" summary="%quickstart-summary%"> Quick Start Guide</a>
+            <a href="standard-workflow.topic" type="mixed" summary="Complete workflow overview"> Basic Workflow</a>
         </spotlight>
 
         <!--    Add several topics that are most important for this section.    -->
