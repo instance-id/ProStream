@@ -3,29 +3,32 @@
 <snippet id="step_7_create_subscenes">
 
 <procedure title="Create SubScenes" id="step-7-create-subscenes">
-<p>Now create the actual SubScene files that will stream at runtime.</p>
+
+Now create the actual SubScene files that will stream at runtime.
 
 <step>
-    <p>In ProStream Editor (still on Setup tab)</p>
-</step>
-<step>
-    <p>Click
-        <control>Create SubScenes</control>
-        button
-    </p>
-</step>
-<step>
-    <p>Wait for processing (this may take a minute)</p>
+
+In ProStream Editor (still on Setup tab)
+
 </step>
 
-<p>
-    <b>What's happening:</b>
-</p>
-<list>
-    <li>ProStream creates scene files (.unity) for each spatial region</li>
-    <li>Objects are cloned into appropriate SubScenes and sections</li>
-    <li>Scene is reloaded to finalize changes</li>
-</list>
+<step>
+
+Click <control>Create SubScenes</control> button
+
+</step>
+
+<step>
+
+Wait for processing (this may take a minute)
+
+</step>
+
+**What's happening:**
+
+- ProStream creates scene files (.unity) for each spatial region
+- Objects are cloned into appropriate SubScenes and sections
+- Scene is reloaded to finalize changes
 
 <code-block lang="console">
 Creating SubScene Assets...
@@ -34,20 +37,13 @@ SubScene creation complete
 Scene reloaded
 </code-block>
 
-<p>
-    <b>After Completion:</b>
-</p>
-<list>
-    <li>Check
-        <ui-path>Project | Assets | SubScene_Assets | YourSceneName | Entity</ui-path>
-    </li>
-    <li>You should see multiple
-        <path>.unity</path>
-        files (one per spatial region)
-    </li>
-</list>
+**After Completion:**
 
-<p>See <a href="process-subscenes.md"> SubScene Creation Process</a> for complete details.</p>
+- Check <ui-path>Project | Assets | SubScene_Assets | YourSceneName | Entity</ui-path>
+- You should see multiple <path>.unity</path> files (one per spatial region)
+
+See <a href="process-subscenes.md"> SubScene Creation Process</a> for complete details.
+
 </procedure>
 
 </snippet>

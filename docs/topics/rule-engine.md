@@ -10,13 +10,13 @@ The RuleEngine system is designed to be extensible through the use of Rule Provi
 
 <table>
     <tr><td> <b>Current Providers</b> </td><td>
-    <ul>
-        <li>Unity Search Query system (MatchBySearchQuery)</li>
-        <li>GameObject Query Language (MatchByGoQL)</li>
-        <li>Unity Identification Systems (Layer, Tag, Label)</li>
-        <li>Custom Matching via C# code</li>
-    </ul>
-    </td></tr>
+
+- Unity Search Query system (MatchBySearchQuery)
+- GameObject Query Language (MatchByGoQL)
+- Unity Identification Systems (Layer, Tag, Label)
+- Custom Matching via C# code
+
+</td></tr>
 </table>
 
 Example Provider: MatchByName

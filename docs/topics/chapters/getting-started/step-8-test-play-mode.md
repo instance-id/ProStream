@@ -3,34 +3,32 @@
 <snippet id="step_8_test_play_mode">
 
 <procedure title="Test in Play Mode" id="step-8-test-play-mode">
-<p>Time to see streaming in action!</p>
+
+Time to see streaming in action!
 
 <step>
-    <p>Ensure your scene has a
-        <control>Camera</control>
-        or Player controller
-    </p>
-</step>
-<step>
-    <p>Enter
-        <control>Play Mode</control>
-    </p>
-</step>
-<step>
-    <p>Move the camera around the scene</p>
+
+Ensure your scene has a <control>Camera</control> or Player controller
+
 </step>
 
-<p>
-    <b>What to observe:</b>
-</p>
-<list>
-    <li>SubScenes load/unload as you move</li>
-    <li>Objects appear/disappear based on distance</li>
-    <li>Check
-        <control>Hierarchy</control>
-        window - SubScenes load additively
-    </li>
-</list>
+<step>
+
+Enter <control>Play Mode</control>
+
+</step>
+
+<step>
+
+Move the camera around the scene
+
+</step>
+
+**What to observe:**
+
+- SubScenes load/unload as you move
+- Objects appear/disappear based on distance
+- Check <control>Hierarchy</control> window - SubScenes load additively
 
 <code-block lang="text" collapsible="true" collapsed-title="Hierarchy during Play Mode">
 YourScene (Main)
@@ -43,12 +41,9 @@ YourScene (Main)
 </code-block>
 
 <tip>
-    <p>
-        <b>Performance Check:</b>
-        Open
-        <ui-path>Window | Analysis | Profiler</ui-path>
-        to monitor memory and CPU usage. SubScenes should load/unload efficiently.
-    </p>
+
+**Performance Check:** Open <ui-path>Window | Analysis | Profiler</ui-path> to monitor memory and CPU usage. SubScenes should load/unload efficiently.
+
 </tip>
 </procedure>
 

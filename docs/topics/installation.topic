@@ -6,7 +6,7 @@
 
     <title>Installation</title>
     <p>
-        Upon first importing the ProStream package, the ProStream Installer will appear.
+        Upon first importing the ProStream package, the ProStream Installer will appear.  
         For optimal performance use the settings described in the <a href="prerequisites.md" anchor="recommended-project-settings"> Recommended Project Settings</a>.<br/>These settings can be automatically applied in the <code>Recommended Settings</code> window of the installer.
     </p>
 

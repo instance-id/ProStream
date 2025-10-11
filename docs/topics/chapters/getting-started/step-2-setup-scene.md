@@ -5,22 +5,24 @@
 <procedure title="Setup Scene for ProStream" id="step-2-setup-scene">
 
 <step>
-    <p>Open the ProStream Editor window:
-        <ui-path>Tools | instance.id | ProStream | ProStream Editor</ui-path>
-    </p>
+
+Open the ProStream Editor window: <ui-path>Tools | instance.id | ProStream | ProStream Editor</ui-path>
+
 </step>
 
 <step>
-    <p>Click the <control>Setup Current Scene</control> button</p>
-    <img src="usage_basic_quick_newscene.png" alt="Setup Current Scene Button" width="300" thumbnail="true"/> 
-    <list>
-        <li>ProStream will apply a "StreamingScene" label to your scene</li>
-        <li>The scene will automatically save and reload</li>
-        <li>Wait for the process to complete</li>
-    </list>
+
+Click the <control>Setup Current Scene</control> button
+
+<img src="usage_basic_quick_newscene.png" alt="Setup Current Scene Button" width="300" thumbnail="true"/> 
+
+- ProStream will apply a "StreamingScene" label to your scene
+- The scene will automatically save and reload
+- Wait for the process to complete
+
 </step>
 
-<p><b>What just happened:</b></p>
+**What just happened:**
 
 - ProStream created a [SceneConnector](scene-connector.md) GameObject:
 
@@ -45,7 +47,9 @@ SceneConnector (automatically created)
 - Scene is now ready for configuration
 
 <note>
-    <p>The scene reload is necessary for ProStream to complete the setup process. This is automatic and takes only a few seconds.</p>
+
+The scene reload is necessary for ProStream to complete the setup process. This is automatic and takes only a few seconds.
+
 </note>
 </procedure>
 </snippet>

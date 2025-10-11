@@ -3,50 +3,51 @@
 <snippet id="step_3_add_search_filters">
 
 <procedure title="Add Scene Search Filters" id="step-3-add-search-filters">
-    <p>Scene Search Filters define which areas of your scene ProStream will process. You select root-level GameObjects, and ProStream tracks all prefab children under them.</p>
+
+Scene Search Filters define which areas of your scene ProStream will process. You select root-level GameObjects, and ProStream tracks all prefab children under them.
 
 <step>
-    <p>In the ProStream Editor window, click
-        <control>Add Search Filters</control>
-        button
-    </p>
+
+In the ProStream Editor window, click <control>Add Search Filters</control> button
+
 </step>
 
 <step>
-    <p>A hierarchy selector window will open showing root-level GameObjects</p>
+
+A hierarchy selector window will open showing root-level GameObjects
+
 </step>
 
 <step>
-    <p>Select one or more root GameObjects that contain the objects you want to stream</p>
-    <list>
-        <li>Typically these are parent GameObjects organizing your scene content</li>
-        <li>Example: "Buildings", "Terrain", "Props", "Vegetation"</li>
-        <li>You can select multiple GameObjects (hold Ctrl/Cmd)</li>
-    </list>
+
+Select one or more root GameObjects that contain the objects you want to stream
+
+- Typically these are parent GameObjects organizing your scene content
+- Example: "Buildings", "Terrain", "Props", "Vegetation"
+- You can select multiple GameObjects (hold Ctrl/Cmd)
+
 </step>
 
 <step>
-    <p>Click
-        <control>Confirm</control>
-        in the selector window
-    </p>
-    <img src="add_search_filter.png" alt="Add Search Filter Context Menu" width="450" thumbnail="true"/>
+
+Click <control>Confirm</control> in the selector window
+
+<img src="add_search_filter.png" alt="Add Search Filter Context Menu" width="450" thumbnail="true"/>
+
 </step>
 
-<p><b>What just happened:</b></p>
-<list>
-    <li>ProStream added <code>SceneSearchFilter</code> components to your selected GameObjects</li>
-    <li>Found all prefab instances under those GameObjects</li>
-    <li>Added <code>MatchTracker</code> components to each prefab child</li>
-    <li>Set tracker status to "Searchable"</li>
-    <li>Only objects under search filters will be processed for streaming</li>
-</list>
+**What just happened:**
+
+- ProStream added `SceneSearchFilter` components to your selected GameObjects
+- Found all prefab instances under those GameObjects
+- Added `MatchTracker` components to each prefab child
+- Set tracker status to "Searchable"
+- Only objects under search filters will be processed for streaming
 
 <note>
-    <p>
-        <b>Organization tip:</b>
-        Search filters help organize large scenes. Only prefab instances under filter GameObjects are tracked for streaming. This improves performance by limiting the scope of object tracking.
-    </p>
+
+**Organization tip:** Search filters help organize large scenes. Only prefab instances under filter GameObjects are tracked for streaming. This improves performance by limiting the scope of object tracking.
+
 </note>
 </procedure>
 
