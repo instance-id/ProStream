@@ -11,7 +11,8 @@
 - How to create SubScenes
 - How to test streaming behavior
 
-<format style="bold" color="GreenYellow">You're now ready to use ProStream in your projects!</format> 
+<format color="GreenYellow">You're now ready to use ProStream in your projects!</format> 
+
 </chapter>
 
 </snippet>
