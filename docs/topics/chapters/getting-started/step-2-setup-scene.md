@@ -11,15 +11,16 @@
 </step>
 
 <step>
-    <p>Click the
-        <control>Setup Current Scene For ProStream</control>
-        button
-    </p>
+
+<p>
+<a href="prostream-editor.md#prostream_editor_image" summary="ProStream Setup Image">Click the <control>Setup Current Scene</control> button </a>
+</p>
     <list>
         <li>ProStream will apply a "StreamingScene" label to your scene</li>
         <li>The scene will automatically save and reload</li>
         <li>Wait for the process to complete</li>
     </list>
+
 </step>
 
 <p>

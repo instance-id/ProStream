@@ -39,7 +39,11 @@ To access the ProStream Editor, you can use the following methods:
 
 Click the <control>Setup Current Scene For ProStream</control> button in the ProStream Editor. The scene will automatically save and reload.
 
+<a id="prostream_editor_image">
+
 ![usage_basic_quick_newscene.png](usage_basic_quick_newscene.png){width="500" thumbnail="true"}
+
+</a>
 
 **What happens automatically:**
 - Applies "StreamingScene" label to your scene

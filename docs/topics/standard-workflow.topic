@@ -8,20 +8,6 @@
 
     <p>Get up and running with ProStream in just a few minutes! This guide will walk you through the essential steps to set up streaming in a simple scene.</p>
 
-    <chapter title="What You'll Create" id="what-youll-create">
-        <p>By the end of this guide, you'll have:</p>
-        <list>
-            <li>A scene with basic GameObjects</li>
-            <li>ProStream configured and ready</li>
-            <li>Objects organized into streaming layers</li>
-            <li>Distance-based streaming working in Play Mode</li>
-        </list>
-
-        <p>
-            <format style="bold">Time Required:</format>
-            5-10 minutes
-        </p>
-    </chapter>
 
     <chapter title="Prerequisites" id="prerequisites">
 
@@ -33,7 +19,6 @@
     </chapter>
 
     <chapter title="Quick Start Steps" id="quick-start-steps">
-<!--        <include from="step-1-create-test-scene.md" element-id="step_1_create_test_scene"/>-->
         <include from="step-2-setup-scene.md" element-id="step_2_setup_scene"/>
         <include from="step-3-add-search-filters.md" element-id="step_3_add_search_filters"/>
         <include from="step-4-configure-rules.md" element-id="step_4_configure_rules"/>
@@ -42,7 +27,7 @@
         <include from="step-7-create-subscenes.md" element-id="step_7_create_subscenes"/>
         <include from="step-8-test-play-mode.md" element-id="step_8_test_play_mode"/>
     </chapter>
-   
+
     <include from="next-steps.md" element-id="next_steps"/>
     <include from="common-issues.md" element-id="common_quick_start_issues"/>
     <include from="pro-tips.md" element-id="pro_tips"/>
