@@ -337,7 +337,7 @@ Modifications allow custom processing at specific stages of SubScene creation.
 <seealso>
     <category ref="processes">
         <a href="position-calculation.md">Position Calculation Process (Required First)</a>
-        <a href="basic-workflow.md">Complete Workflow Overview</a>
+        <a href="standard-workflow.topic">Complete Workflow Overview</a>
     </category>
     <category ref="components">
         <a href="scene-connector.md">SceneConnector Component</a>

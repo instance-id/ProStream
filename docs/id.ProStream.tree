@@ -13,7 +13,6 @@
         <toc-element topic="prerequisites.md"/>
         <toc-element topic="installation.topic"/>
         <toc-element topic="standard-workflow.topic"/>
-        <toc-element topic="quick-start.md"/>
     </toc-element>
 
     <!--| Core Concepts - - - - - - - - - - - -->

@@ -16,9 +16,11 @@
         <control>Layer Editor</control>
         button
     </p>
+    <img src="pst_3_menuLayerEditor_image_psTutorial.png" alt="Access Layer Editor" width="400"/>
 </step>
 <step>
     <p>In the Layer Editor, adjust loading distances:</p>
+    <img src="pst_3_layerDistanceLoad_image_psTutorial.png" alt="Adjust Layer Distances" width="450"/>
     <list>
         <li>
             <b>Ground:</b>
@@ -40,6 +42,11 @@
         <b>What this means:</b>
         Objects in "SmallObjects" layer load when camera is within 50m. Objects in "LargeObjects" layer load when camera is within 150m.
     </p>
+    <p>
+        <b>Persistent Layers:</b>
+        Layers marked as Persistent are always loaded and don't need a range set:
+    </p>
+    <img src="pst_3_layerEditorPersistent_image_psTutorial.png" alt="Persistent Layers" width="400"/>
 </note>
 
 <p>See <a href="streaming-layers.md"> Streaming Layers</a> for detailed configuration.</p>

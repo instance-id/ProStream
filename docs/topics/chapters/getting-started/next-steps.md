@@ -20,14 +20,15 @@
 </chapter>
 
 <chapter title="Learn More" id="learn-more">
-    <p><b>Essential Reading:</b></p>
-    <list>
-        <li><a href="standard-workflow.topic"> Standard Workflow</a> - Complete workflow overview</li>
-        <li><a href="position-calculation.md"> Position Calculation Process</a> - Understand rule matching</li>
-        <li><a href="process-subscenes.md"> SubScene Creation Process</a> - Understand SubScene generation</li>
-        <li><a href="runtime-streaming.topic"> Runtime Systems</a> - How streaming works at runtime</li>
-    </list>
+
+#### Essential Reading
+
+- <a href="position-calculation.md"> Position Calculation Process</a> - Understand rule matching
+- <a href="process-subscenes.md"> SubScene Creation Process</a> - Understand SubScene generation
+- <a href="runtime-streaming.topic"> Runtime Systems</a> - How streaming works at runtime
+
 </chapter>
+
 </chapter>
 
 </snippet>

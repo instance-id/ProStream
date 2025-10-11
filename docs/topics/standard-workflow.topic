@@ -2,12 +2,11 @@
 <!DOCTYPE topic SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
 <topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
-       id="standard-workflow" title="Quick Start Guide" help-id="quick-start">
+       id="standard-workflow" title="Standard Workflow">
     <show-structure for="chapter,procedure" depth="2"/>
     <title>Standard Workflow</title>
 
     <p>Get up and running with ProStream in just a few minutes! This guide will walk you through the essential steps to set up streaming in a simple scene.</p>
-
 
     <chapter title="Prerequisites" id="prerequisites">
 
@@ -37,16 +36,15 @@
         <category ref="getting-started">
             <a href="installation.topic"> Installation</a>
             <a href="prerequisites.md"> Prerequisites</a>
-            <a href="quick-start.md"> Quick Start</a>
         </category>
         <category ref="core-concepts">
-            <a href="rule-engine.md">Rule Engine</a>
+            <a href="rule-engine.md"> Rule Engine</a>
             <a href="streaming-layers.md"> Streaming Layers</a>
-            <a href="scene-search-filter.md">Scene Search Filter</a>
+            <a href="scene-search-filter.md"> Scene Search Filter</a>
         </category>
         <category ref="processes">
-            <a href="position-calculation.md">Position Calculation</a>
-            <a href="process-subscenes.md">SubScene Creation</a>
+            <a href="position-calculation.md"> Position Calculation</a>
+            <a href="process-subscenes.md"> SubScene Creation</a>
         </category>
     </seealso>
 </topic>

@@ -29,12 +29,15 @@
 </step>
 <step>
     <p>Enable rules for your scene:</p>
+    <img src="pst_2_enable_match_image_psTutorial.png" alt="Enable Example Rules" width="250" thumbnail="true"/>
     <list>
         <li>Expand the <code>MatchBySearchQuery</code> category</li>
         <li>Right-click <code>Example - Cube</code></li>
         <li>Select <control>Add to Scene</control> from context menu</li>
         <li>Repeat for <code>Example - Sphere</code></li>
     </list>
+    <p>You can also verify enabled rules by viewing the SceneConnector's inspector:</p>
+    <img src="open_match_files.png" alt="Scene Match Rules" width="250" thumbnail="true"/>
 </step>
 <step>
     <p>Verify rules are enabled:</p>
@@ -57,6 +60,8 @@
         <b>Quick Tip:</b>
         You can also single-click a rule to select it and view its properties in the inspector, or double-click to open its editor for detailed configuration.
     </p>
+    <p>You can edit and preview query results by clicking the icon on the right side of the query input box:</p>
+    <img src="pst_2_edit_preview_query_image_psTutorial.png" alt="Edit and Preview Query" width="250" thumbnail="true"/>
 </tip>
 </procedure>
 

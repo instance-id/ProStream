@@ -17,7 +17,7 @@
 
 
     <var name="prereq" value="Prerequisites / Recommendations"/>
-    <var name="quickstart-summary" value="Get started with ProStream in 5-10 minutes"/>
+    <var name="install-summary" value="Get started with ProStream"/>
     <var name="runtime-summary" value="Understanding ProStream's distance-based streaming systems"/>
 
     <section-starting-page>
@@ -29,8 +29,8 @@
 
         <!--    Add up to 2 topics that you want to promote. Use the "type" attribute to select an icon.    -->
         <spotlight>
-            <a href="quick-start.md" type="start" summary="%quickstart-summary%"> Quick Start Guide</a>
-            <a href="standard-workflow.topic" type="mixed" summary="Complete workflow overview"> Basic Workflow</a>
+            <a href="installation.topic" type="start" summary="%install-summary%"> Installation</a>
+            <a href="standard-workflow.topic" type="mixed" summary="Complete workflow overview"> Standard Workflow</a>
         </spotlight>
 
         <!--    Add several topics that are most important for this section.    -->
@@ -43,13 +43,13 @@
         </primary>
 
         <!-- Add several topics that are less important or are relevant only for advanced/experienced users.    -->
-         <secondary>
-          <title>Deep Dive</title>
-          <a href="position-calculation.md" summary="Understanding the 5-phase rule matching process">Position Calculation</a>
-          <a href="process-subscenes.md" summary="SubScene asset creation and hierarchy">SubScene Creation</a>
-          <a href="modification-engine.md" summary="Extend ProStream with custom processing">Modification System</a>
-          <a href="troubleshooting.md" summary="Common issues and solutions"> Troubleshooting</a>
-         </secondary>
+        <secondary>
+            <title>Deep Dive</title>
+            <a href="position-calculation.md" summary="Understanding the 5-phase rule matching process">Position Calculation</a>
+            <a href="process-subscenes.md" summary="SubScene asset creation and hierarchy">SubScene Creation</a>
+            <a href="modification-engine.md" summary="Extend ProStream with custom processing">Modification System</a>
+            <a href="troubleshooting.md" summary="Common issues and solutions"> Troubleshooting</a>
+        </secondary>
 
         <!--    Optionally add additional cards and links to topics that are not in this section but may be relevant.    -->
         <misc>

@@ -30,18 +30,17 @@
         <control>Confirm</control>
         in the selector window
     </p>
+    <img src="add_search_filter.png" alt="Add Search Filter Context Menu" width="450" thumbnail="true"/>
 </step>
 
-<p>
-    <b>What just happened:</b>
-</p>
-    <list>
-        <li>ProStream added <code>SceneSearchFilter</code> components to your selected GameObjects</li>
-        <li>Found all prefab instances under those GameObjects</li>
-        <li>Added <code>MatchTracker</code> components to each prefab child</li>
-        <li>Set tracker status to "Searchable"</li>
-        <li>Only objects under search filters will be processed for streaming</li>
-    </list>
+<p><b>What just happened:</b></p>
+<list>
+    <li>ProStream added <code>SceneSearchFilter</code> components to your selected GameObjects</li>
+    <li>Found all prefab instances under those GameObjects</li>
+    <li>Added <code>MatchTracker</code> components to each prefab child</li>
+    <li>Set tracker status to "Searchable"</li>
+    <li>Only objects under search filters will be processed for streaming</li>
+</list>
 
 <note>
     <p>

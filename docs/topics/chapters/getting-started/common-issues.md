@@ -88,7 +88,7 @@
         </def>
     </deflist>
 
-    <p>For more issues, see <a href="troubleshooting.md">Troubleshooting</a></p>
+<p>For more issues, see <a href="troubleshooting.md"> Troubleshooting</a></p>
 
 </chapter>
 

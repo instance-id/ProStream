@@ -3,18 +3,15 @@
 <snippet id="what_you_learned">
 
 <chapter title="What You Learned" id="what-you-learned">
-    <list>
-        <li>How to set up ProStream in a scene</li>
-        <li>How to configure search filters and rules</li>
-        <li>How to set up streaming layers</li>
-        <li>How to run the position calculation process</li>
-        <li>How to create SubScenes</li>
-        <li>How to test streaming behavior</li>
-    </list>
 
-<p>
-    <format style="bold" color="GreenYellow">You're now ready to use ProStream in your projects!</format>
-</p>
+- How to set up ProStream in a scene
+- How to configure search filters and rules
+- How to set up streaming layers
+- How to run the position calculation process
+- How to create SubScenes
+- How to test streaming behavior
+
+<format style="bold" color="GreenYellow">You're now ready to use ProStream in your projects!</format> 
 </chapter>
 
 </snippet>

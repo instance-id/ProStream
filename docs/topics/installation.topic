@@ -26,7 +26,6 @@
     <tip>
         <p>The installer can also be accessed by navigating to
             <ui-path>Tools &gt; instance.id &gt; ProStream &gt; (Install/Update) ProStream</ui-path>
-            .
         </p>
     </tip>
 </topic>
