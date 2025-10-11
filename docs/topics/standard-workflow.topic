@@ -2,7 +2,7 @@
 <!DOCTYPE topic SYSTEM "https://resources.jetbrains.com/writerside/1.0/xhtml-entities.dtd">
 <topic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/topic.v2.xsd"
-       id="standard_workflow" title="Quick Start Guide" help-id="quick-start">
+       id="standard-workflow" title="Quick Start Guide" help-id="quick-start">
     <show-structure for="chapter,procedure" depth="2"/>
     <title>Standard Workflow</title>
 
@@ -37,7 +37,7 @@
         <category ref="getting-started">
             <a href="installation.topic"> Installation</a>
             <a href="prerequisites.md"> Prerequisites</a>
-            <a href="basic-workflow.md"> Complete Workflow</a>
+            <a href="quick-start.md"> Quick Start</a>
         </category>
         <category ref="core-concepts">
             <a href="rule-engine.md">Rule Engine</a>

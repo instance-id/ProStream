@@ -145,7 +145,7 @@ Complete
 
 Operations call modifications at specific execution placements:
 
-```csharp
+```c#
 // Filename: Runtime/Operations/ExampleOp.cs
 // Method: ExampleOp.PerformOperation
 
@@ -190,7 +190,7 @@ Consider creating a custom operation when you need to:
 
 ### Step 1: Create ScriptableObject
 
-```csharp
+```c#
 // Filename: Runtime/CustomOperations/MyCustomOperation.cs
 
 using Cysharp.Threading.Tasks;
@@ -210,7 +210,7 @@ public class MyCustomOperation : OperationEngine
 
 ### Step 2: Implement Operation Logic
 
-```csharp
+```c#
 // Filename: Runtime/CustomOperations/MyCustomOperation.cs
 // Method: MyCustomOperation.PerformOperation
 
@@ -254,7 +254,7 @@ public override async UniTask PerformOperation<T>(
 
 ### Step 3: Add Helper Methods
 
-```csharp
+```c#
 // Filename: Runtime/CustomOperations/MyCustomOperation.cs
 // Class: MyCustomOperation
 
@@ -332,7 +332,7 @@ Defines when the operation can be executed:
 
 Operations support async execution using UniTask:
 
-```csharp
+```c#
 // Filename: Runtime/CustomOperations/AsyncOperation.cs
 // Method: AsyncOperation.PerformOperation
 
@@ -356,7 +356,7 @@ public override async UniTask PerformOperation<T>(
 
 Use built-in Timer for performance monitoring:
 
-```csharp
+```c#
 // Filename: Runtime/CustomOperations/TimedOperation.cs
 // Method: TimedOperation.PerformOperation
 
@@ -378,7 +378,7 @@ Log($"Phase 2: {timer.GetTime("Phase2")}ms");
 
 Implement robust error handling:
 
-```csharp
+```c#
 // Filename: Runtime/CustomOperations/SafeOperation.cs
 // Method: SafeOperation.PerformOperation
 
