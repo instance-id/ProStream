@@ -9,12 +9,8 @@
     <p>Get up and running with ProStream in just a few minutes! This guide will walk you through the essential steps to set up streaming in a simple scene.</p>
 
     <chapter title="Prerequisites" id="prerequisites">
-
         <include from="prerequisites.md" element-id="prerequisites_id"/>
-
-        <note>
-            <p>If you haven't installed ProStream yet, see <a href="installation.topic"> Installation</a></p>
-        </note>
+        <note><p>If you haven't installed ProStream yet, see <a href="installation.topic"> Installation</a></p></note>
     </chapter>
 
     <chapter title="Quick Start Steps" id="quick-start-steps">

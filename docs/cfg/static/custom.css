@@ -19,3 +19,7 @@ dt {
 dd {
     margin-top: 6px !important;
 }
+
+.article__list {
+    margin-top: 2px !important;
+}
