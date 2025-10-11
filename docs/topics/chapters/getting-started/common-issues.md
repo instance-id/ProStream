@@ -3,13 +3,10 @@
 <snippet id="common_quick_start_issues">
 
 <chapter title="Common Quick Start Issues" id="common-issues" collapsible="true">
-     Setup button says 'Scene must be saved'">
 
-Solution:
-: ProStream requires scenes to be saved to disk before setup. Save your scene via
-<ui-path>File | Save Scene</ui-path>
-first.
-
+Setup button says 'Scene must be saved'
+: Solution:
+: ProStream requires scenes to be saved to disk before setup. Save your scene via <ui-path>File | Save Scene</ui-path> first.
 
 SceneConnector not created after setup
 : Check:

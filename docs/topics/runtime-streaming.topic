@@ -734,7 +734,6 @@ public void PreloadArea(Vector3 position, float radius)
         <category ref="setup">
             <a href="streaming-layers.md"> Streaming Layers Configuration</a>
             <a href="process-subscenes.md"> SubScene Creation Process</a>
-            <a href="quick-start.md"> Quick Start Guide</a>
         </category>
         <category ref="core-concepts">
             <a href="standard-workflow.topic"> Basic Workflow</a>
