@@ -424,10 +424,8 @@ Position Calculation Complete: 452 objects matched
         <a href="process-subscenes.md">SubScene Creation Process (Next Step)</a>
         <a href="standard-workflow.topic">Complete Workflow Overview</a>
     </category>
-    <category ref="tools">
+    <category ref="components">
         <a href="validation-diagnostics.md">Validation & Diagnostics</a>
-    </category>
-    <category ref="reference">
         <a href="settings-reference.md">Settings Reference</a>
         <a href="scene-connector.md">SceneConnector Component</a>
     </category>

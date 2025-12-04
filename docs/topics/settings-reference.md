@@ -299,11 +299,7 @@ Each layer can be configured with:
         <a href="scene-connector.md">SceneConnector Component</a>
         <a href="streaming-layers.md">Streaming Layers</a>
     </category>
-    <category ref="tools">
-        <a href="validation-diagnostics.md">Validation & Diagnostics</a>
-        <a href="prostream-editor.md">ProStream Editor</a>
-    </category>
-    <category ref="workflow">
+    <category ref="processes">
         <a href="position-calculation.md">Position Calculation</a>
         <a href="standard-workflow.topic">Standard Workflow</a>
     </category>

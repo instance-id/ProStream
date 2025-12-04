@@ -10,4 +10,9 @@
     <category id="getting-started" name="Getting Started" order="5"/>
     <category id="components" name="Components" order="6"/>
     <category id="prerequisites" name="Prerequisites" order="7"/>
+    <category id="tools" name="Tools" order="8"/>
+    <category id="reference" name="Reference" order="9"/>
+    <category id="workflow" name="Workflow" order="10"/>
+    <category id="troubleshooting" name="Troubleshooting" order="11"/>
+    <category id="settings" name="Settings" order="12"/>
 </categories>

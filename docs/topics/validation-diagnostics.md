@@ -29,7 +29,7 @@ Validation settings are found in the **Settings Panel** under the **Search/Match
 
 </td><td>
 
-![validation_settings.png](validation_settings.png){width="300" thumbnail="true"}
+<!--![validation_settings.png](validation_settings.png){width="300" thumbnail="true"}-->
 
 </td></tr>
 </table>
@@ -105,7 +105,7 @@ Press **Alt+Shift+D** to open the diagnostics window.
 
 </td><td>
 
-![diagnostics_window.png](diagnostics_window.png){width="350" thumbnail="true"}
+<!--![diagnostics_window.png](diagnostics_window.png){width="350" thumbnail="true"}-->
 
 </td></tr>
 </table>
@@ -225,14 +225,12 @@ The diagnostics window provides several analysis tools:
 ## Related Topics
 
 <seealso>
-    <category ref="workflow">
+    <category ref="processes">
         <a href="position-calculation.md">Position Calculation Process</a>
         <a href="standard-workflow.topic">Standard Workflow</a>
     </category>
-    <category ref="settings">
+    <category ref="reference">
         <a href="settings-reference.md">Settings Reference</a>
-    </category>
-    <category ref="troubleshooting">
         <a href="troubleshooting.md">Troubleshooting Guide</a>
     </category>
 </seealso>
