@@ -27,11 +27,11 @@ This is a **complex, multi-phase process** that forms the foundation for all str
 - Prepares internal data structures
 - Checks for configuration issues
 
-### Phase 2: Issue Detection
-- Scans for missing components (MatchTracker)
-- Validates materials and shaders
-- Checks collider configurations
-- Reports potential problems
+### Phase 2: Validation (Optional)
+- Runs ValidationEngine when enabled in Settings
+- Scans for DOTS compatibility issues
+- Reports errors and warnings to console
+- See [Validation & Diagnostics](validation-diagnostics.md) for details
 
 ### Phase 3: Rule Matching (CORE)
 - Applies all enabled match rules in priority order
@@ -84,9 +84,9 @@ GenerateLocationDataOp.Operate()
     ├── PHASE 1: Workflow Object Checking
     │   └── Validate workflow-specific objects
     │
-    ├── PHASE 2: Issue Detection
-    │   ├── Check MatchTracker issues
-    │   └── Validate materials/shaders/colliders
+    ├── PHASE 2: Validation (if enabled)
+    │   ├── Run ValidationEngine
+    │   └── Report errors/warnings
     │
     ├── PHASE 3: Rule Matching ⭐ CRITICAL
     │   ├── CheckManualMatches (MatchByComponent)
@@ -424,7 +424,11 @@ Position Calculation Complete: 452 objects matched
         <a href="process-subscenes.md">SubScene Creation Process (Next Step)</a>
         <a href="standard-workflow.topic">Complete Workflow Overview</a>
     </category>
-    <category ref="components">
+    <category ref="tools">
+        <a href="validation-diagnostics.md">Validation & Diagnostics</a>
+    </category>
+    <category ref="reference">
+        <a href="settings-reference.md">Settings Reference</a>
         <a href="scene-connector.md">SceneConnector Component</a>
     </category>
 </seealso>

@@ -40,6 +40,11 @@
             <toc-element topic="modification-engine.md"/>
             <toc-element topic="operation-engine.md"/>
         </toc-element>
+
+        <!--| Tools - - - - - - - - - - - -->
+        <toc-element toc-title="Tools">
+            <toc-element topic="validation-diagnostics.md"/>
+        </toc-element>
     </toc-element>
 
     <!--| Processes - - - - - - - - - - - - - -->
@@ -61,6 +66,7 @@
 
     <!--| Reference - - - - - - - - - - - - - -->
     <toc-element toc-title="Reference">
+        <toc-element topic="settings-reference.md"/>
         <toc-element topic="change-log.md"/>
         <toc-element topic="install-update.md"/>
     </toc-element>
