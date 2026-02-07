@@ -1,7 +1,6 @@
 import { defineConfig } from 'vitepress'
 
-const repoName = process.env.GITHUB_REPOSITORY?.split('/')?.[1]
-const base = repoName ? `/${repoName}/` : '/'
+const base = '/'
 
 export default defineConfig({
   title: "ProStream",

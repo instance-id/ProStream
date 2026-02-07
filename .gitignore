@@ -2,3 +2,14 @@
 .lh/
 
 node_modules/
+
+# VitePress
+docs/.vitepress/dist
+docs/.vitepress/cache
+
+# OS files
+.DS_Store
+Thumbs.db
+
+reference_material/
+ProStream.docs.v2.code-workspace
