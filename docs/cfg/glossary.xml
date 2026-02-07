@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE terms SYSTEM "https://resources.jetbrains.com/writerside/1.0/glossary.dtd">
-<terms>
-    <term name="Section">Unity groups all the entities in a scene into sections, with section 0 the default.</term>
-    <term name="packageLocation">ProjectRoot/Packages</term>
-    <term name="setup-scene-button">The button in the ProStream Editor that sets up the current scene for streaming.</term>
-</terms>

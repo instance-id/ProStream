@@ -1,39 +1,81 @@
-# ProStream (Unity/C# WIP Asset)
+# ProStream Documentation
 
----
+High-performance scene streaming for Unity using DOTS/ECS.
 
-**Advanced Unity Developer Tool for Scene Conversion and Streaming**
+## Documentation Site
 
-- Created a comprehensive developer tool that automates the conversion of traditional GameObject scenes to DOTS entity subscenes
-- Developed a rule-based engine that intelligently analyzes scene structures and automatically creates optimized streaming layers
-- Designed an intuitive editor interface that simplifies the complex process of setting up scene streaming with minimal manual configuration
-- Built an automated system that handles GameObject-to-Entity conversion, subscene creation, and streaming setup through a guided workflow
-- Implemented extensive documentation with step-by-step guides to help developers integrate advanced streaming capabilities into their projects
+This repository contains the documentation for ProStream, built with VitePress.
 
-**Technical Highlights:**
-- **Scene Automation & Processing:**
-    - Created an intelligent scene analysis system that identifies optimal streaming boundaries based on object density and relationships
-    - Built automatic layer generation that organizes GameObjects into logical streaming groups based on customizable rule sets
-    - Implemented a GameObject-to-Entity conversion pipeline with automatic hierarchy preservation and reference maintenance
-    - Developed a subscene creation system that handles all the complexity of breaking apart monolithic scenes into efficient streaming units
+## Local Development
 
-- **Performance Optimization Tools:**
-    - Designed automated frustum culling integration using Unity's job system with Burst compilation for scenes processed by the tool
-    - Created a configurable terrain LOD generation system that developers can customize based on their performance requirements
-    - Implemented performance metrics tracking with Unity's ProfilerRecorder API to help developers optimize their converted scenes
-    - Built bounds checking and occlusion systems that are automatically configured during the conversion process
+### Prerequisites
 
-- **Developer Experience:**
-    - Crafted an intuitive Unity editor integration with wizard-style guidance for the conversion workflow
-    - Built visual feedback systems showing streaming boundaries and performance impact analysis
-    - Implemented serialized configuration settings allowing developers to save and reuse conversion parameters across projects
-    - Created automated validation systems to ensure converted scenes will perform well in production
+- Node.js 18+ 
+- npm
 
-- **Diagnostics & Troubleshooting:**
-    - Implemented a comprehensive diagnostic engine framework that helps developers identify and fix issues in their Unity projects
-    - Created specialized diagnostic tools including mesh validation, shader compatibility checking, and DOTS compatibility validation
-    - Built a unified UI with shortcut support (Alt+Shift+H) providing centralized access to all diagnostic tools
-    - Designed the system with an extensible architecture allowing developers to create custom diagnostic tools
-    - Developed intelligent issue detection with automated fix suggestions and one-click repair options
-    - Incorporated asynchronous search capabilities using Unity's SearchService for performant project-wide scanning
-    - Implemented robust error reporting with detailed contextual information for resolving conversion issues
+### Setup
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run docs:dev
+```
+
+The documentation site will be available at `http://localhost:5173`
+
+### Build
+
+```bash
+# Build for production
+npm run docs:build
+
+# Preview production build
+npm run docs:preview
+```
+
+## Deployment
+
+The documentation is automatically deployed to GitHub Pages when changes are pushed to the main branch.
+
+## Documentation Structure
+
+```
+docs/
+├── .vitepress/          # VitePress configuration
+│   ├── config.mts       # Site configuration
+│   └── theme/           # Custom theme
+├── public/              # Static assets (images, etc.)
+├── getting-started/     # Getting Started guides
+├── core-concepts/       # Core concepts documentation
+├── editor-guide/        # Editor tools and features
+├── processes/           # Workflow processes
+├── runtime-systems/     # Runtime behavior
+├── troubleshooting/     # Common issues and solutions
+└── reference/           # Reference documentation
+```
+
+## Contributing
+
+When adding new documentation:
+
+1. Create markdown files in the appropriate section
+2. Update `.vitepress/config.mts` to add navigation links
+3. Use proper markdown formatting and VitePress features
+4. Test locally before committing
+
+## About ProStream
+
+ProStream is an advanced Unity developer tool that automates the conversion of traditional GameObject scenes to DOTS entity subscenes, featuring intelligent scene analysis and optimized streaming layers.
+
+### Key Features
+
+- **Scene Automation & Processing**: Intelligent scene analysis and automatic layer generation
+- **Performance Optimization**: Automated frustum culling with Burst compilation
+- **Developer Experience**: Intuitive Unity editor integration
+- **Diagnostics & Troubleshooting**: Comprehensive diagnostic tools
+
+## License
+
+Copyright © 2024 instance.id
