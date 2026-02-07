@@ -5,9 +5,6 @@ hero:
   name: "ProStream"
   text: "High-Performance Scene Streaming"
   tagline: "Advanced Unity developer tool for scene conversion and streaming using DOTS/ECS"
-  image:
-    src: /logo_image_prostream.png
-    alt: ProStream Logo
   actions:
     - theme: brand
       text: Get Started
