@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: "ProStream"
-  text: "High-Performance Scene Streaming"
-  tagline: "Advanced Unity developer tool for scene conversion and streaming using DOTS/ECS"
+  text: "DOTS/ECS Scene Streaming"
+  tagline: "GameObject to Entity SubScene Conversion and Multi-Layer Streaming"
   actions:
     - theme: brand
       text: Get Started
@@ -14,15 +14,18 @@ hero:
       link: https://github.com/instance-id
 
 features:
+  - title: Setup Requirements
+    details: Prerequisites and recommended settings for optimal performance
+    link: /getting-started/prerequisites
   - title: Installation
     details: Get started with ProStream quickly and easily with our guided installer
     link: /getting-started/installation
   - title: Standard Workflow
     details: Complete workflow overview from setup to runtime streaming
     link: /getting-started/standard-workflow
-  - title: Setup Requirements
-    details: Prerequisites and recommended settings for optimal performance
-    link: /getting-started/prerequisites
+---
+
+<!--
   - title: Streaming Layers
     details: Configure distance-based loading for optimal performance
     link: /core-concepts/streaming-layers
@@ -44,34 +47,39 @@ features:
   - title: Troubleshooting
     details: Common issues and solutions to keep you productive
     link: /troubleshooting/troubleshooting
----
+
+ -->
 
 ## What is ProStream?
 
-ProStream is a comprehensive Unity developer tool that automates the conversion of traditional GameObject scenes to DOTS entity subscenes. It features a rule-based engine that intelligently analyzes scene structures and automatically creates optimized streaming layers.
+ProStream provides comprehensive tooling that automates the conversion of traditional GameObject scenes to DOTS entity subscenes and performance optimized multi-layer entity subscene streaming systems.
 
 ### Key Features
 
-- **Scene Automation & Processing**: Intelligent scene analysis system that identifies optimal streaming boundaries
-- **Performance Optimization**: Automated frustum culling integration using Unity's job system with Burst compilation
-- **Developer Experience**: Intuitive Unity editor integration with wizard-style guidance
-- **Diagnostics & Troubleshooting**: Comprehensive diagnostic engine framework for issue identification
+::: info 🎯 Scene Analysis & Generation
 
-### Technical Highlights
+**Intelligent scene analysis system** that identifies optimal streaming boundaries based on object density and relationships
 
-**Scene Automation**
-- Automatic layer generation based on customizable rule sets
-- GameObject-to-Entity conversion pipeline with hierarchy preservation
-- Subscene creation system for efficient streaming units
+**Automatic layer generation** that organizes GameObjects into logical streaming groups based on customizable rule sets
 
-**Performance Tools**
-- Configurable terrain LOD generation system
-- Performance metrics tracking with Unity's ProfilerRecorder API
-- Automated bounds checking and occlusion systems
+:::
 
-**Developer Tools**
-- Visual feedback systems showing streaming boundaries
-- Serialized configuration settings for reusable parameters
-- Automated validation systems for production-ready scenes
+::: tip ⚡ High-Performance Runtime
+
+**ECS-based streaming**: Implements SubScene streaming with Unity ECS and multi-threaded Job systems
+
+**Jobs + Burst**: Parallel distance/state evaluation with Burst-compatible jobs
+
+**Proximity-driven decisions**: Evaluates distance thresholds for load/unload operations
+
+:::
+
+::: warning 🐛 Debugging & Diagnostics
+
+**Visualization tools**: Built-in debug/distance visualizations that allow you to inspect streaming behavior.
+
+**Diagnostic framework** to help you identify and fix potential Entity conversion and streaming issues
+
+:::
 
 Thanks for choosing ProStream!
