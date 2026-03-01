@@ -10,7 +10,7 @@ This repository contains the documentation for ProStream, built with VitePress.
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm
 
 ### Setup
@@ -34,6 +34,35 @@ npm run docs:build
 # Preview production build
 npm run docs:preview
 ```
+
+## Offline PDF for Asset Store Submission
+
+This repo includes an automated pipeline to generate a single offline PDF from the VitePress docs.
+
+### One-time setup
+
+```bash
+npm install
+npm run docs:offline:install-browser
+```
+
+### Generate the offline PDF
+
+```bash
+npm run docs:offline:pdf
+```
+
+Output:
+
+- `offline-docs/ProStream-Offline-Documentation.pdf`
+- Generated source page: `docs/offline/offline-documentation.md`
+
+The generated PDF includes:
+
+- Table of contents
+- Numbered sections
+- Printed page numbers in footer
+- Step-by-step setup sections from Getting Started pages
 
 ## Deployment
 
@@ -78,4 +107,4 @@ ProStream is an advanced Unity developer tool that automates the conversion of t
 
 ## License
 
-Copyright © 2024 instance.id
+Copyright © 2026 instance.id

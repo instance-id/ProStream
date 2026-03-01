@@ -1,4 +1,5 @@
 :root {
+  --vp-layout-max-width: 1800px;
   --vp-c-brand-1: #ff5a3d;
   --vp-c-brand-2: #ff7a5c;
   --vp-c-brand-3: #ff3b1f;
@@ -49,6 +50,9 @@
 }
 
 /* Hero text - smaller text */
+.VPHero.has-image.VPHomeHero {
+    padding-bottom: 0px !important;
+}
 
 .VPHero .text {
   font-size: 2.5rem;
@@ -89,4 +93,74 @@ img {
 .vp-doc th {
   background-color: var(--vp-c-bg-soft);
   font-weight: 600;
+}
+
+/* --| List Items --------------------- */
+.vp-doc li + li {
+  margin-top: 0;
+}
+
+/* --| Main Content Container --------- */
+.VPDoc .container .content-container {
+  max-width: 100% !important;
+}
+
+/* --| Sidebar Level 1 ---------------- */
+.VPSidebarItem .level-1{
+    padding-left: 0.25rem;
+}
+
+@media print {
+  .VPNav,
+  .VPSidebar,
+  .VPLocalNav,
+  .VPDocAside {
+    display: none !important;
+  }
+
+  .VPContent.has-sidebar {
+    padding-left: 0 !important;
+  }
+
+  .VPDoc {
+    padding: 0 !important;
+  }
+
+  .VPDoc .container {
+    max-width: 100% !important;
+  }
+
+  html,
+  body {
+    font-size: 12px !important;
+    line-height: 1.35 !important;
+  }
+
+  .vp-doc h2,
+  .vp-doc h3,
+  .vp-doc h4 {
+    margin-top: 0.9rem !important;
+    margin-bottom: 0.45rem !important;
+  }
+
+  .vp-doc p,
+  .vp-doc li,
+  .vp-doc table {
+    margin-top: 0.35rem !important;
+    margin-bottom: 0.35rem !important;
+  }
+
+  .vp-doc img {
+    max-width: 82% !important;
+    max-height: 48vh !important;
+    height: auto !important;
+    margin: 0.4rem auto !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    display: block !important;
+  }
+
+  .offline-page-break {
+    display: none !important;
+  }
 }

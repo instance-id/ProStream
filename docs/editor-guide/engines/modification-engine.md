@@ -4,7 +4,7 @@ The **Modification Engine** is a powerful extensibility system that allows you t
 
 ## Overview
 
-Think of modifications as **middleware** or **plugins** that extend ProStream's functionality without modifying core code. Modifications can run before, during, or after major processes like position calculation and SubScene creation.
+Think of modifications as **middleware** or **plugins** that extend ProStream's functionality without modifying core code. Modifications can run before, during, or after major processes like Prepare Scene and SubScene creation.
 
 ## Key Concepts
 
@@ -27,14 +27,13 @@ A modification is a `ScriptableObject` that inherits from `ModificationEngine` a
 
 Modifications can execute at multiple points in the workflow:
 
-### Position Calculation Stage
+### Prepare Scene Stage
 - **BeforePositionCalculation** - Before rule matching begins
 - **AfterPositionCalculation** - After rules applied, before SubScene creation
 
 ### SubScene Creation Stage
 - **BeforeSubSceneCreation** - Before SubScene assets are created
-- **BeforeObjectCopy** - Before cloning objects from main scene
-- **PerSection** - After objects copied to each section (most common)
+- **AfterSubSceneCreation** - After SubScene creation stage
 - **BeforeMoveToSubScene** - Before sections moved to SubScene files
 - **AfterMoveToSubScene** - After sections in SubScene files
 - **BeforeCloseSubScenes** - Before SubScene files are closed
@@ -51,6 +50,7 @@ Modifications can execute at multiple points in the workflow:
 ### Build Pipeline
 - **BeforeBuildStarted** - Before Unity build begins
 - **AfterBuildComplete** - After Unity build finishes
+- **FinalizeAssets** - Final asset finalization stage
 
 ### Manual Execution
 - **Manual** - Only runs when explicitly triggered
@@ -61,32 +61,40 @@ Modifications can execute at multiple points in the workflow:
 ### CombineMeshModification
 **Purpose:** Combines multiple meshes into single mesh for performance
 
-**Execution:** PerSection
+**Execution:** Commonly used during process events (for example `BeforeMoveToSubScene`) based on your project setup
 
 **Benefits:**
-- Reduces draw calls significantly
-- Improves rendering performance
-- Useful for static objects (ground, rocks, etc.)
+- Can reduce draw commands for unique, non-instanced geometry
+- Can help with tightly clustered static geometry that is usually visible together
+- Useful for some static sets (for example ground chunks or dense rock groups)
+
+**DOTS/ECS Note:**
+- In ECS SubScenes, Entities Graphics already batches efficiently when entities share the same mesh and material (DOTS instancing)
+- Combining too aggressively can reduce culling granularity; if part of a combined mesh is visible, the whole mesh is rendered
+- Prefer separate repeated objects when they can instance well and benefit from finer culling/occlusion; use mesh combining selectively and verify with profiling
 
 **Configuration:**
 - Target layer/section
-- Material handling (combine or preserve)
-- Mesh simplification options
+<!-- - Material handling (combine or preserve)
+- Mesh simplification options -->
+
+**Usage Tips:**
+- Best paired with a very specific match rule and target layer/section to target specific objects (e.g., A custom match rule that only matches small rock clusters, then combine those clusters into single meshes in a "Rocks_Combined" layer/section)
 
 ### DisableMeshColliderModification
 **Purpose:** Removes MeshCollider components from GameObjects
 
-**Execution:** PerSection or AfterMoveToSubScene
+**Execution:** Commonly `BeforeMoveToSubScene` (default settings)
 
 **Use Case:**
 - Remove colliders from visual-only sections
 - Reduce physics overhead
 - Keep colliders in dedicated collision layers only
 
-### RemoveMatchComponent
+### RemoveMatchComponents
 **Purpose:** Removes MatchTracker and related components after processing
 
-**Execution:** AfterCloseSubScenes
+**Execution:** Commonly `BeforeMoveToSubScene` (default settings)
 
 **Use Case:**
 - Clean up temporary components
@@ -101,17 +109,17 @@ Modifications can execute at multiple points in the workflow:
 using instance.id.ProStream;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MyCustomModification", 
-                 menuName = "ProStream/Modifications/My Custom Modification")]
+[CreateAssetMenu(fileName = "MyCustomModification",
+                 menuName = "instance.id/ProStream/ModificationEngine/MyCustomModification")]
 public class MyCustomModification : ModificationEngine
 {
     [SerializeField] private float multiplier = 1.5f;
     [SerializeField] private Color targetColor = Color.white;
-    
+
     public override string Title => "My Custom Modification";
-    
-    public override ExecutionPlacement ExecutionPlacement => 
-        ExecutionPlacement.PerSection;
+
+    public override ExecutionPlacement ExecutionPlacement =>
+        ExecutionPlacement.BeforeMoveToSubScene;
 }
 ```
 
@@ -123,14 +131,14 @@ public override GameObject ApplyModification(GameObject gObject)
 {
     // Example: Scale objects
     gObject.transform.localScale *= multiplier;
-    
+
     // Example: Change material color
     var renderer = gObject.GetComponent<Renderer>();
     if (renderer && renderer.material)
     {
         renderer.material.color = targetColor;
     }
-    
+
     return gObject;
 }
 
@@ -140,7 +148,7 @@ public override void PrepareModification(GameObject sectionParent)
     // Example: Add section-level component
     var sectionData = sectionParent.AddComponent<MyCustomSectionData>();
     sectionData.Initialize();
-    
+
     Log("Preparing section: " + sectionParent.name);
 }
 ```
@@ -148,7 +156,7 @@ public override void PrepareModification(GameObject sectionParent)
 ### Step 3: Create Asset Instance
 
 1. Right-click in Project window
-2. Select **Create → ProStream → Modifications → My Custom Modification**
+2. Select **Create → instance.id → ProStream → ModificationEngine → MyCustomModification**
 3. Name the asset (e.g., `ScaleObjects_Mod`)
 4. Configure settings in Inspector
 
@@ -179,7 +187,7 @@ public override void PrepareModification(GameObject sectionParent)
 
 ### Testing
 - Test with small scenes first
-- Verify modifications work at all execution placements
+- Verify modifications work at all necessary execution placements
 - Check results in SubScene files after creation
 - Test in Play Mode and builds
 - Validate with various scene types
@@ -193,16 +201,16 @@ public override void PrepareModification(GameObject sectionParent)
 {
     var meshFilters = sectionParent.GetComponentsInChildren<MeshFilter>();
     var combine = new CombineInstance[meshFilters.Length];
-    
+
     for (int i = 0; i < meshFilters.Length; i++)
     {
         combine[i].mesh = meshFilters[i].sharedMesh;
         combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
     }
-    
+
     var combinedMesh = new Mesh();
     combinedMesh.CombineMeshes(combine);
-    
+
     // Apply combined mesh
     var meshFilter = sectionParent.AddComponent<MeshFilter>();
     meshFilter.mesh = combinedMesh;
@@ -219,12 +227,12 @@ public override GameObject ApplyModification(GameObject gObject)
     {
         DestroyImmediate(collider);
     }
-    
+
     if (gObject.TryGetComponent<Rigidbody>(out var rb))
     {
         DestroyImmediate(rb);
     }
-    
+
     return gObject;
 }
 ```

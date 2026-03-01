@@ -15,9 +15,8 @@ Common issues and solutions for ProStream.
 **Issue:** SceneConnector GameObject doesn't appear after clicking Setup
 
 **Check:**
-- The scene automatically reloaded after clicking Setup
+- Setup completed without errors in Console
 - Check the Console for any errors during setup
-- Verify the scene has the "StreamingScene" label in Project window
 - Look for `SceneName/SceneData/` folder in your Assets
 
 ### Lost References / Missing Scripts
@@ -38,7 +37,10 @@ Common issues and solutions for ProStream.
 
 **Issue:** Error message during Calculate Positions
 
-**Solution:** You need to add Scene Search Filters! Click "Add Search Filters" in ProStream Editor and select root GameObjects that contain your prefabs.
+**Solution:** Add Scene Search Filters. Use **Add Search Filters** in ProStream Editor and select root GameObjects that contain your prefab hierarchies.
+
+Typical message:
+`No SearchFilter Objects have been added.`
 
 ### No MatchTrackers added
 
@@ -56,7 +58,10 @@ Common issues and solutions for ProStream.
 
 **Issue:** Error during Calculate Positions
 
-**Solution:** Enable at least one rule in the Rule Editor. Open **Scene Match Rules > Rule Editor** and enable example rules.
+**Solution:** Ensure there is at least one valid enabled rule in your scene rule list. Open **Scene Match Rules > Rule Editor** and enable/configure rules.
+
+Typical message:
+`No Rules found in the scene.`
 
 ### No objects matched
 
@@ -79,7 +84,7 @@ Common issues and solutions for ProStream.
 - Make earlier rules more specific
 - Test queries individually
 
-## Position Calculation Issues
+## Prepare Scene Issues
 
 ### Calculate Positions fails immediately
 
@@ -114,18 +119,18 @@ Common issues and solutions for ProStream.
 **Issue:** SubScenes load but contain no objects
 
 **Check:**
-- Position Calculation completed successfully
+- Prepare Scene completed successfully
 - SubScene creation completed successfully
 - Open SubScene `.unity` files manually to verify objects are inside
 - Check Console for errors during creation
-- Verify objects were matched during Position Calculation
+- Verify objects were matched during Prepare Scene
 
 ### SubScene files not created
 
 **Issue:** No `.unity` files in SubScene_Assets folder
 
 **Check:**
-- Position Calculation was run first
+- Prepare Scene was run first
 - Write permissions in Assets folder
 - Sufficient disk space
 - Console for specific errors
@@ -174,7 +179,6 @@ Common issues and solutions for ProStream.
 - Adjust layer distances in Layer Editor
 - Increase distances for earlier loading
 - Decrease distances for later loading
-- Adjust hysteresis buffer
 
 ### Memory usage too high
 
@@ -236,7 +240,7 @@ Common issues and solutions for ProStream.
 **Solution:**
 - Disable "Check for advanced issues"
 - Only enable validation when needed
-- Run validation separately using Diagnostics Hub
+- Run diagnostics separately using Diagnostics Window
 
 ## Performance Issues
 
@@ -271,11 +275,17 @@ Common issues and solutions for ProStream.
 
 **Solution:** Add search filters via ProStream Editor
 
+You may also see:
+`No SearchFilter Objects have been added.`
+
 ### "No enabled rules found"
 
-**Solution:** Enable at least one rule in Rule Editor
+**Solution:** Enable at least one valid rule in Rule Editor
 
-### "Position calculation not complete"
+You may also see:
+`No Rules found in the scene.`
+
+### "Prepare Scene not complete"
 
 **Solution:** Run Calculate Positions before Create SubScenes
 
@@ -292,14 +302,14 @@ Common issues and solutions for ProStream.
 If you're still experiencing issues:
 
 1. **Check Console** - Most errors have detailed messages
-2. **Enable Debug Logging** - Turn on verbose logging in settings
+2. **Run Diagnostics Window** - Use targeted diagnostics for missing meshes/materials/scripts/shaders
 3. **Review Documentation** - Check relevant sections
-4. **Verify Prerequisites** - Ensure all requirements are met
+4. **Verify Requirements** - Ensure all requirements are met
 5. **Test with Simple Scene** - Reproduce issue in minimal setup
 
 ## See Also
 
-- [Prerequisites](/getting-started/prerequisites) - Setup requirements
+- [Requirements](/getting-started/requirements) - Setup requirements
 - [Standard Workflow](/getting-started/standard-workflow) - Complete guide
 - [Validation & Diagnostics](/editor-guide/tools/validation-diagnostics) - Validation tools
 - [Runtime Streaming](/runtime-systems/runtime-streaming) - Runtime behavior

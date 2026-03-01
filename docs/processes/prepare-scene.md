@@ -1,10 +1,14 @@
-# Position Calculation Process
+# Prepare Scene Process
 
-Position Calculation is the **most critical process** in the ProStream workflow. This process applies your configured match rules to categorize GameObjects into streaming layers/sections, calculates spatial positions using QuadTree structures, and validates all data before SubScene creation.
+`Prepare Scene` is the core preprocessing step in the ProStream workflow. In current UI this step is still triggered by **Calculate Positions**, but the process prepares all matching/spatial data needed for SubScene creation.
 
 ## Overview
 
-This is a **complex, multi-phase process** that forms the foundation for all streaming behavior.
+This is a multi-phase process that:
+- validates workflow prerequisites,
+- applies enabled match rules,
+- builds spatial data (QuadTree/subscene data),
+- and updates scene progress for the next stage.
 
 ## When to Use
 
@@ -14,7 +18,11 @@ This is a **complex, multi-phase process** that forms the foundation for all str
 - At least one match rule is enabled
 - Layer/section configuration is complete
 
-**Trigger:** Click the **"Calculate Positions"** button in the ProStream Editor Setup tab.
+**Trigger:** Click **Calculate Positions** in the ProStream Editor setup flow.
+
+::: tip
+This page documents the process name as **Prepare Scene**. In code/events, this is still associated with `ProcessType.CalculateLocations` and `GenerateLocationDataOp`.
+:::
 
 ## What It Does
 
@@ -25,7 +33,7 @@ This is a **complex, multi-phase process** that forms the foundation for all str
 
 ### Phase 2: Validation (Optional)
 - Runs ValidationEngine when enabled in Settings
-- Scans for DOTS compatibility issues
+- Scans for compatibility issues (materials/colliders/bounds/scale and optional shader checks)
 - Reports errors and warnings to console
 - See [Validation & Diagnostics](/editor-guide/tools/validation-diagnostics) for details
 
@@ -38,21 +46,20 @@ This is a **complex, multi-phase process** that forms the foundation for all str
 ### Phase 4: Spatial Calculation
 - Creates QuadTree grid based on scene bounds
 - Assigns objects to spatial cells
-- Calculates positions for each SubScene
+- Calculates data for each future SubScene
 - Generates ObjectSectionDetails
 - Builds QuadSubSceneData structures
 
 ### Phase 5: Finalization
 - Validates all calculated data
 - Runs validation groups
-- Saves scenes (if AutoSave enabled)
 - Updates progress state
 - Marks process as complete
 
 ## Process Flow
 
 ```
-User Clicks "Calculate Positions"
+User Clicks "Calculate Positions" (Prepare Scene)
     ↓
 Display Progress UI
     ↓
@@ -73,7 +80,7 @@ Set HierarchyUpdateInProgress Flag
     ↓
 Run BeforePositionCalculation Modifications (Optional)
     ↓
-GenerateLocationDataOp.Operate()
+GenerateLocationDataOp.PerformOperation()
     │
     ├── PHASE 1: Workflow Object Checking
     │   └── Validate workflow-specific objects
@@ -97,7 +104,6 @@ GenerateLocationDataOp.Operate()
     │   └── Build QuadSubSceneData
     │
     └── PHASE 5: Finalization
-        ├── Save scenes (if AutoSave)
         ├── Run validation groups
         ├── Update progress state
         └── Mark PositionCalculated = true
@@ -151,12 +157,12 @@ When an object matches a rule:
 
 ### QuadTree Generation
 
-ProStream divides your scene into a grid using a QuadTree structure:
+ProStream divides the prepared scene data into QuadTree cells:
 
 **Process:**
 1. Calculate scene bounds (min/max positions of all objects)
 2. Determine grid size based on object density
-3. Create QuadTree cells (typically 4x4, 8x8, or 16x16)
+3. Create QuadTree cells based on data/scene scale
 4. Assign each object to its cell based on position
 
 **Example Grid:**
@@ -168,7 +174,7 @@ Scene divided into 4x4 grid (16 cells):
 [0,1] [1,1] [2,1] [3,1]
 [0,0] [1,0] [2,0] [3,0]
 
-Each cell becomes a SubScene
+Each cell becomes source data for SubScene creation
 ```
 
 ### ObjectSectionDetails
@@ -199,7 +205,7 @@ For each QuadTree cell, ProStream creates `QuadSubSceneData`:
 During execution, you'll see progress in the Console:
 
 ```
-[ProStream] Starting Position Calculation
+[ProStream] Starting Prepare Scene (Calculate Positions)
 [ProStream] Phase 1: Workflow Object Checking - Complete
 [ProStream] Phase 2: Validation - Skipped (disabled)
 [ProStream] Phase 3: Rule Matching
@@ -214,7 +220,7 @@ During execution, you'll see progress in the Console:
   - QuadTree Size: 8x8 (64 cells)
   - Objects Assigned: 257
 [ProStream] Phase 5: Finalization - Complete
-[ProStream] Position Calculation Complete in 2.34s
+[ProStream] Prepare Scene complete in 2.34s
 ```
 
 ## Common Issues
@@ -260,7 +266,7 @@ During execution, you'll see progress in the Console:
 
 ## After Completion
 
-Once Position Calculation completes successfully:
+Once Prepare Scene completes successfully:
 
 1. Objects are categorized into sections
 2. Spatial data is calculated
@@ -268,7 +274,7 @@ Once Position Calculation completes successfully:
 4. You can proceed to "Create SubScenes"
 
 ::: tip
-You can re-run Position Calculation anytime to:
+You can re-run this step anytime to:
 - Apply new rules
 - Adjust layer assignments
 - Recalculate spatial data

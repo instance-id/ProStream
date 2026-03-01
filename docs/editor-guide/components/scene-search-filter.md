@@ -2,10 +2,6 @@
 
 SceneSearchFilters define which areas of your scene ProStream will process. They improve performance by limiting the scope to specific hierarchies.
 
-::: tip Purpose
-SceneSearchFilters define which areas of your scene ProStream will process. They improve performance by limiting the scope to specific hierarchies.
-:::
-
 ::: warning Important
 All GameObjects must be Prefabs to be compatible with ProStream systems. The Prefab system is used to differentiate one GameObject hierarchy from another. Non-Prefab GameObjects are skipped by the matching systems.
 :::
@@ -21,6 +17,7 @@ All GameObjects must be Prefabs to be compatible with ProStream systems. The Pre
 5. Click **Confirm**
 
 **What happens automatically:**
+
 - ProStream adds `SceneSearchFilter` component to selected GameObjects
 - Locates all prefab instances under those GameObjects
 - Adds `MatchTracker` components to each prefab child
@@ -38,6 +35,7 @@ This will add a SceneSearchFilter component to the GameObject and begin indexing
 ## How Search Filters Work
 
 **Hierarchy Structure:**
+
 ```
 Scene
 ├── Buildings (SearchFilter)
@@ -51,6 +49,7 @@ Scene
 ```
 
 **Key Points:**
+
 - Only prefab instances **under** search filter GameObjects are tracked
 - This allows organizing large scenes into manageable sections
 - Improves performance by limiting the scope of object tracking
@@ -61,6 +60,7 @@ Scene
 When you add a search filter, ProStream automatically adds `MatchTracker` components to all prefab children:
 
 **MatchTracker Properties:**
+
 - `FilterId` - References parent SceneSearchFilter
 - `MatchStatus` - Searchable, NotSearchable, or Converted
 - `IsEnabled` - Whether tracker is active
@@ -68,70 +68,6 @@ When you add a search filter, ProStream automatically adds `MatchTracker` compon
 - `SectionId` - Which streaming layer this object belongs to
 
 **You don't need to add MatchTracker manually** - it's automatic.
-
-## Best Practices
-
-### Organize by Type
-
-Create separate search filters for different object types:
-
-```
-Scene
-├── Buildings (SearchFilter)
-├── Vegetation (SearchFilter)
-├── Props (SearchFilter)
-├── Terrain (SearchFilter)
-└── Lighting (No filter)
-```
-
-### Use Descriptive Names
-
-Name your filter GameObjects clearly:
-- "Buildings_Residential"
-- "Vegetation_Trees"
-- "Props_Interactive"
-- "Terrain_Ground"
-
-### Limit Scope
-
-Don't add search filters to:
-- Camera GameObjects
-- Lighting systems
-- UI elements
-- Audio sources
-- Manager objects
-
-## Performance Considerations
-
-**Smaller Scope = Better Performance**
-
-- Fewer objects to scan during rule matching
-- Faster position calculation
-- Reduced memory usage during processing
-
-**Multiple Filters**
-
-You can have as many search filters as needed:
-- Each filter processes independently
-- Allows parallel processing in future updates
-- Easier to debug specific sections
-
-## Common Issues
-
-**No objects found during Calculate Positions**
-- Verify search filters are added
-- Check that objects under filters are prefabs
-- Ensure MatchTracker components were added
-
-**Too many objects matched**
-- Narrow search filter scope
-- Split large filters into smaller ones
-- Check for unintended prefab instances
-
-**Objects not being processed**
-- Verify object is under a search filter
-- Check that object is a prefab instance
-- Ensure MatchTracker status is "Searchable"
 
 ## See Also
 

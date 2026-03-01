@@ -1,17 +1,18 @@
 # Rule Engine
 
-The RuleEngine is a system that allows for the creation and use of custom rules to match GameObjects with Streaming Layers.
+The RuleEngine is the system used to match tracked GameObjects to streaming sections/layers.
 
 ## Overview
 
-The RuleEngine system is designed to be extensible through the use of Rule Providers.
+The RuleEngine system is extensible through rule provider types.
 
 **Current Providers:**
 
-- Unity Search Query system (MatchBySearchQuery)
-- GameObject Query Language (MatchByGoQL)
-- Unity Identification Systems (Layer, Tag, Label)
-- Custom Matching via C# code
+- `MatchBySearchQuery` (Unity Search query rules)
+- `MatchByGOQLRule` (GameObject Query Language rules)
+- `MatchByComponent` (manual assignment component-based matching)
+- `MatchByDefault` (fallback catch-all rule)
+- Custom rules that inherit `RuleEngine`
 
 ## Rule Editor
 
@@ -22,7 +23,7 @@ The RuleEngine system is designed to be extensible through the use of Rule Provi
 ### Open Match Rules Menu
 
 1. Press the "Scene Match Rules" button
-2. Select the "Rule Editor" option from dropdown menu
+2. This switches to the Rule Editor menu in the ProStream Editor
 
 ![Open Match Files](/images/open_match_files.png)
 
@@ -33,7 +34,7 @@ The RuleEngine system is designed to be extensible through the use of Rule Provi
 
 ![Enable Match Rules](/images/pst_2_enable_match_image_psTutorial.png)
 
-You can also verify the currently enabled rules by viewing them directly in the SceneConnector's inspector under the MatchRules `List<RuleEngine>` Object.
+You can also verify currently enabled rules in the SceneConnector inspector under `ruleList`.
 
 ### Edit and Preview Queries
 
@@ -48,10 +49,9 @@ You can edit and preview the results of the query by clicking icon on the right 
 Uses Unity's Search Query system to match objects. This is the most powerful and flexible provider.
 
 **Example Queries:**
-- `t:prefab` - Match all prefabs
-- `t:prefab name:Tree` - Match prefabs with "Tree" in name
-- `t:prefab size>10` - Match prefabs larger than 10 units
-- `t:prefab tag:Environment` - Match prefabs with Environment tag
+- `Tree` - Match prefabs with "Tree" in name
+- `size>10` - Match prefabs larger than 10 units
+- `tag:Environment` - Match prefabs with Environment tag
 
 **Benefits:**
 - Leverages Unity's built-in search
@@ -59,46 +59,13 @@ Uses Unity's Search Query system to match objects. This is the most powerful and
 - Can combine multiple criteria
 - Preview results in Unity Search window
 
-### MatchByName
-
-Matches objects based on their GameObject name.
-
-**Match Types:**
-- Contains - Name contains string
-- DoesNotContain - Name doesn't contain string
-- StartsWith - Name starts with string
-- EndsWith - Name ends with string
-- Equals - Name exactly matches
-
-**Example:**
-- Match all objects with "Building" in name
-- Match all objects starting with "Prop_"
-
-### MatchByGoQL
+### MatchByGOQLRule
 
 Uses GameObject Query Language for advanced matching.
 
 **Example Queries:**
-- `[name=Tree]` - Match by name
-- `[tag=Environment]` - Match by tag
-- `[layer=Default]` - Match by layer
-- `[component=MeshRenderer]` - Match by component
-
-### MatchByTag
-
-Matches objects based on Unity tags.
-
-**Configuration:**
-- Select tag from dropdown
-- Choose match/don't match
-
-### MatchByLayer
-
-Matches objects based on Unity layers.
-
-**Configuration:**
-- Select layer from dropdown
-- Choose match/don't match
+- `/Parent/**//SM_Bld_Castle*` - Match objects with names starting with SM_Bld_Castle under Parent
+- `/Parent/**//SM_Bld_*!*Castle*` - Match objects with names starting with SM_Bld_ but not containing Castle under Parent
 
 ### MatchByDefault
 
@@ -107,7 +74,16 @@ Fallback rule that matches any unmatched objects.
 **Behavior:**
 - Always runs last
 - Catches objects not matched by other rules
-- Typically assigns to a default layer
+- Assigns to a default layer (which must be specified in the rule settings)
+
+### MatchByComponent
+
+Uses the `ManualAssignment` component to assign objects to a target section ahead of query-based matching.
+
+**Behavior:**
+- Processes before query rules
+- Useful for explicit manual overrides
+- Works well for one-off exceptions
 
 ## Creating Custom Rules
 
@@ -158,14 +134,8 @@ Rules are processed in the order they appear in the list:
 You can reorder rules by dragging them in the Rule Editor:
 
 - Higher priority rules should be first
-- More specific rules before general rules
+- More specific rules before general rules (Ex. Foliage rules -> Ground rules -> Large Object rules)
 - MatchByDefault should always be last
-
-**Example Priority:**
-1. MatchBySearchQuery (specific buildings)
-2. MatchByName (building prefixes)
-3. MatchByTag (environment tag)
-4. MatchByDefault (everything else)
 
 ## Rule Configuration
 
@@ -197,10 +167,10 @@ Each rule is assigned to a specific streaming layer:
 3. Verify correct objects are found
 4. Refine query as needed
 
-### Test During Calculate Positions
+### Test During Prepare Scene
 
 1. Enable console logging
-2. Run Calculate Positions
+2. Run Prepare Scene
 3. Check console for match statistics
 4. Verify objects assigned to correct layers
 
@@ -224,26 +194,6 @@ Each rule is assigned to a specific streaming layer:
 - More specific rules = better control
 - Use multiple criteria in queries
 - Test queries before enabling
-
-### Use Descriptive Names
-
-- Name rules clearly: "Buildings - Residential"
-- Add descriptions explaining purpose
-- Document complex queries
-
-### Organize by Type
-
-Group rules logically:
-- Buildings rules together
-- Vegetation rules together
-- Props rules together
-
-### Test Incrementally
-
-1. Enable one rule at a time
-2. Run Calculate Positions
-3. Verify results
-4. Enable next rule
 
 ## Common Issues
 
@@ -291,6 +241,6 @@ Group rules logically:
 ## See Also
 
 - [Streaming Layers](/core-concepts/streaming-layers) - Configure layer distances
-- [Position Calculation](/processes/position-calculation) - How rules are applied
+- [Prepare Scene](/processes/prepare-scene) - How rules are applied
 - [Scene Search Filter](/editor-guide/components/scene-search-filter) - Define processing scope
 - [Standard Workflow](/getting-started/standard-workflow) - Complete setup guide

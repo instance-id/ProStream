@@ -2,6 +2,8 @@
 
 Common issues related to installing or updating ProStream.
 
+This page focuses on behavior in the current package line.
+
 ## Installation Issues
 
 ### Lost References / Missing Scripts
@@ -17,7 +19,7 @@ Common issues related to installing or updating ProStream.
 4. If references are still lost, you may need to re-run scene setup
 
 **Prevention:**
-- Always close scenes before installing packages
+- Close scenes before installing packages
 - Save all work before installation
 - Restart Unity after installation if issues persist
 
@@ -32,7 +34,7 @@ Common issues related to installing or updating ProStream.
 - Insufficient permissions
 
 **Solutions:**
-1. Check Unity version meets requirements (2022.3.0f1+)
+1. Check Unity version meets requirements (package manifest currently targets Unity `2022.3.0f0+`)
 2. Clear Package Manager cache
 3. Restart Unity
 4. Check internet connection
@@ -44,13 +46,10 @@ Common issues related to installing or updating ProStream.
 
 **Solution:**
 1. Open Package Manager
-2. Manually install required packages:
-   - Unity Entities
-   - Unity Burst
-   - Unity Collections
-   - Unity Mathematics
-3. Restart Unity
-4. Re-run ProStream installer
+2. Ensure required DOTS/SRP dependencies are present for your project configuration
+3. Confirm `com.unity.entities.graphics` dependency resolves successfully
+4. Restart Unity
+5. Re-run ProStream Setup
 
 ## Update Issues
 
@@ -68,14 +67,12 @@ Common issues related to installing or updating ProStream.
 5. If errors persist, reimport ProStream
 
 **Prevention:**
-- Always close scenes before updating
-- Close Unity before major updates
+- Close scenes before updating
 - Backup project before updates
 
 ### Settings Lost After Update
 
 **Issue:** ProStream settings reset after update
-
 **Cause:** Settings format changed between versions
 
 **Solution:**
@@ -88,16 +85,14 @@ Common issues related to installing or updating ProStream.
 **Issue:** C# compilation errors after updating
 
 **Common Causes:**
+- ProStream files deleted or moved in new version
 - API changes between versions
 - Incompatible package versions
-- Cached assemblies
 
 **Solutions:**
-1. Restart Unity
-2. Reimport all assets
-3. Clear Library folder (Unity will rebuild)
-4. Check for package version conflicts
-5. Update all related packages
+1. Close Unity
+2. Delete the ProStream package folder from `Packages/id.instance.prostream`
+3. Open Unity and reimport ProStream
 
 ## Version Compatibility
 
@@ -105,16 +100,14 @@ Common issues related to installing or updating ProStream.
 
 | ProStream Version | Minimum Unity Version | Recommended Unity Version |
 |-------------------|----------------------|---------------------------|
-| Current | 2022.3.0f1 | Unity 6.1 |
+| Current package line | 2022.3.0f0 | Latest LTS or project-validated version |
 
 ### Package Dependencies
 
-Required packages:
-- Unity Entities (compatible version)
-- Unity Burst
-- Unity Collections
-- Unity Mathematics
-- Scriptable Render Pipeline (URP or HDRP)
+Declared package dependency (manifest):
+- `com.unity.entities.graphics`
+
+In practice, ProStream workflows also expect compatible DOTS + SRP project setup.
 
 ## Best Practices
 
@@ -125,16 +118,14 @@ Required packages:
 3. Save all work
 4. Check Unity version compatibility
 5. Read release notes
-6. Close Unity (for major updates)
 
 ### After Installing/Updating
 
-1. Restart Unity
-2. Check Console for errors
-3. Verify package installation
-4. Test in a simple scene first
-5. Reconfigure settings if needed
-6. Re-run scene setup if required
+1. Check Console for errors
+2. Verify package installation
+3. Test in a simple scene first
+4. Reconfigure settings if needed
+5. Re-run scene setup if required
 
 ### Safe Update Process
 
@@ -144,40 +135,36 @@ Required packages:
 
 2. **Close Everything**
    - Close all scenes
-   - Close Unity
 
 3. **Update**
    - Update ProStream package
-   - Update dependencies if needed
 
-4. **Restart**
-   - Restart Unity
-   - Let it recompile
-
-5. **Verify**
+4. **Verify**
    - Check for errors
    - Test basic functionality
    - Verify existing scenes work
 
-6. **Reconfigure**
+5. **Reconfigure**
    - Check settings
    - Re-run setup if needed
 
 ## Troubleshooting Installation
 
-### Installer Not Appearing
+### Setup Window Not Appearing
 
-**Issue:** ProStream installer window doesn't open after import
+**Issue:** ProStream setup window doesn't open after import
 
 **Solution:**
-1. Open manually: **Tools > instance.id > ProStream > (Install/Update) ProStream**
+1. Open manually from one of these menu items:
+   - **Tools > instance.id > ProStream > Setup ProStream**
+   - **Tools > instance.id > ProStream > Update ProStream**
 2. Check Console for errors
 3. Verify package imported correctly
 4. Restart Unity
 
-### Installation Hangs
+### Setup Hangs
 
-**Issue:** Installer appears to hang during installation
+**Issue:** Setup appears to hang during installation
 
 **Solution:**
 1. Wait (installation can take several minutes)
@@ -187,20 +174,20 @@ Required packages:
 
 ### SRP Not Detected
 
-**Issue:** Installer says SRP not found
+**Issue:** Setup says SRP not found
 
 **Solution:**
 1. Install URP or HDRP via Package Manager
 2. Create and assign SRP asset in Project Settings
-3. Restart installer
-4. See [Prerequisites](/getting-started/prerequisites) for details
+3. Restart setup
+4. See [Requirements](/getting-started/requirements) for details
 
 ## Getting Help
 
 If installation/update issues persist:
 
 1. Check [Troubleshooting](/troubleshooting/troubleshooting) guide
-2. Verify [Prerequisites](/getting-started/prerequisites)
+2. Verify [Requirements](/getting-started/requirements)
 3. Check Unity Console for specific errors
 4. Try clean installation:
    - Remove ProStream package
@@ -210,6 +197,6 @@ If installation/update issues persist:
 
 ## See Also
 
-- [Installation](/getting-started/installation) - Installation guide
-- [Prerequisites](/getting-started/prerequisites) - Requirements
+- [Setup](/getting-started/setup) - Setup guide
+- [Requirements](/getting-started/requirements) - Requirements
 - [Troubleshooting](/troubleshooting/troubleshooting) - General issues

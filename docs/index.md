@@ -5,21 +5,21 @@ hero:
   name: "ProStream"
   text: "DOTS/ECS Scene Streaming"
   tagline: "GameObject to Entity SubScene Conversion and Multi-Layer Streaming"
-  actions:
-    - theme: brand
-      text: Get Started
-      link: /getting-started/installation
-    - theme: alt
-      text: View on GitHub
-      link: https://github.com/instance-id
+#   actions:
+    # - theme: brand
+    #   text: Get Started
+    #   link: /getting-started/setup
+    # - theme: alt
+    #   text: View on GitHub
+    #   link: https://github.com/instance-id
 
 features:
-  - title: Setup Requirements
+  - title: Setup and Requirements
     details: Prerequisites and recommended settings for optimal performance
-    link: /getting-started/prerequisites
-  - title: Installation
-    details: Get started with ProStream quickly and easily with our guided installer
-    link: /getting-started/installation
+    link: /getting-started/requirements
+  - title: Quick Start Guide
+    details: Get started quickly and see ProStream in action with our Sample scene
+    link: /getting-started/sample-quickstart
   - title: Standard Workflow
     details: Complete workflow overview from setup to runtime streaming
     link: /getting-started/standard-workflow
@@ -35,9 +35,9 @@ features:
   - title: Runtime Systems
     details: Understanding ProStream's distance-based streaming systems
     link: /runtime-systems/runtime-streaming
-  - title: Position Calculation
+  - title: Prepare Scene
     details: Understanding the 5-phase rule matching process
-    link: /processes/position-calculation
+    link: /processes/prepare-scene
   - title: SubScene Creation
     details: SubScene asset creation and hierarchy management
     link: /processes/process-subscenes

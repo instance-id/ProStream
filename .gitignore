@@ -16,3 +16,6 @@ ProStream.docs.v2.code-workspace
 ProStream.docs.code-workspace
 
 .vitepress/cache/
+
+# Offline export artifacts
+offline-docs/

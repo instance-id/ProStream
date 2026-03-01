@@ -1,30 +1,30 @@
 # Settings Reference
 
-This page documents all configurable settings in ProStream, organized by their location in the Settings Panel.
+This page documents the settings currently exposed by ProStream in the active Settings Panel UI.
 
 ::: tip Opening the Settings Panel
-Click the settings icon in the ProStream Editor toolbar, or access via individual panel headers.
+Open via **Tools > instance.id > ProStream > Settings > Panel**, or from the settings icon in ProStream editor UI.
 :::
 
 ## Settings Panel Tabs
 
-The Settings Panel contains multiple tabs for organizing settings:
+The panel currently provides these primary tabs:
 
 | Tab | Panel | Description |
 |-----|-------|-------------|
-| **Search/Match** | ObjectMatchingPanel | Validation and search query settings |
-| **Scene/Setup** | SceneSetupPanel | Scene configuration and SubScene settings |
+| **Search/Match** | ObjectMatchingPanel | Validation and search query behavior |
+| **Scene/Setup** | SceneSetupPanel | Scene setup and SubScene creation options |
 
 ## Search/Match Tab (ObjectMatchingPanel)
 
-Settings related to the matching process and search queries.
+These settings affect rule matching and validation during **Calculate Positions**.
 
 ### Matching Settings
 
 | Setting | Default | Description |
 |---------|---------|-------------|
-| Check for basic issues | Off | Check GameObjects for common DOTS compatibility issues during the matching process (e.g., empty MeshRenderers, missing Materials). Runs during Calculate Positions. |
-| Check for advanced issues | Off | Check GameObjects for advanced DOTS compatibility issues (e.g., incompatible Shaders, LOD issues). More intensive but helps prevent conversion/runtime errors. |
+| Check for basic issues | On | Runs common validation checks during matching (for example missing materials, collider mesh issues, invalid bounds/scale). |
+| Check for advanced issues | On | Runs additional shader compatibility checks (SRP-dependent). More expensive but useful for conversion/runtime safety. |
 
 ::: tip
 See [Validation & Diagnostics](/editor-guide/tools/validation-diagnostics) for detailed information on what each validation level checks.
@@ -36,7 +36,7 @@ These settings affect how `MatchBySearchQuery` rules match object names.
 
 | Setting | Default | Description |
 |---------|---------|-------------|
-| Use keyword separation | Off | When enabled, adds separator characters around search terms to reduce false matches from fuzzy matching. |
+| Use keyword separation | Off | Adds separator characters around search terms to reduce false positives from fuzzy matching. |
 | Keyword separator | `_` | The character used to separate keywords when keyword separation is enabled. |
 
 **Example:**
@@ -50,39 +50,20 @@ With keyword separation (separator = `_`):
 
 ## Scene/Setup Tab (SceneSetupPanel)
 
-Settings related to scene configuration, SubScene creation, and streaming behavior.
+Settings related to SubScene creation and scene preparation.
 
 ### SubScene Settings
 
 | Setting | Default | Description |
 |---------|---------|-------------|
-| Auto-save scenes | On | Automatically save scenes after major operations (Calculate Positions, Create SubScenes) |
-| SubScene directory | `SubScene_Assets` | Root directory for SubScene files |
-| Entity subdirectory | `Entity` | Subdirectory within SubScene folder for entity scenes |
+| Filter GameObjects With Incompatible Shaders | Off | Filters objects with incompatible shaders during SubScene creation. Enabling this requires advanced validation. |
+| Include Disabled Objects | Off | Includes disabled objects in creation flow. Disabled objects are not converted to entities. |
+| Auto-Load SubScenes In Editor | Project/scene dependent | Automatically loads SubScene entity visual representations in editor. |
 
-### Streaming Settings
+### Workflow-Specific Settings
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| Hysteresis buffer | `10.0` | Distance buffer (in meters) added to unload threshold to prevent rapid load/unload cycles |
-| Update frequency | `Every Frame` | How often streaming system checks distances |
-| Enable debug visualization | Off | Show gizmos for streaming boundaries in Scene view |
-
-### Performance Settings
-
-| Setting | Default | Description |
-|---------|---------|-------------|
-| Max concurrent loads | `4` | Maximum number of SubScenes that can load simultaneously |
-| Load priority | `Distance` | How to prioritize loading (Distance, Manual, etc.) |
-| Async loading | On | Load SubScenes asynchronously to avoid frame drops |
-
-### QuadTree Settings
-
-| Setting | Default | Description |
-|---------|---------|-------------|
-| Grid size | `Auto` | Size of QuadTree grid (Auto, 4x4, 8x8, 16x16, 32x32) |
-| Cell size | `Auto` | Size of individual cells in meters (Auto or manual) |
-| Bounds padding | `10.0` | Extra padding around scene bounds for QuadTree calculation |
+The **Scene/Setup** tab can also show additional foldouts contributed by active workflow components.
+Those settings are workflow-dependent and vary by installed modules.
 
 ## Layer Configuration
 
@@ -126,44 +107,13 @@ Modification-specific settings are configured on individual modification assets.
 
 See [Modification Engine](/editor-guide/engines/modification-engine) for details.
 
-## Advanced Settings
-
-### Debug Settings
-
-| Setting | Default | Description |
-|---------|---------|-------------|
-| Verbose logging | Off | Enable detailed console logging for debugging |
-| Log timing | Off | Log execution time for major operations |
-| Log rule matches | Off | Log each object matched by rules |
-
-### Experimental Settings
-
-::: warning
-Experimental settings may change or be removed in future versions. Use with caution.
-:::
-
-| Setting | Default | Description |
-|---------|---------|-------------|
-| Parallel processing | Off | Use parallel processing for rule matching (experimental) |
-| GPU culling | Off | Use GPU-based frustum culling (experimental) |
-
-## Resetting Settings
-
-To reset all settings to defaults:
-
-1. Open Settings Panel
-2. Click **Reset to Defaults** button at bottom
-3. Confirm the action
-
-::: danger
-This will reset ALL ProStream settings. This action cannot be undone.
-:::
-
 ## Settings Storage
 
 ProStream settings are stored in:
-- **Project Settings:** `ProjectSettings/ProStreamSettings.asset`
-- **Scene Settings:** `SceneName/SceneData/SceneName_Settings.asset`
+- **Global package settings:** `Packages/id.instance.prostream/AssetFiles/Settings/ProStreamSettings.asset`
+- **Scene settings:** `SceneName/SceneData/SceneName_Settings.asset`
+
+In practice, most user workflow settings you edit per scene are stored in the scene settings asset.
 
 ## See Also
 

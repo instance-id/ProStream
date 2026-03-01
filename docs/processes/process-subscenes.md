@@ -1,6 +1,6 @@
 # SubScene Creation Process
 
-The SubScene Creation process is the final major step in the ProStream workflow. After calculating object positions and matching rules, this process creates physical Unity scene files (.unity) for each spatial division, organizes objects into streaming sections, and prepares the scene for distance-based runtime streaming.
+SubScene Creation is the final major step in the ProStream workflow. After **Prepare Scene** (triggered by Calculate Positions), this process creates physical `.unity` scene files for spatial cells, organizes cloned objects into sections, and prepares runtime streaming data.
 
 ## Overview
 
@@ -12,7 +12,7 @@ This is an **automated process** that handles asset creation, object cloning, hi
 - Scene setup is complete
 - Search filters are configured
 - Match rules are enabled
-- **Position Calculation has been run successfully**
+- **Prepare Scene (Calculate Positions) has completed successfully**
 
 **Trigger:** Click the **"Create SubScenes"** button in the ProStream Editor after positions are calculated.
 
@@ -42,8 +42,8 @@ This is an **automated process** that handles asset creation, object cloning, hi
 - Configurable execution timing (before copy, per section, after move, etc.)
 
 ### 5. Scene Reload & Cleanup
-- Reloads main scene to finalize changes
-- Creates StreamingManager for runtime control
+- Finalizes scene/subscene data and marks scene progress
+- Ensures StreamingManager runtime references are configured
 - Prepares scene for play mode testing
 
 ## Process Flow
@@ -85,11 +85,9 @@ Process Each SubScene
         └── SceneManager.MoveGameObjectToScene()
     ↓
 Close All SubScenes
-Save Main Scene
+Save Main Scene / asset state
     ↓
-Reload Main Scene
-    ↓
-Create StreamingManager
+Finalize streaming state
     ↓
 Complete - Ready for Play Mode
 ```
@@ -105,7 +103,7 @@ MyScene.unity
 │   ├── MyScene_Quad_0_1 (SubScene GameObject)
 │   ├── MyScene_Quad_1_0 (SubScene GameObject)
 │   └── ... (more SubScenes)
-└── [Original GameObjects remain temporarily]
+└── [Original GameObjects remain unless your workflow/modifications move/remove them]
 ```
 
 **Individual SubScene File (MyScene_Quad_0_0.unity):**
@@ -148,7 +146,7 @@ MyScene_Quad_0_0.unity
 **Properties:**
 - SectionIndex: Unique identifier (0, 1, 2, etc.)
 - SectionName: Layer name (Ground, LargeObjects, etc.)
-- LoadDistance: Distance threshold for this section
+- LoadingRange: Layer-driven start/end range used by streaming systems
 
 ## Asset Organization
 
@@ -170,12 +168,10 @@ Assets/
 Modifications can run at various stages during SubScene creation:
 
 1. **BeforeSubSceneCreation** - Before any assets are created
-2. **BeforeObjectCopy** - Before cloning objects
-3. **PerSection** - After objects copied to each section (most common)
-4. **BeforeMoveToSubScene** - Before moving to SubScene file
-5. **AfterMoveToSubScene** - After in SubScene file
-6. **BeforeCloseSubScenes** - Before closing SubScene files
-7. **AfterCloseSubScenes** - After all closed
+2. **BeforeMoveToSubScene** - Before moving section content to SubScene scenes
+3. **AfterMoveToSubScene** - After objects are moved into SubScene scenes
+4. **BeforeCloseSubScenes** - Before additive SubScene close/save stage
+5. **AfterCloseSubScenes** - After close/finalize stage
 
 See [Modification Engine](/editor-guide/engines/modification-engine) for details.
 
@@ -196,8 +192,7 @@ During execution, you'll see progress in the Console:
 [ProStream] Processing SubScene: MyScene_Quad_0_1
   ...
 [ProStream] Closing SubScenes...
-[ProStream] Reloading main scene...
-[ProStream] Creating StreamingManager...
+[ProStream] Finalizing streaming state...
 [ProStream] SubScene Creation Complete in 12.5s
 ```
 
@@ -205,17 +200,17 @@ During execution, you'll see progress in the Console:
 
 **SubScene files not created**
 - Check Console for errors
-- Verify Position Calculation completed
+- Verify Prepare Scene completed
 - Ensure write permissions in Assets folder
 - Check disk space
 
 **Objects not appearing in SubScenes**
-- Verify objects were matched during Position Calculation
+- Verify objects were matched during Prepare Scene
 - Check MatchTracker.IsMatched is true
 - Ensure objects are prefabs
 - Open SubScene files manually to inspect
 
-**Scene reload fails**
+**Finalization fails**
 - Save scene before running process
 - Close other scenes first
 - Check for compilation errors
@@ -249,7 +244,7 @@ Once SubScene Creation completes successfully:
 
 1. SubScene files are created
 2. Objects are organized into sections
-3. StreamingManager is added to scene
+3. Streaming state is marked ready for runtime systems
 4. Scene is ready for Play Mode testing
 
 ## Testing in Play Mode
@@ -265,7 +260,7 @@ To rebuild SubScenes after changes:
 
 1. Delete existing SubScene files (optional)
 2. Adjust configuration (rules, layers, etc.)
-3. Re-run Calculate Positions
+3. Re-run Prepare Scene (Calculate Positions)
 4. Re-run Create SubScenes
 
 ::: warning
@@ -274,7 +269,7 @@ Creating SubScenes will overwrite existing SubScene files. Make backups if you'v
 
 ## See Also
 
-- [Position Calculation](/processes/position-calculation) - Previous step in workflow
+- [Prepare Scene](/processes/prepare-scene) - Previous step in workflow
 - [Runtime Streaming](/runtime-systems/runtime-streaming) - How streaming works at runtime
 - [Modification Engine](/editor-guide/engines/modification-engine) - Customize SubScene creation
 - [Standard Workflow](/getting-started/standard-workflow) - Complete guide

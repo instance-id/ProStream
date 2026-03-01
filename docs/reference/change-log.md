@@ -34,6 +34,6 @@ If you encounter issues or have suggestions:
 
 ## See Also
 
-- [Installation](/getting-started/installation) - Getting started
+- [Setup](/getting-started/setup) - Getting started
 - [Troubleshooting](/troubleshooting/troubleshooting) - Common issues
-- [Prerequisites](/getting-started/prerequisites) - Requirements
+- [Requirements](/getting-started/requirements) - Requirements

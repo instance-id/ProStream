@@ -1,10 +1,11 @@
 # Validation & Diagnostics
 
-ProStream includes validation systems to help identify issues before they cause problems at runtime.
+ProStream includes validation and diagnostics tools to catch scene issues before conversion and runtime.
 
 ## ValidationEngine (Pipeline Validation)
 
-The ValidationEngine runs automatically during the **Calculate Positions** process when enabled. It scans all tracked GameObjects for common DOTS compatibility issues.
+`ValidationEngine` runs during **Calculate Positions** when validation checks are enabled in settings.
+It validates tracked objects and reports errors/warnings before you proceed.
 
 ### Enabling Validation
 
@@ -15,30 +16,27 @@ Validation settings are found in the **Settings Panel** under the **Search/Match
 - **Check for advanced issues** - Deeper analysis (slower)
 
 ::: tip
-Both options are disabled by default for performance. Enable them when first setting up a scene or if you encounter runtime issues.
+Current package defaults initialize both options as enabled. Teams may still override per-scene settings.
 :::
 
 ### Basic Issues Checked
 
-When **Check for basic issues** is enabled:
+When **Check for basic issues** is enabled, current validators include:
 
 | Issue | Description |
 |-------|-------------|
-| Missing Mesh | MeshFilter or MeshRenderer with no mesh assigned |
-| Null Materials | Renderer with null or missing material references |
-| Empty Renderers | Renderer components with no valid render data |
-| Invalid Colliders | Collider configurations that may fail at runtime |
+| Missing Materials | Renderer with null/missing material references |
+| Invalid MeshCollider Setup | MeshCollider missing shared mesh |
+| Invalid Bounds | Invalid or zero bounds on non-particle objects |
+| Invalid Scale | Negative, zero, tiny, NaN, or Infinity scale values |
 
 ### Advanced Issues Checked
 
-When **Check for advanced issues** is enabled (includes basic checks):
+When **Check for advanced issues** is enabled, shader compatibility checks are added (SRP-dependent):
 
 | Issue | Description |
 |-------|-------------|
-| Shader Compatibility | Shaders that may not work with DOTS/Entities |
-| LOD Configuration | LODGroup settings that could cause streaming issues |
-| Nested Prefab Problems | Complex prefab hierarchies that may fail conversion |
-| Component Combinations | Invalid component combinations for ECS conversion |
+| Shader Compatibility | Detects shaders/materials incompatible with DOTS/SRP conversion/runtime |
 
 ### Validation Results
 
@@ -60,47 +58,31 @@ Validation found 3 critical errors and 12 warnings
 **Warnings** indicate potential issues that may or may not cause problems depending on your setup.
 :::
 
+If issues are found, ProStream can prompt you to continue or cancel the process.
+
 ## ProStreamDiagnostics (Ad-hoc Diagnostics)
 
-The ProStreamDiagnostics window provides on-demand diagnostic capabilities outside the normal workflow.
+The diagnostics window provides on-demand checks outside the normal workflow.
 
 ### Opening Diagnostics
 
 **Keyboard Shortcut:** Press **Alt+Shift+D** to open the diagnostics window.
 
-**Menu:** **Tools → instance.id → ProStream → Diagnostics Hub**
+**Menu:** **Tools → instance.id → ProStream → Diagnostics Window**
 
 ### Diagnostic Tools
 
 #### Scene Analysis
-- Object count statistics
-- Prefab usage analysis
-- Component distribution
-- Memory estimates
-
-#### Prefab Validation
-- Check for broken prefab connections
-- Verify prefab instances
-- Detect missing prefab assets
-
-#### Mesh Validation
-- Check for missing meshes
-- Validate mesh read/write settings
-- Detect invalid mesh data
-
-#### Material Validation
-- Find null material references
-- Check shader compatibility
-- Identify missing textures
-
-#### DOTS Compatibility
-- Check for incompatible components
-- Validate conversion settings
-- Identify potential runtime issues
+- Missing mesh references
+- Missing material references
+- Missing mesh collider meshes
+- Missing scripts
+- Non-DOTS shader checks
+- Extra LOD-in-prefab checks
 
 ### Running Diagnostics
 
-1. Open Diagnostics Hub
+1. Open Diagnostics Window
 2. Select diagnostic tool from list
 3. Configure options (if any)
 4. Click **Run Diagnostic**
@@ -112,11 +94,6 @@ Results are displayed with:
 - **Pass** - No issues found
 - **Warning** - Potential issues
 - **Error** - Critical issues
-
-Click on any result to:
-- Select the problematic object in hierarchy
-- View detailed information
-- Get suggested fixes
 
 ## Common Issues and Fixes
 
@@ -187,4 +164,4 @@ Consider enabling validation in your workflow:
 
 - [Troubleshooting](/troubleshooting/troubleshooting) - Common issues and solutions
 - [Standard Workflow](/getting-started/standard-workflow) - Complete setup guide
-- [Prerequisites](/getting-started/prerequisites) - Setup requirements
+- [Requirements](/getting-started/requirements) - Setup requirements

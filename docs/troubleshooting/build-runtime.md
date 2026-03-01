@@ -222,7 +222,7 @@ Assign the appropriate SRP asset for each quality level you're using.
 
 ## See Also
 
-- [Prerequisites](/getting-started/prerequisites) - Required settings
+- [Requirements](/getting-started/requirements) - Required settings
 - [Troubleshooting](/troubleshooting/troubleshooting) - General issues
 - [Runtime Streaming](/runtime-systems/runtime-streaming) - Runtime behavior
 - [Validation & Diagnostics](/editor-guide/tools/validation-diagnostics) - Pre-build validation

@@ -4,7 +4,11 @@ The **Operation Engine** is the execution framework that performs major tasks in
 
 ## Overview
 
-Operations are typically complex, multi-step procedures that orchestrate workflows like calculating positions, creating SubScenes, or resetting scene state.
+Operations are multi-step procedures that orchestrate major processes such as:
+- Prepare Scene (currently triggered by **Calculate Positions**)
+- Create SubScenes
+- Reset Scene
+- Track Prefabs / tracker refresh operations
 
 ### Operations vs Modifications
 
@@ -13,13 +17,13 @@ Operations are typically complex, multi-step procedures that orchestrate workflo
 | **Purpose** | Execute major processes | Transform/enhance data |
 | **Scope** | Entire workflows | Specific stages |
 | **Execution** | Triggered explicitly | Run during operations |
-| **Examples** | Calculate positions, Create SubScenes | Combine meshes, Remove components |
+| **Examples** | Prepare Scene, Create SubScenes, Reset Scene | Remove/disable components, LOD/material adjustments |
 | **Complexity** | High (multi-phase) | Low to Medium (focused) |
 
 ## Built-in Operations
 
 ### GenerateLocationDataOp
-**Purpose:** Calculate object positions and apply match rules
+**Purpose:** Prepare scene data (matching + spatial data) before SubScene creation
 
 **What it does:**
 - Applies all enabled match rules
@@ -28,9 +32,9 @@ Operations are typically complex, multi-step procedures that orchestrate workflo
 - Generates ObjectSectionDetails
 - Builds QuadSubSceneData
 
-**Trigger:** "Calculate Positions" button
+**Trigger:** **Calculate Positions** button
 
-**Documentation:** [Position Calculation Process](/processes/position-calculation)
+**Documentation:** [Prepare Scene Process](/processes/prepare-scene)
 
 ### CreateSubScenesOp
 **Purpose:** Create SubScene asset files
@@ -69,13 +73,11 @@ Operations are typically complex, multi-step procedures that orchestrate workflo
 - Remove broken SubScene setup
 
 ### TrackPrefabsOp
-**Purpose:** Track and manage prefab references
+**Purpose:** Refresh prefab/tracker relationships used by matching and setup
 
 **What it does:**
 - Scans scene for prefab instances
-- Records prefab dependencies
-- Validates prefab connections
-- Helps maintain prefab integrity during processing
+- Updates tracking state for matching workflows
 
 **Trigger:** Automatic during setup
 
@@ -121,22 +123,16 @@ PerformCalculations();
 RunModifications(ExecutionPlacement.AfterPositionCalculation);
 ```
 
+During Create SubScenes, common placements also include:
+- `BeforeSubSceneCreation`
+- `BeforeMoveToSubScene`
+- `AfterMoveToSubScene`
+- `BeforeCloseSubScenes`
+- `AfterCloseSubScenes`
+
 ## Creating Custom Operations
 
 Custom operations are advanced and typically not needed for most users. If you need custom workflow behavior, consider using [Modifications](/editor-guide/engines/modification-engine) instead.
-
-## Operation State Management
-
-Operations track their state during execution:
-
-**States:**
-- **Idle** - Not running
-- **Preparing** - Initializing
-- **Running** - Executing main logic
-- **Finalizing** - Cleaning up
-- **Complete** - Finished successfully
-- **Error** - Failed with error
-- **Cancelled** - User cancelled
 
 ## Progress Reporting
 
@@ -156,5 +152,5 @@ Operations handle errors gracefully:
 ## See Also
 
 - [Modification Engine](/editor-guide/engines/modification-engine) - Extend operation behavior
-- [Position Calculation](/processes/position-calculation) - GenerateLocationDataOp details
+- [Prepare Scene](/processes/prepare-scene) - GenerateLocationDataOp details
 - [SubScene Creation](/processes/process-subscenes) - CreateSubScenesOp details
