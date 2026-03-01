@@ -311,38 +311,6 @@ Congratulations! You now have a working ProStream setup.
 
 For more issues, see [Troubleshooting](/troubleshooting/troubleshooting)
 
-## Pro Tips
-
-::: details Start Small
-- Test with 20-30 objects first
-- Verify everything works
-- Then scale up to your actual scene
-:::
-
-::: details Use Examples
-- Enable example rules and modify them
-- Don't create rules from scratch initially
-- Learn by observing what works
-:::
-
-::: details Check Console
-- Console messages guide you through the process
-- Errors are usually clear about what's missing
-- Don't ignore warnings
-:::
-
-::: details Save Often
-- Save scene before Prepare Scene
-- Save scene before Create SubScenes
-- ProStream operations can't be undone easily
-:::
-
-::: details Iterate
-- You can re-run Prepare Scene anytime
-- Adjust rules and re-calculate
-- Only create SubScenes when satisfied with configuration
-:::
-
 ## What You Learned
 
 - How to set up ProStream in a scene
