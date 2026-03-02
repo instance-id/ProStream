@@ -32,7 +32,8 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: 'Importance of Prefabs', link: '/core-concepts/importance-of-prefabs' },
-          { text: 'Streaming Layers', link: '/core-concepts/streaming-layers' },
+          { text: 'Streaming Layers', link: '/core-concepts/layers/streaming-layers' },
+          { text: 'Workflows', link: '/core-concepts/workflows' },
         ],
       },
       {
@@ -59,12 +60,16 @@ export default defineConfig({
               { text: 'Rule Engine', link: '/editor-guide/engines/rule-engine' },
               { text: 'Modification Engine', link: '/editor-guide/engines/modification-engine' },
               { text: 'Operation Engine', link: '/editor-guide/engines/operation-engine' },
+              { text: 'Workflows Configuration', link: '/editor-guide/engines/workflows-configuration' },
             ],
           },
           {
             text: 'Tools',
             collapsed: true,
-            items: [{ text: 'Validation & Diagnostics', link: '/editor-guide/tools/validation-diagnostics' }],
+            items: [
+                { text: 'Diagnostics', link: '/editor-guide/tools/validation-diagnostics' },
+                { text: 'Pipeline Validation', link: '/editor-guide/tools/validation-pipeline' }
+            ],
           },
         ],
       },
@@ -80,10 +85,8 @@ export default defineConfig({
         text: 'Runtime Systems',
         collapsed: false,
         items: [
-          {
-            text: 'Runtime Streaming',
-            link: '/runtime-systems/runtime-streaming',
-          },
+          { text: 'Runtime Streaming', link: '/runtime-systems/runtime-streaming' },
+          { text: 'Advanced Configuration', link: '/runtime-systems/advanced-configuration' },
         ],
       },
       {

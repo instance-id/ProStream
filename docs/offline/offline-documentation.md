@@ -1,6 +1,6 @@
 # ProStream Offline Documentation
 
-Generated: 2026-03-01
+Generated: 2026-03-02
 
 This document is generated from the VitePress source docs for offline distribution.
 
@@ -13,26 +13,30 @@ This document is generated from the VitePress source docs for offline distributi
 - Core Concepts
   - 4. [Importance of Prefabs](#doc-4-importance-of-prefabs)
   - 5. [Streaming Layers](#doc-5-streaming-layers)
+  - 6. [Workflows](#doc-6-workflows)
 - Editor Guide
-  - 6. [ProStream Editor](#doc-6-prostream-editor)
-  - 7. [Scene Connector](#doc-7-scene-connector)
-  - 8. [Scene Search Filter](#doc-8-scene-search-filter)
-  - 9. [Rule Engine](#doc-9-rule-engine)
-  - 10. [Modification Engine](#doc-10-modification-engine)
-  - 11. [Operation Engine](#doc-11-operation-engine)
-  - 12. [Validation and Diagnostics](#doc-12-validation-and-diagnostics)
+  - 7. [ProStream Editor](#doc-7-prostream-editor)
+  - 8. [Scene Connector](#doc-8-scene-connector)
+  - 9. [Scene Search Filter](#doc-9-scene-search-filter)
+  - 10. [Rule Engine](#doc-10-rule-engine)
+  - 11. [Modification Engine](#doc-11-modification-engine)
+  - 12. [Operation Engine](#doc-12-operation-engine)
+  - 13. [Workflows Configuration](#doc-13-workflows-configuration)
+  - 14. [Validation and Diagnostics](#doc-14-validation-and-diagnostics)
+  - 15. [Pipeline Validation](#doc-15-pipeline-validation)
 - Processes
-  - 13. [Prepare Scene](#doc-13-prepare-scene)
-  - 14. [SubScene Creation](#doc-14-subscene-creation)
+  - 16. [Prepare Scene](#doc-16-prepare-scene)
+  - 17. [SubScene Creation](#doc-17-subscene-creation)
 - Runtime Systems
-  - 15. [Runtime Streaming](#doc-15-runtime-streaming)
+  - 18. [Runtime Streaming](#doc-18-runtime-streaming)
+  - 19. [Advanced Configuration](#doc-19-advanced-configuration)
 - Troubleshooting
-  - 16. [Common Issues](#doc-16-common-issues)
-  - 17. [Build and Runtime](#doc-17-build-and-runtime)
+  - 20. [Common Issues](#doc-20-common-issues)
+  - 21. [Build and Runtime](#doc-21-build-and-runtime)
 - Reference
-  - 18. [Settings Reference](#doc-18-settings-reference)
-  - 19. [Change Log](#doc-19-change-log)
-  - 20. [Install and Update](#doc-20-install-and-update)
+  - 22. [Settings Reference](#doc-22-settings-reference)
+  - 23. [Change Log](#doc-23-change-log)
+  - 24. [Install and Update](#doc-24-install-and-update)
 
 ## Setup Guide (Step by Step)
 
@@ -50,8 +54,13 @@ Upon first importing the ProStream package, the ProStream setup window appears a
 
 ![ProStream Setup](/images/import_prostream.png)
 
+## Editor Requirements
+
+:::details Requirements {open}
+
 
 ## Editor Requirements
+
 
 Before you start, make sure that you have the following:
 
@@ -60,13 +69,13 @@ Before you start, make sure that you have the following:
 - Scriptable Render Pipeline (SRP) installed and configured (URP or HDRP)
 - Any additional requirements as specified by the DOTS/ECS packages for your Editor version or target platform
 
-## Additional Requirements and Recommendations
+### Additional Requirements and Recommendations
 
 - Editor API Compatibility Level set to .Net Standard (required)
 - Scene GameObjects which are to be converted to Entities need to be [Prefabs](/core-concepts/importance-of-prefabs)
 - (Recommended) Scene Prefabs are children of an Empty Root-Level Parent GameObject
 
-## Recommended Project Settings
+### Recommended Project Settings
 
 To take full advantage of ProStream and the Data Oriented Technology Stack, it is recommended to use the following settings:
 
@@ -75,7 +84,11 @@ To take full advantage of ProStream and the Data Oriented Technology Stack, it i
 | Scripting Backend                                                                                                      | [IL2CPP](https://docs.unity3d.com/Manual/IL2CPP.html)                                                                                     |
 | API Compatibility Level                                                                                                | [.Net Standard 2(.1)](https://docs.unity3d.com/Manual/dotnetProfileSupport.html)                                                          |
 | Graphics APIs                                                                                                          | [Vulkan, Metal, or DX11/12](https://docs.unity3d.com/Packages/com.unity.entities.graphics@1.2/manual/requirements-and-compatibility.html) |
-| [Incremental GC (Garbage Collection)](https://docs.unity3d.com/Manual/performance-incremental-garbage-collection.html) | Enabled      
+| [Incremental GC (Garbage Collection)](https://docs.unity3d.com/Manual/performance-incremental-garbage-collection.html) | Enabled                                                                                                                                   |
+
+
+
+:::
 
 ## 1) Open the ProStream Setup Window
 
@@ -119,17 +132,39 @@ The setup process can also be accessed by navigating to **Tools > instance.id > 
 The focus of this guide is to get you up and running **quickly** with a new Unity project using the ProStream sample package.
 :::
 
-## At a Glance
+:::details Requirements {open}
 
-1. Create a new Unity URP project
-2. Import the ProStream package
-3. Apply required/recommended project settings
-4. Install ProStream and dependencies
-5. Import sample assets
-6. Open the sample scene and ProStream Main Editor
-7. Run **Prepare Scene**
-8. Run **Create SubScenes**
-9. Play the scene and verify streaming
+
+## Editor Requirements
+
+
+Before you start, make sure that you have the following:
+
+- The primary requirements of ProStream are that of the Data Oriented Technology Stack [(DOTS/ECS)](https://docs.unity3d.com/Packages/com.unity.entities.graphics@1.4/manual/requirements-and-compatibility.html)
+- Unity 2022.3.0f1 or later (Unity 6.3 is recommended)
+- Scriptable Render Pipeline (SRP) installed and configured (URP or HDRP)
+- Any additional requirements as specified by the DOTS/ECS packages for your Editor version or target platform
+
+### Additional Requirements and Recommendations
+
+- Editor API Compatibility Level set to .Net Standard (required)
+- Scene GameObjects which are to be converted to Entities need to be [Prefabs](/core-concepts/importance-of-prefabs)
+- (Recommended) Scene Prefabs are children of an Empty Root-Level Parent GameObject
+
+### Recommended Project Settings
+
+To take full advantage of ProStream and the Data Oriented Technology Stack, it is recommended to use the following settings:
+
+| Setting                                                                                                                | Value                                                                                                                                     |
+| ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Scripting Backend                                                                                                      | [IL2CPP](https://docs.unity3d.com/Manual/IL2CPP.html)                                                                                     |
+| API Compatibility Level                                                                                                | [.Net Standard 2(.1)](https://docs.unity3d.com/Manual/dotnetProfileSupport.html)                                                          |
+| Graphics APIs                                                                                                          | [Vulkan, Metal, or DX11/12](https://docs.unity3d.com/Packages/com.unity.entities.graphics@1.2/manual/requirements-and-compatibility.html) |
+| [Incremental GC (Garbage Collection)](https://docs.unity3d.com/Manual/performance-incremental-garbage-collection.html) | Enabled                                                                                                                                   |
+
+
+
+:::
 
 ## 1) Create a New Unity URP Project
 
@@ -251,22 +286,15 @@ You can now play the scene and test the streaming functionality.
 
 ### 3. Standard Workflow
 
-::: info
-Get up and running with ProStream in just a few minutes. This guide walks through the essential steps to set up streaming in a new scene.
+:::info
+This guide walks through the essential steps to set up streaming in a new scene.
 :::
 
-## At a Glance
-
-1. Setup the scene for ProStream
-2. Add Scene Search Filters
-3. Configure Match Rules
-4. Configure Streaming Layers
-5. Run **Prepare Scene**
-6. Run **Create SubScenes**
-7. Validate streaming in Play Mode
+:::details Requirements
 
 
 ## Editor Requirements
+
 
 Before you start, make sure that you have the following:
 
@@ -275,13 +303,13 @@ Before you start, make sure that you have the following:
 - Scriptable Render Pipeline (SRP) installed and configured (URP or HDRP)
 - Any additional requirements as specified by the DOTS/ECS packages for your Editor version or target platform
 
-## Additional Requirements and Recommendations
+### Additional Requirements and Recommendations
 
 - Editor API Compatibility Level set to .Net Standard (required)
 - Scene GameObjects which are to be converted to Entities need to be [Prefabs](/core-concepts/importance-of-prefabs)
 - (Recommended) Scene Prefabs are children of an Empty Root-Level Parent GameObject
 
-## Recommended Project Settings
+### Recommended Project Settings
 
 To take full advantage of ProStream and the Data Oriented Technology Stack, it is recommended to use the following settings:
 
@@ -290,19 +318,18 @@ To take full advantage of ProStream and the Data Oriented Technology Stack, it i
 | Scripting Backend                                                                                                      | [IL2CPP](https://docs.unity3d.com/Manual/IL2CPP.html)                                                                                     |
 | API Compatibility Level                                                                                                | [.Net Standard 2(.1)](https://docs.unity3d.com/Manual/dotnetProfileSupport.html)                                                          |
 | Graphics APIs                                                                                                          | [Vulkan, Metal, or DX11/12](https://docs.unity3d.com/Packages/com.unity.entities.graphics@1.2/manual/requirements-and-compatibility.html) |
-| [Incremental GC (Garbage Collection)](https://docs.unity3d.com/Manual/performance-incremental-garbage-collection.html) | Enabled      
+| [Incremental GC (Garbage Collection)](https://docs.unity3d.com/Manual/performance-incremental-garbage-collection.html) | Enabled                                                                                                                                   |
+
+
+
+:::
 
 ::: tip
 If you haven't installed ProStream yet, see [Setup](/getting-started/setup)
 :::
 
-::: warning Prefab Requirement
-Only prefab instances are tracked and processed for streaming. Non-prefab scene GameObjects are ignored.
-:::
 
-## Quick Start Steps
-
-### Step 1: Setup Scene for ProStream
+## Step 1: Setup Scene for ProStream
 
 1. Open the ProStream Editor window: **Tools | instance.id | ProStream | ProStream Editor**
 
@@ -311,8 +338,8 @@ Only prefab instances are tracked and processed for streaming. Non-prefab scene 
    ![Setup Current Scene Button](/images/usage_basic_quick_newscene.png)
 
    - ProStream validates and registers the current scene
-   - ProStream creates and wires required scene objects and assets
-   - Wait for the process to complete
+   - ProStream creates and wires required scene objects and assets in a single synchronous pass
+   - Wait for the process to complete (no scene reload required)
 
 **What just happened:**
 
@@ -417,35 +444,14 @@ You can edit and preview query results by clicking the icon on the right side of
 
 Layers determine loading distances for different object types.
 
-1. In ProStream Editor, open the **Loading** tab
 
-2. In **Settings**, open **Edit LayerData**
 
-3. Click **Edit Loading Distances**
 
-![Access Layer Editor](/images/layer_tab.png)
-
-4. In the Layer Data editor, adjust loading distances:
-
-![Adjust Layer Distances](/images/edit_loading_range.png)
-
-   - **Ground:** 2048 (loads at medium distance)
-   - **LargeObjects:** 1024 (loads farther out)
-   - **SmallObjects:** 512 (loads close up)
-
-::: info What this means
-Objects in "SmallObjects" layer load when camera is within 512 units. Objects in "LargeObjects" layer load when camera is within 1024 units.
-:::
-
-**Persistent Layers:** Layers marked as Persistent are always loaded and don't need a range set:
-
-![Persistent Layers](/images/persistent_range.png)
-
-See [Streaming Layers](/core-concepts/streaming-layers) for detailed configuration.
+See [Streaming Layers](/core-concepts/layers/streaming-layers) for detailed configuration.
 
 ### Step 5: Prepare Scene
 
-This is where ProStream analyzes your scene and assigns objects to layers.
+This is where ProStream utilizes modular **Workflows** (e.g., `InstanceObjectsWorkflow`, `ColliderObjectsWorkflow`) to validate objects, apply your matching rules, and generate spatial data (like QuadTrees) for your scene.
 
 1. In the ProStream Editor window (if closed, reopen via **Tools | instance.id | ProStream | ProStream Editor**)
 
@@ -528,7 +534,7 @@ Congratulations! You now have a working ProStream setup.
 **Optimize Streaming**
 - Adjust layer distances based on object importance
 - Use Persistent layers for always-loaded objects
-- See [Streaming Layers](/core-concepts/streaming-layers)
+- See [Streaming Layers](/core-concepts/layers/streaming-layers)
 
 **Add Modifications**
 - Separate Colliders for physics interaction
@@ -604,7 +610,7 @@ For more issues, see [Troubleshooting](/troubleshooting/troubleshooting)
 
 **Core Concepts**
 - [Rule Engine](/editor-guide/engines/rule-engine)
-- [Streaming Layers](/core-concepts/streaming-layers)
+- [Streaming Layers](/core-concepts/layers/streaming-layers)
 - [Scene Search Filter](/editor-guide/components/scene-search-filter)
 
 **Processes**
@@ -645,53 +651,75 @@ With this distinction, the ProStream systems can accurately identify and match G
 
 ### 5. Streaming Layers
 
-Streaming layers control when section content loads and unloads based on distance from your Loading Trigger (player, camera, or custom trigger).
+# Streaming Layers
 
-Layer setup is one of the most important performance/quality controls in ProStream.
+Streaming layers control when section content loads and unloads based on distance from your Loading Trigger (player, camera, or custom trigger).
 
 ## Access Streaming Layers
 
-![Layer Editor Menu](/images/pst_3_menuLayerEditor_image_psTutorial.png)
 
-## Streaming Distance Editing
+In ProStream Editor, open the **Layers** tab
 
-In the **Layer Editor** menu, you can adjust the distance in which each SubScene layer will load into the scene.
+![Access Layer Editor](/images/layer_tab.png)
 
-![Layer Distance Configuration](/images/pst_3_layerDistanceLoad_image_psTutorial.png)
+In the Layer Data editor, you can adjust the distance in which each SubScene layer will load into the scene.
+
+![Adjust Layer Distances](/images/edit_loading_range.png)
+
+::: tip Distance Guidelines
+
+- **Higher number** = The farther away the Loading Trigger can be for the SubScene layer to load
+- **Lower number** = The closer the Loading Trigger must be for the SubScene Layer to load
+  :::
+
+
+<div v-if="$frontmatter.showLayerBasicsStreamingDetails">
 
 Each layer uses a range (`start`, `end`) for Entity SubScene streaming.
 For example, `0-256` means the section can load when the trigger is within that range.
-
-::: tip Distance Guidelines
-- **Higher number** = The farther away the Loading Trigger can be for the SubScene layer to load
-- **Lower number** = The closer the Loading Trigger must be for the SubScene Layer to load
-:::
 
 The numeric value in the right-side input box is the current maximum value, and the right-side slider is the current value. Hovering over the slider handle shows what the current distance setting is, and can be dragged left/right to be adjusted.
 
 To raise the value above the current maximum, just input a new value into the right-side input box.
 
-## Persistent Layers
+::: info Example Configuration
 
-![Persistent Layers](/images/pst_3_layerEditorPersistent_image_psTutorial.png)
+- **Ground:** 2048 (loads objects at a far distance)
+- **LargeObjects:** 1024 (loads objects at a medium distance)
+- **SmallObjects:** 512 (loads objects at a close distance)
+  :::
 
-Layers marked as **Persistent** are always loaded, and thus, do not need to have a range set.
+::: info What this means
+Objects in "SmallObjects" layer load when camera is within 512 units. Objects in "LargeObjects" layer load when camera is within 1024 units.
+:::
+
+</div>
+
+
+**Persistent Layers:** Layers marked as Persistent are always loaded and don't need a range set:
 
 Use persistent sparingly for always-on critical content, because it bypasses normal distance streaming.
 
+![Persistent Layers](/images/persistent_range.png)
+
+
+<div v-if="$frontmatter.showLayerBasicsStreamingDetails">
+
 ## Default Layers
 
-ProStream creates these default layers during scene setup:
-
-| Layer Name | Default Distance | Purpose |
-|------------|------------------|---------|
-| Ground | 2048 | Terrain, roads, ground meshes |
-| LargeObjects | 1024 | Buildings, large structures |
-| MediumObjects | 512 | Medium-sized props, vehicles |
-| SmallObjects | 256 | Small details, clutter |
-| Foliage | 128 | Trees, bushes, grass |
+| Layer Name    | Default Distance | Purpose                       |
+| ------------- | ---------------- | ----------------------------- |
+| Ground        | 2048             | Terrain, roads, ground meshes |
+| LargeObjects  | 1024             | Buildings, large structures   |
+| MediumObjects | 512              | Medium-sized props, vehicles  |
+| SmallObjects  | 256              | Small details, clutter        |
+| Foliage       | 128              | Trees, bushes, grass          |
 
 Defaults are starting points. Tune them for your world scale and camera/player speed.
+
+</div>
+
+
 
 ## Layer Configuration Strategy
 
@@ -701,20 +729,24 @@ Configure layers based on object visibility and importance:
 (Good starting point for distance settings, but adjust based on your scene's scale and content)
 
 **Far Distance (1024+)**
+
 - Mesh Terrain
 - Large buildings and structures
 
 **Medium Distance (512-1024)**
+
 - Medium buildings
 - Large props
 - Trees and vegetation
 
 **Close Distance (256-512)**
+
 - Small props
 - Detail objects
 - Ground clutter
 
 **Very Close (0-256)**
+
 - Tiny details
 - High-poly models
 
@@ -728,7 +760,6 @@ At runtime, Entity SubScene systems evaluate distance to each section bound and 
 GameObject SubScene streaming uses a separate GO loading range setting in LayerData.
 
 See [Runtime Streaming](/runtime-systems/runtime-streaming) for full runtime details.
-
 
 ## Creating Custom Layers
 
@@ -746,11 +777,69 @@ You can create custom layers to better organize your content:
 3. Decrease ranges for dense small props to reduce memory/load spikes.
 4. Use profiler + visual testing together before locking values.
 
+<a id="doc-6-workflows"></a>
+
+### 6. Workflows
+
+In ProStream, **Workflows** are modular processing units that handle specialized object types, orchestrate data preparation, and generate spatial data structures. They form the backbone of the "Prepare Scene" and "Create SubScenes" processes.
+
+## What is a Workflow?
+
+Rather than hard-coding a single monolithic pipeline for scene processing, ProStream divides the work into distinct Workflows. A Workflow is responsible for:
+1. Identifying a specific subset of objects in your scene (e.g., standard prefabs vs physics colliders).
+2. Generating the appropriate spatial data (like a QuadTree grid).
+3. Handling the creation and population of SubScenes for those specific objects.
+
+## Key Workflow Components
+
+Understanding workflows involves a few key types:
+
+- **WorkflowAsset:** A `ScriptableObject` that defines the workflow's configuration (e.g., is it active, what are its grid settings).
+- **WorkflowComponent:** A `MonoBehaviour` (singleton) in your scene that executes the runtime logic for the workflow.
+- **WorkflowContainer:** A central container in your scene that owns and manages all active WorkflowComponents.
+- **WorkflowAssetContainer:** A project-wide registry that finds and tracks all WorkflowAssets in your project.
+
+## Built-in Workflows
+
+ProStream currently includes two primary workflows for scene generation:
+
+### 1. InstanceObjectsWorkflow
+This is the default, primary workflow for ProStream. 
+- It handles standard Unity Prefab instances.
+- It is responsible for creating the main spatial **QuadTree**.
+- It organizes visual geometry, props, and environment assets into streaming sections (Ground, LargeObjects, etc.).
+
+### 2. ColliderObjectsWorkflow
+This workflow is specialized for handling physics colliders.
+- It allows you to separate physical collision data from visual geometry.
+- It can utilize its own separate QuadTree settings or piggyback on existing data to optimize physics streaming independent of visual streaming.
+
+
+## Workflow Lifecycle
+
+Workflows follow a strict lifecycle integrated deeply into the `SceneConnector`.
+
+1. **Discovery:** When the scene is loaded, the `SceneConnector` queries the `WorkflowAssetContainer` to find all active and enabled `WorkflowAsset`s in the project.
+2. **Activation:** The `SceneConnector` adds these assets to its internal list.
+3. **Instantiation:** For every active workflow, the `WorkflowContainer` creates a child `GameObject` in the scene hierarchy and attaches the corresponding `WorkflowComponent`.
+4. **Execution:** During the *Prepare Scene* and *Create SubScenes* operations, the `ProcessRunner` iterates through all active WorkflowComponents and executes their respective stages (`Initialize`, `Execute`, `Cleanup`).
+
+## How Workflows tie into the Main Processes
+
+When you click **Prepare Scene** (Calculate Positions):
+- **Phase 1:** Every active workflow is asked to validate its data (`CheckWorkflowObjects()`).
+- **Phase 4:** Every active workflow executes its spatial calculations (e.g., generating the QuadTree grid and assigning objects to cells).
+
+When you click **Create SubScenes**:
+- The process loops through all active workflows, running them through an `Initialize` -> `Execute` -> `Cleanup` pipeline to physically generate the `.unity` scene files on disk and organize the objects within them.
+
+For information on how to configure these workflows (such as adjusting the QuadTree size), see the [Workflows Configuration Guide](/editor-guide/engines/workflows-configuration).
+
 ## Editor Guide
 
-<a id="doc-6-prostream-editor"></a>
+<a id="doc-7-prostream-editor"></a>
 
-### 6. ProStream Editor
+### 7. ProStream Editor
 
 The ProStream Editor is the main interface for configuring and managing ProStream in your Unity project.
 
@@ -814,9 +903,9 @@ Current setup flow performs a direct finalize step after asset creation and no l
 - [Rule Engine](/editor-guide/engines/rule-engine) - Configure matching rules
 - [Prepare Scene Process](/processes/prepare-scene) - Next major workflow step
 
-<a id="doc-7-scene-connector"></a>
+<a id="doc-8-scene-connector"></a>
 
-### 7. Scene Connector
+### 8. Scene Connector
 
 # SceneConnector
 
@@ -878,9 +967,9 @@ Handles visualizations (e.g. Loading Distance Range, etc)
 - [Scene Search Filter](/editor-guide/components/scene-search-filter) - Define processing scope
 - [Runtime Streaming](/runtime-systems/runtime-streaming) - How streaming works at runtime
 
-<a id="doc-8-scene-search-filter"></a>
+<a id="doc-9-scene-search-filter"></a>
 
-### 8. Scene Search Filter
+### 9. Scene Search Filter
 
 SceneSearchFilters define which areas of your scene ProStream will process. They improve performance by limiting the scope to specific hierarchies.
 
@@ -957,9 +1046,9 @@ When you add a search filter, ProStream automatically adds `MatchTracker` compon
 - [Rule Engine](/editor-guide/engines/rule-engine) - How objects are matched
 - [Standard Workflow](/getting-started/standard-workflow) - Complete setup guide
 
-<a id="doc-9-rule-engine"></a>
+<a id="doc-10-rule-engine"></a>
 
-### 9. Rule Engine
+### 10. Rule Engine
 
 The RuleEngine is the system used to match tracked GameObjects to streaming sections/layers.
 
@@ -1119,6 +1208,13 @@ Each rule is assigned to a specific streaming layer:
 - **Target Layer** - Which layer matched objects go to
 - **Description** - Notes about the rule
 
+### Rule List Persistence
+
+The list of enabled rules is managed by an `ObservableCollection` in the `SceneConnector`.
+- Whenever you add, remove, or reorder a rule in the Rule Editor, the `SceneConnector` is updated dynamically.
+- The `MatchByDefault` rule is always forced to the last position.
+- This collection is saved with the scene, so you do not need to manually save your rules configuration outside of saving your active Unity scene.
+
 ## Testing Rules
 
 ### Preview in Unity Search
@@ -1201,14 +1297,14 @@ Each rule is assigned to a specific streaming layer:
 
 ## See Also
 
-- [Streaming Layers](/core-concepts/streaming-layers) - Configure layer distances
+- [Streaming Layers](/core-concepts/layers/streaming-layers) - Configure layer distances
 - [Prepare Scene](/processes/prepare-scene) - How rules are applied
 - [Scene Search Filter](/editor-guide/components/scene-search-filter) - Define processing scope
 - [Standard Workflow](/getting-started/standard-workflow) - Complete setup guide
 
-<a id="doc-10-modification-engine"></a>
+<a id="doc-11-modification-engine"></a>
 
-### 10. Modification Engine
+### 11. Modification Engine
 
 The **Modification Engine** is a powerful extensibility system that allows you to hook into various stages of ProStream's workflow and perform custom processing on GameObjects, sections, or entire SubScenes.
 
@@ -1226,12 +1322,9 @@ A modification is a `ScriptableObject` that inherits from `ModificationEngine` a
 
 **Common Use Cases:**
 - **Mesh Combining** - Merge multiple meshes per section for performance
-- **LOD Generation** - Create LOD groups automatically
+- **Collider Extraction** - Move colliders to separate layers to retain physics interaction
 - **Component Removal** - Strip unnecessary components (e.g., colliders in visual-only sections)
-- **Material Optimization** - Batch materials, reduce draw calls
-- **Physics Baking** - Pre-compute physics data
 - **Custom Data Setup** - Add/configure custom components
-- **Validation** - Check for issues before finalizing SubScenes
 
 ## Execution Placements
 
@@ -1453,9 +1546,9 @@ public override GameObject ApplyModification(GameObject gObject)
 - [SubScene Creation](/processes/process-subscenes) - When modifications run
 - [Standard Workflow](/getting-started/standard-workflow) - Complete setup guide
 
-<a id="doc-11-operation-engine"></a>
+<a id="doc-12-operation-engine"></a>
 
-### 11. Operation Engine
+### 12. Operation Engine
 
 The **Operation Engine** is the execution framework that performs major tasks in ProStream. While [Modifications](/editor-guide/engines/modification-engine) enhance and transform data during processes, **Operations** are the actual processes themselves.
 
@@ -1612,22 +1705,253 @@ Operations handle errors gracefully:
 - [Prepare Scene](/processes/prepare-scene) - GenerateLocationDataOp details
 - [SubScene Creation](/processes/process-subscenes) - CreateSubScenesOp details
 
-<a id="doc-12-validation-and-diagnostics"></a>
+<a id="doc-13-workflows-configuration"></a>
 
-### 12. Validation and Diagnostics
+### 13. Workflows Configuration
+
+ProStream's **Workflows** control how specific types of objects (like instance objects and colliders) are processed and converted into streaming subscenes. This guide explains how to enable, disable, and configure these workflows within the ProStream Editor.
+
+## Accessing the Workflows Panel
+
+To view and manage your workflows:
+1. Open the ProStream Editor (`Tools | instance.id | ProStream | ProStream Editor`).
+2. Navigate to the **Scene Setup** tab.
+3. Scroll down to the **Workflows** or **Workflow Settings** section.
+
+Here, you will see a list of all available `WorkflowAsset`s in your project.
+
+## Enabling and Disabling Workflows
+
+Each workflow has two primary toggles:
+- **Activate Workflow:** If disabled, the workflow is completely ignored by the current scene. No component will be created, and it will not participate in the *Prepare Scene* or *Create SubScenes* processes.
+- **Enable Workflow:** Often used as a secondary toggle within an active workflow to temporarily suspend its processing logic without removing it from the scene's tracked components.
+
+When you toggle **Activate Workflow** to true, ProStream automatically instantiates a `WorkflowComponent` under the `SceneConnector`'s `WorkflowContainer` in your active scene.
+
+## InstanceObjectsWorkflow Settings
+
+The `InstanceObjectsWorkflow` is the primary workflow for spatial organization. It is responsible for generating the QuadTree grid that determines the physical boundaries of your SubScenes.
+
+### QuadTree Configuration
+
+When configuring the `InstanceObjectsWorkflow`, you will see settings specifically for the QuadTree. Unlike traditional grid systems, ProStream automatically determines the total bounds of your QuadTree based on the objects in your scene. You do not need to manually configure grid widths or cell sizes.
+
+Instead, the QuadTree is built dynamically based on how you want objects distributed:
+
+- **Use QuadTree:** Ensure this is enabled (true) if you want ProStream to automatically slice your scene into spatial chunks.
+- **Max Objects Per Node:** The target threshold for how many objects should be allowed in a single QuadTree cell before it attempts to subdivide further.
+- **Max QuadTree Depth:** How many times a cell is allowed to subdivide recursively. A higher depth allows for smaller cells.
+- **Auto Adjust Max Depth:** If enabled, ProStream will automatically calculate and increase the QuadTree depth until the average number of objects per node falls below your **Max Objects Per Node** threshold. This is the recommended setting for most scenes.
+
+### Real-Time QuadTree Updates
+
+One of the powerful features of ProStream's workflow settings is real-time visualization. When you adjust the QuadTree settings (like dragging the **Max Objects Per Node** value or toggling **Auto** depth), ProStream automatically and instantly recalculates the QuadTree in the background.
+
+If you have the visualization options turned on (via the menu icon next to the setting), you will see the QuadTree grid adapt in the Scene View immediately as you change the values. You do not need to manually re-run Calculate Positions just to see the updated grid boundaries.
+
+## ColliderObjectsWorkflow Settings
+
+The `ColliderObjectsWorkflow` operates similarly to the InstanceObjectsWorkflow but specifically targets physics colliders. 
+
+Depending on your project's needs, you can configure it to:
+1. **Use its own QuadTree:** Creating separate spatial chunks specifically for physics, potentially with larger or smaller grid cells than visual objects.
+2. **Piggyback on InstanceObjects:** It can utilize the spatial data already generated by the primary visual workflow to ensure colliders and visuals stream in exactly the same blocks.
+
+*Note: DataObjectWorkflow and RemoteSceneWorkflow configurations will be documented in a future release.*
+
+<a id="doc-14-validation-and-diagnostics"></a>
+
+### 14. Validation and Diagnostics
 
 ProStream includes validation and diagnostics tools to catch scene issues before conversion and runtime.
 
-## ValidationEngine (Pipeline Validation)
+## ProStreamDiagnostics (Ad-hoc Diagnostics)
 
-`ValidationEngine` runs during **Calculate Positions** when validation checks are enabled in settings.
-It validates tracked objects and reports errors/warnings before you proceed.
+![Diagnostics Window](/images/diagnostics_window.png)
 
-### Enabling Validation
+The diagnostics window provides on-demand checks outside the normal workflow.
 
-Validation settings are found in the **Settings Panel** under the **Search/Match** tab:
+It is implemented as an editor window that lets you:
+
+- Select a diagnostic engine
+- Optionally scope checks to a specific GameObject hierarchy (default scope is the scene hierarchy)
+- Run a diagnostic pass
+- Apply fixes for diagnostics that provide actionable suggestions
+
+## Opening Diagnostics
+
+**Keyboard Shortcut:** Press **Alt+Shift+D** to open the diagnostics window.
+
+**Menu:** **Tools → instance.id → ProStream → Diagnostics Window**
+
+## Diagnostic Tools
+
+The available list depends on which `DiagnosticEngine` assets are discoverable in your project. The built-in diagnostics include:
+
+- **Check for Missing Meshes**
+- **Check for Missing Materials**
+- **Check for Missing Collider Meshes**
+- **Objects with Missing Scripts**
+- **Incompatible DOTS Shaders** (only compiled when SRP + URP/HDRP symbols are enabled)
+- **Extra LOD in Prefab** (informational/partial implementation)
+
+## Running Diagnostics
+
+1. Open Diagnostics Window
+2. Select a diagnostic from the selector
+3. Optionally set a target object/folder scope
+4. Configure diagnostic-specific options (if available)
+5. Click **Run Diagnostic**
+6. Review the summary and results table in the same window
+
+![Run Diagnostic](/images/diagnostics_select.png)
+![Diagnostic Selected](/images/diagnostic_selected.png)
+
+## Diagnostic Results
+
+![Diagnostic Results](/images/diagnostic_results.png)
+
+Results are shown in two parts:
+
+- **Summary row**
+- `Result`: overall run state
+- `Issue Count`: number of diagnostic items returned
+- `Message`: high-level result text
+- **Results table**
+- `Item`: object/material being reported
+- `Message`: per-item message
+- `Details`: suggested replacement pairs or usage details when available
+
+Overall result states come from `DiagnosticResult.Result` and commonly include:
+
+- **NoIssues**: no matching problems found
+- **IssuesFound**: one or more issues were detected
+- **Failure**: diagnostic could not run as expected (for example, required project assets not found)
+- **InvalidType**: unsupported target type was selected
+- **Complete**: a fix operation finished
+
+Per-item states in the table can be different from the overall state:
+
+- **Suggestion**: issue with a suggested target/fix candidate
+- **Warning**: issue found but no suggested replacement
+- **Success/Failure**: individual fix attempt result
+
+`Run Fix` is only shown when the diagnostic supplies suggestions and has a fix method wired.
+
+## Common Issues and Fixes
+
+### Missing Mesh References
+
+**Issue:** MeshFilter has no mesh assigned
+
+**Fix:**
+
+1. Select the object in hierarchy
+2. Assign a mesh in MeshFilter component
+3. Or remove the MeshFilter if not needed
+
+Notes:
+
+- The diagnostic attempts exact-name mesh matching for suggestions.
+- `Run Fix` applies suggested mesh assignments where available.
+
+### Null Materials
+
+**Issue:** Renderer has null material slots
+
+**Fix:**
+
+1. Select the object
+2. Assign materials to all slots in Renderer
+3. Or remove unused material slots
+
+Notes:
+
+- Suggestions are based on exact name matching.
+- `Run Fix` fills empty slots when a suggestion exists.
+
+### Missing Collider Meshes
+
+**Issue:** MeshCollider has no shared mesh assigned
+
+**Fix:**
+
+1. Assign a suitable collider mesh manually
+2. Or use **Run Fix** when a suggestion is available
+
+Notes:
+
+- The diagnostic searches for MeshCollider components with missing mesh references.
+- Suggested replacements are generated from mesh matching logic.
+
+### Missing Scripts
+
+**Issue:** GameObject has one or more missing script components
+
+**Fix:**
+
+1. Restore the missing script asset/reference
+2. Or manually remove missing component slots
+
+Notes:
+
+- The current diagnostics UI typically does not show a fix action for this check.
+
+### Incompatible Shaders
+
+**Issue:** Shader not compatible with DOTS/Entities
+
+**Fix:**
+
+1. Replace with DOTS-compatible shader
+2. Use URP/HDRP Lit shader
+3. Or create custom DOTS shader
+
+Notes:
+
+- This diagnostic has no automatic fix button.
+- Advanced toggles may be available (for example V2 search and strict verification).
+
+### Extra LOD in Prefab
+
+**Issue:** LODGroup setup may not align with prefab child hierarchy
+
+**Fix:**
+
+1. Review child object structure versus LOD levels
+2. Remove extra children or adjust LODGroup levels as needed
+
+Notes:
+
+- This diagnostic is informational/partial and does not provide automatic fixes.
+
+## Additional Behavior Notes
+
+- **Include Disabled GameObjects** is a window-level option in the header menu.
+- If no diagnostic is selected, the window shows a placeholder with a **Select Diagnostic** action.
+- Missing Scripts currently reports issues, but in the current editor flow it does not surface actionable suggestions, so a fix button is typically not shown.
+
+## See Also
+
+- [Troubleshooting](/troubleshooting/troubleshooting) - Common issues and solutions
+- [Standard Workflow](/getting-started/standard-workflow) - Complete setup guide
+- [Requirements](/getting-started/requirements) - Setup requirements
+
+<a id="doc-15-pipeline-validation"></a>
+
+### 15. Pipeline Validation
+
+`ValidationEngine` runs during **Phase 2 of the Calculate Positions (Prepare Scene)** process when validation checks are enabled in settings.
+It validates tracked objects and reports errors/warnings before ProStream moves on to the Rule Matching phase. By running this step early, it identifies problems that could cause failures during SubScene conversion or at runtime.
+
+## Enabling Validation
+
+Validation settings are found in the `Tools` -> `instance.id` -> `ProStream` -> `Settings Panel` under the **Search/Match** tab:
+
+![Pipeline Validation](/images/pipeline_validation.png)
 
 **Settings:**
+
 - **Check for basic issues** - Fast scan for common problems
 - **Check for advanced issues** - Deeper analysis (slower)
 
@@ -1635,23 +1959,23 @@ Validation settings are found in the **Settings Panel** under the **Search/Match
 Current package defaults initialize both options as enabled. Teams may still override per-scene settings.
 :::
 
-### Basic Issues Checked
+## Basic Issues Checked
 
 When **Check for basic issues** is enabled, current validators include:
 
-| Issue | Description |
-|-------|-------------|
-| Missing Materials | Renderer with null/missing material references |
-| Invalid MeshCollider Setup | MeshCollider missing shared mesh |
-| Invalid Bounds | Invalid or zero bounds on non-particle objects |
-| Invalid Scale | Negative, zero, tiny, NaN, or Infinity scale values |
+| Issue                      | Description                                         |
+| -------------------------- | --------------------------------------------------- |
+| Missing Materials          | Renderer with null/missing material references      |
+| Invalid MeshCollider Setup | MeshCollider missing shared mesh                    |
+| Invalid Bounds             | Invalid or zero bounds on non-particle objects      |
+| Invalid Scale              | Negative, zero, tiny, NaN, or Infinity scale values |
 
-### Advanced Issues Checked
+## Advanced Issues Checked
 
 When **Check for advanced issues** is enabled, shader compatibility checks are added (SRP-dependent):
 
-| Issue | Description |
-|-------|-------------|
+| Issue                | Description                                                             |
+| -------------------- | ----------------------------------------------------------------------- |
 | Shader Compatibility | Detects shaders/materials incompatible with DOTS/SRP conversion/runtime |
 
 ### Validation Results
@@ -1674,119 +1998,36 @@ Validation found 3 critical errors and 12 warnings
 **Warnings** indicate potential issues that may or may not cause problems depending on your setup.
 :::
 
+## Indicators
+
 If issues are found, ProStream can prompt you to continue or cancel the process.
+![Validation Warning](/images/validation_warning.png)
 
-## ProStreamDiagnostics (Ad-hoc Diagnostics)
+<div class="section-spacer"></div>
 
-The diagnostics window provides on-demand checks outside the normal workflow.
+If warnings or errors are detected and unresolved, indicators will appear in the Main editor window to alert you before creating SubScenes.
+![Validation Warning Icons](/images/validation_warning_icons.png)
 
-### Opening Diagnostics
+## Validation Results
 
-**Keyboard Shortcut:** Press **Alt+Shift+D** to open the diagnostics window.
+Clicking the validation results icon opens a detailed view of all issues found, allowing you to quickly identify and navigate to problematic objects in the scene.
+![Validation Results View](/images/validation_results_view.png)
 
-**Menu:** **Tools → instance.id → ProStream → Diagnostics Window**
+<div class="section-spacer"></div>
 
-### Diagnostic Tools
+You can right click on any issue to see options such as "Details", "Select In Hierarchy", or "Ping In Hierarchy" to help you locate and fix the problem.
+![Validation Result Context](/images/validation_result_context.png)
 
-#### Scene Analysis
-- Missing mesh references
-- Missing material references
-- Missing mesh collider meshes
-- Missing scripts
-- Non-DOTS shader checks
-- Extra LOD-in-prefab checks
+<div class="section-spacer"></div>
 
-### Running Diagnostics
-
-1. Open Diagnostics Window
-2. Select diagnostic tool from list
-3. Configure options (if any)
-4. Click **Run Diagnostic**
-5. Review results in output panel
-
-### Diagnostic Results
-
-Results are displayed with:
-- **Pass** - No issues found
-- **Warning** - Potential issues
-- **Error** - Critical issues
-
-## Common Issues and Fixes
-
-### Missing Mesh References
-
-**Issue:** MeshFilter has no mesh assigned
-
-**Fix:**
-1. Select the object in hierarchy
-2. Assign a mesh in MeshFilter component
-3. Or remove the MeshFilter if not needed
-
-### Null Materials
-
-**Issue:** Renderer has null material slots
-
-**Fix:**
-1. Select the object
-2. Assign materials to all slots in Renderer
-3. Or remove unused material slots
-
-### Incompatible Shaders
-
-**Issue:** Shader not compatible with DOTS/Entities
-
-**Fix:**
-1. Replace with DOTS-compatible shader
-2. Use URP/HDRP Lit shader
-3. Or create custom DOTS shader
-
-### Broken Prefab Connections
-
-**Issue:** Prefab instance disconnected from asset
-
-**Fix:**
-1. Select the object
-2. Use **GameObject → Prefab → Revert** to reconnect
-3. Or delete and re-instantiate prefab
-
-## Best Practices
-
-### Run Validation Early
-
-- Enable validation during initial setup
-- Fix issues before Calculate Positions
-- Prevents problems during SubScene creation
-
-### Regular Checks
-
-- Run diagnostics after major scene changes
-- Validate before creating SubScenes
-- Check after importing new assets
-
-### Document Issues
-
-- Note recurring issues
-- Create custom validation rules if needed
-- Share findings with team
-
-### Automated Validation
-
-Consider enabling validation in your workflow:
-- Pre-commit hooks
-- CI/CD pipeline checks
-- Automated testing
-
-## See Also
-
-- [Troubleshooting](/troubleshooting/troubleshooting) - Common issues and solutions
-- [Standard Workflow](/getting-started/standard-workflow) - Complete setup guide
-- [Requirements](/getting-started/requirements) - Setup requirements
+The details view provides more information about the issue, including the object name, type of issue, and specific details to help you understand and resolve it.
+![Validation Result Details](/images/validation_result_details.png)
 
 ## Processes
 
-<a id="doc-13-prepare-scene"></a>
+<a id="doc-16-prepare-scene"></a>
 
-### 13. Prepare Scene
+### 16. Prepare Scene
 
 `Prepare Scene` is the core preprocessing step in the ProStream workflow. In current UI this step is still triggered by **Calculate Positions**, but the process prepares all matching/spatial data needed for SubScene creation.
 
@@ -1815,15 +2056,16 @@ This page documents the process name as **Prepare Scene**. In code/events, this 
 ## What It Does
 
 ### Phase 1: Workflow Object Checking
-- Validates workflow-specific requirements
-- Prepares internal data structures
-- Checks for configuration issues
+- Allows active **Workflows** (e.g., `InstanceObjectsWorkflow`, `ColliderObjectsWorkflow`) to validate their objects before rule matching
+- Validates workflow-specific requirements (e.g., checking `InstanceObjectCollection` references)
+- Prepares internal data structures and checks for configuration issues
+- *See [Workflows](/core-concepts/workflows) for more information.*
 
-### Phase 2: Validation (Optional)
+### Phase 2: Validation & Issue Detection
 - Runs ValidationEngine when enabled in Settings
-- Scans for compatibility issues (materials/colliders/bounds/scale and optional shader checks)
-- Reports errors and warnings to console
-- See [Validation & Diagnostics](/editor-guide/tools/validation-diagnostics) for details
+- Identifies problems with tracked objects (missing shaders, broken material references, missing colliders, null GameObjects)
+- Reports errors and warnings to console (does not abort processing unless critical)
+- *See [Validation & Diagnostics](/editor-guide/tools/validation-diagnostics) for details.*
 
 ### Phase 3: Rule Matching (CORE)
 - Applies all enabled match rules in priority order
@@ -1831,12 +2073,15 @@ This page documents the process name as **Prepare Scene**. In code/events, this 
 - Marks objects as matched/unmatched
 - Assigns section IDs (Ground, LargeObjects, etc.)
 
-### Phase 4: Spatial Calculation
-- Creates QuadTree grid based on scene bounds
-- Assigns objects to spatial cells
-- Calculates data for each future SubScene
-- Generates ObjectSectionDetails
-- Builds QuadSubSceneData structures
+### Phase 4: Workflow Processing (Execute Stage) & Spatial Calculation
+- Executes the main processing for all active workflows
+- **For `InstanceObjectsWorkflow`:**
+  - Automatically calculates total scene bounds based on the bounds of all matched objects
+  - Creates QuadTree grid within those bounds using `InstanceObjectQuadTreeGrid`
+  - Dynamically builds QuadTree cells based on configured settings (Max Objects Per Node, Max QuadTree Depth, Auto Adjust Max Depth)
+  - Calculates data for each future SubScene
+  - Generates `ObjectSectionDetails` for each matched object
+  - Builds `QuadSubSceneData` structures linking cells to their assigned sections
 
 ### Phase 5: Finalization
 - Validates all calculated data
@@ -1871,11 +2116,11 @@ Run BeforePositionCalculation Modifications (Optional)
 GenerateLocationDataOp.PerformOperation()
     │
     ├── PHASE 1: Workflow Object Checking
-    │   └── Validate workflow-specific objects
+    │   └── For each Workflow: CheckWorkflowObjects() (Validation)
     │
-    ├── PHASE 2: Validation (if enabled)
+    ├── PHASE 2: Validation & Issue Detection (if enabled)
     │   ├── Run ValidationEngine
-    │   └── Report errors/warnings
+    │   └── Report tracked object errors/warnings
     │
     ├── PHASE 3: Rule Matching ⭐ CRITICAL
     │   ├── CheckManualMatches (MatchByComponent)
@@ -1884,12 +2129,13 @@ GenerateLocationDataOp.PerformOperation()
     │   ├── CheckGoQLMatches (GameObject Query Language)
     │   └── ApplyDefaultMatchRule (Unmatched objects)
     │
-    ├── PHASE 4: Spatial Calculation
-    │   ├── Calculate scene bounds
-    │   ├── Generate QuadTree grid
-    │   ├── Assign objects to cells
-    │   ├── Generate ObjectSectionDetails
-    │   └── Build QuadSubSceneData
+    ├── PHASE 4: Workflow Processing & Spatial Calculation
+    │   └── For each Workflow: Execute()
+    │       ├── Calculate scene bounds
+    │       ├── Generate QuadTree grid (if enabled)
+    │       ├── Assign objects to cells
+    │       ├── Generate ObjectSectionDetails
+    │       └── Build QuadSubSceneData
     │
     └── PHASE 5: Finalization
         ├── Run validation groups
@@ -2072,13 +2318,13 @@ You can re-run this step anytime to:
 ## See Also
 
 - [Rule Engine](/editor-guide/engines/rule-engine) - Configure matching rules
-- [Streaming Layers](/core-concepts/streaming-layers) - Configure layer distances
+- [Streaming Layers](/core-concepts/layers/streaming-layers) - Configure layer distances
 - [SubScene Creation](/processes/process-subscenes) - Next step in workflow
 - [Standard Workflow](/getting-started/standard-workflow) - Complete guide
 
-<a id="doc-14-subscene-creation"></a>
+<a id="doc-17-subscene-creation"></a>
 
-### 14. SubScene Creation
+### 17. SubScene Creation
 
 SubScene Creation is the final major step in the ProStream workflow. After **Prepare Scene** (triggered by Calculate Positions), this process creates physical `.unity` scene files for spatial cells, organizes cloned objects into sections, and prepares runtime streaming data.
 
@@ -2128,46 +2374,37 @@ This is an **automated process** that handles asset creation, object cloning, hi
 
 ## Process Flow
 
+The Create SubScenes process uses the same **Workflow** architecture as Prepare Scene. For every active workflow (e.g., `InstanceObjectsWorkflow`), it runs through 3 specific stages:
+
 ```
 User Clicks "Create SubScenes" Button
     ↓
-PreCheck Validation
+Set SubSceneCreationInProgress Flag
     ↓
-Create SubScene Assets (Batch)
-    ├── For Each QuadTree Cell:
-    │   ├── Generate SubScene Name
-    │   ├── Create SubScene GameObject
-    │   ├── Create Directory Structure
-    │   ├── Create Scene File (.unity)
-    │   └── Register with AssetDatabase
+CreateSubScenesOp.PerformOperation()
     ↓
-Open All SubScenes (Additive)
-    ↓
-Process Each SubScene
-    ├── Create Section Hierarchies
-    │   ├── Section_Ground (index 0)
-    │   ├── Section_LargeObjects (index 1)
-    │   └── Section_SmallObjects (index 2)
+Iterate Active Workflows (3 Stages Each)
+    ├── STAGE 1: Initialize
+    │   - Verify workflow identifier and component
+    │   - Validate settings
     │
-    ├── Clone Objects to Sections
-    │   ├── Get objects for this QuadTree cell
-    │   ├── Check MatchTracker.SectionId
-    │   ├── Clone to correct section parent
-    │   └── Store cloned references
+    ├── STAGE 2: Execute
+    │   - Process spatial data (e.g., QuadTree from Prepare Scene)
+    │   - Create SubScene Assets (Batch creation on disk)
+    │   - Open all SubScenes additively
+    │   - Process Each SubScene:
+    │       ├── Create Section Hierarchies (Ground, LargeObjects, etc.)
+    │       ├── Clone Objects to Sections
+    │       ├── Run Modifications (BeforeMoveToSubScene, PerSection, etc.)
+    │       └── Move Section Hierarchies to SubScene
+    │   - Close All SubScenes
+    │   - Save main scene
     │
-    ├── Run Modifications
-    │   ├── BeforeObjectCopy
-    │   ├── PerSection
-    │   ├── BeforeMoveToSubScene
-    │   └── AfterMoveToSubScene
-    │
-    └── Move Section Hierarchies to SubScene
-        └── SceneManager.MoveGameObjectToScene()
-    ↓
-Close All SubScenes
-Save Main Scene / asset state
-    ↓
-Finalize streaming state
+    └── STAGE 3: Cleanup
+        - Register scene reload callbacks
+        - Reload current scene (cleans temporary objects)
+        - Create StreamingManager (Runtime bridge)
+        - Run validation and finalize streaming state
     ↓
 Complete - Ready for Play Mode
 ```
@@ -2356,11 +2593,11 @@ Creating SubScenes will overwrite existing SubScene files. Make backups if you'v
 
 ## Runtime Systems
 
-<a id="doc-15-runtime-streaming"></a>
+<a id="doc-18-runtime-streaming"></a>
 
-### 15. Runtime Streaming
+### 18. Runtime Streaming
 
-ProStream runtime streaming uses DOTS systems plus managed helpers to load and unload scene content based on distance from a loading trigger.
+ProStream runtime streaming uses DOTS systems plus managed helpers to load and unload scene content based on distance from a loading trigger. The architecture (Runtime Streaming v2) combines a managed initialization gate, ECS setup systems, and dynamic execution systems.
 
 ## Overview
 
@@ -2371,25 +2608,25 @@ At runtime, ProStream supports two streaming paths:
 Streaming only works after editor preparation is complete:
 1. Scene setup
 2. Search filters and enabled rules
-3. Calculate Positions
+3. Calculate Positions (Generates Spatial Data)
 4. Create SubScenes
 
 If SubScenes were not created, there is nothing to stream.
 
 ## Key Runtime Components
 
-- **StreamingManager**: scene bridge holding trigger/layer references and runtime toggles.
-- **StreamingSystemsInitializer**: writes per-frame `StreamingSystemsConfig` (trigger position and flags).
-- **SubSceneStreamingSetupSystem**: validates readiness and prepares ECS data (`LayerLoadingRanges`, bounds, setup singleton).
-- **SubSceneLoadingSystem**: schedules `SubSceneLoadingJob` to add `RequestSceneLoaded`.
-- **SubSceneUnloadingSystem**: schedules `SubSceneUnloadingJob` to remove `RequestSceneLoaded`.
-- **GameObjectSceneLoadingSystem / GameObjectSceneUnloadingSystem**: load/unload GO SubScenes.
+- **StreamingManager**: Scene bridge holding trigger/layer references and runtime toggles.
+- **StreamingSystemsInitializer**: A managed initialization gate (`SystemBase`) that validates prerequisites, initializes `StreamingSystemsManager`, and pushes runtime state into ECS config (`StreamingSystemsConfig`) every frame.
+- **SubSceneStreamingSetupSystem**: An ECS setup system (`SystemBase`) that initializes required entities, components, and dynamic buffers (`LayerLoadingRanges`).
+- **SubSceneLoadingSystem**: An `ISystem` that schedules `SubSceneLoadingJob` to add `RequestSceneLoaded` based on player position and layer ranges.
+- **SubSceneUnloadingSystem**: An `ISystem` that schedules `SubSceneUnloadingJob` to remove `RequestSceneLoaded` using the same prerequisites plus unload controls.
+- **LoadingDistanceSystem**: Provides APIs for live, runtime-adjustable layer ranges (e.g., `SetGlobal`).
 
 ## System Gating (Important)
 
 Entity streaming systems require setup singletons/components to exist before they run:
 - `UseStreamingSystems`
-- `StreamingSystemsConfig`
+- `StreamingSystemsConfig` (Updated every frame by the Initializer)
 - `StreamingSetupComplete`
 - `LayerLoadingRanges`
 
@@ -2414,9 +2651,18 @@ Sections marked `persistent` are always loaded.
 
 Current initializer value is `1.05f`.
 
+### Runtime-Adjustable Layer Ranges
+
+Loading ranges can be modified at runtime using the `LoadingDistanceSystem`. This allows for dynamic streaming adjustments based on gameplay events.
+For example, updating a specific layer's range:
+```csharp
+// Example: Updating the range for a specific section index at runtime
+LoadingDistanceSystem.SetGlobal(sectionIndex, new float2(newStartDistance, newEndDistance));
+```
+
 ## StreamingManager (User-facing)
 
-`StreamingManager` is created/used during SubScene creation workflow and provides:
+`StreamingManager` is created automatically during the SubScene creation workflow (Cleanup phase) and provides:
 - Loading trigger reference
 - Section collection (`LayerData`)
 - Runtime toggles for entity and GO streaming
@@ -2432,11 +2678,13 @@ Inspector fields include:
 
 ## Runtime Lifecycle
 
-High-level play mode flow:
-1. Setup/initializer systems verify scene readiness (`StreamingReady`, trigger, layer data, SubScene data).
-2. Streaming config is updated each frame with trigger position and load/unload flags.
-3. Loading/unloading systems evaluate ranges and queue component changes.
-4. Unity processes scene load state asynchronously.
+High-level play mode flow (Runtime v2):
+1. **Scene Readiness:** Scene becomes runtime-ready.
+2. **Initialization:** `StreamingSystemsInitializer` passes prerequisites and initializes `StreamingSystemsManager`.
+3. **Config Update:** The ECS config entity (`StreamingSystemsConfig`) is updated each frame.
+4. **ECS Setup:** `SubSceneStreamingSetupSystem` initializes setup entities and buffers (`LayerLoadingRanges`).
+5. **Execution:** `SubSceneLoadingSystem` schedules distance-based loading jobs, followed by `SubSceneUnloadingSystem`.
+6. **Live Updates (Optional):** At runtime, `LoadingDistanceSystem.Set/SetGlobal` updates layer ranges, which the load/unload jobs will observe on subsequent updates.
 
 ## Troubleshooting Quick Checks
 
@@ -2456,16 +2704,70 @@ If GO SubScenes work in editor but not build:
 
 ## See Also
 
-- [Streaming Layers](/core-concepts/streaming-layers) - Configure distance ranges
+- [Streaming Layers](/core-concepts/layers/streaming-layers) - Configure distance ranges
 - [SubScene Creation](/processes/process-subscenes) - Build SubScenes used at runtime
 - [Standard Workflow](/getting-started/standard-workflow) - End-to-end setup flow
 - [Troubleshooting](/troubleshooting/troubleshooting) - Common runtime issues
 
+<a id="doc-19-advanced-configuration"></a>
+
+### 19. Advanced Configuration
+
+While ProStream sets up distance-based loading ranges automatically during the _Create SubScenes_ process, sometimes your project requires dynamic, runtime adjustments based on gameplay events.
+
+## Dynamic Loading Ranges
+
+ProStream utilizes a **Runtime Streaming v2 Architecture** that allows you to easily adjust the loading ranges (start and end distances) for specific streaming sections while the game is running.
+
+This is accomplished using the `LoadingDistanceSystem`, an ECS system that provides an API for safely updating the `LayerLoadingRanges` dynamic buffer.
+
+### Updating Distances at Runtime
+
+When you want to increase or decrease the loading distance of a specific layer/section (for example, if the player enters a vehicle and needs to see further ahead), you can use the `SetGlobal` method on the `LoadingDistanceSystem`.
+
+This method requires the `SectionIndex` (which identifies the layer) and a `float2` representing the new `(StartDistance, EndDistance)`.
+
+### Example Usage
+
+Here is a minimal example from the ProStream procedural sample showing how you might dynamically adjust the loading distance for a specific layer during runtime:
+
+```csharp
+using instance.id.ProStream;
+using Unity.Entities;
+using Unity.Mathematics;
+using UnityEngine;
+
+public class MapSampleHelper : MonoBehaviour
+{
+    [Header("Layer Configuration")]
+    [Tooltip("The ID of the section/layer you want to adjust (e.g., 0 for Ground)")]
+    public int targetSectionIndex = 0;
+
+    [Tooltip("The new loading range to apply at runtime")]
+    public float2 newLoadingRange = new float2(0f, 500f);
+
+    public void UpdateLoadingDistance()
+    {
+        // Use SetGlobal to safely update the ECS buffer from managed code
+        LoadingDistanceSystem.SetGlobal(targetSectionIndex, newLoadingRange);
+
+        Debug.Log($"Updated Layer {targetSectionIndex} to range: {newLoadingRange}");
+    }
+}
+```
+
+### How It Works Under the Hood
+
+1. When `SetGlobal` is called, it accesses the `LayerLoadingRanges` singleton entity.
+2. It locates the specific index within the dynamic buffer and overwrites the `float2` range.
+3. It increments the `Version` on the `LayerLoadingRanges` component.
+4. The `SubSceneLoadingSystem` and `SubSceneUnloadingSystem` detect the version change on their next update and automatically start using the new distances to evaluate whether a subscene should be loaded or unloaded.
+
 ## Troubleshooting
 
-<a id="doc-16-common-issues"></a>
+<a id="doc-20-common-issues"></a>
 
-### 16. Common Issues
+### 20. Common Issues
 
 Common issues and solutions for ProStream.
 
@@ -2781,9 +3083,9 @@ If you're still experiencing issues:
 - [Validation & Diagnostics](/editor-guide/tools/validation-diagnostics) - Validation tools
 - [Runtime Streaming](/runtime-systems/runtime-streaming) - Runtime behavior
 
-<a id="doc-17-build-and-runtime"></a>
+<a id="doc-21-build-and-runtime"></a>
 
-### 17. Build and Runtime
+### 21. Build and Runtime
 
 Common issues related to the build process and runtime behavior.
 
@@ -3014,9 +3316,9 @@ Assign the appropriate SRP asset for each quality level you're using.
 
 ## Reference
 
-<a id="doc-18-settings-reference"></a>
+<a id="doc-22-settings-reference"></a>
 
-### 18. Settings Reference
+### 22. Settings Reference
 
 This page documents the settings currently exposed by ProStream in the active Settings Panel UI.
 
@@ -3030,10 +3332,38 @@ The panel currently provides these primary tabs:
 
 | Tab | Panel | Description |
 |-----|-------|-------------|
-| **Search/Match** | ObjectMatchingPanel | Validation and search query behavior |
+| **General** | GeneralPanel | General editor style and global object exclusion settings |
 | **Scene/Setup** | SceneSetupPanel | Scene setup and SubScene creation options |
+| **Search/Match** | ObjectMatchingPanel | Validation and search query behavior |
+| **Streaming** | StreamingPanel | (If DataObjects is enabled) Streaming job system configuration |
+| **Workflows** | WorkflowsPanel | Enable/disable system-wide workflow assets |
+| **Build** | BuildPanel | Build automation and cleanup settings |
+| **Debugging** | DebuggingPanel | Scene View debugging and visualization settings |
 
-## Search/Match Tab (ObjectMatchingPanel)
+## General Tab
+
+Settings related to the overall ProStream editor and global tracking.
+
+| Setting | Description |
+|---------|-------------|
+| User Excluded Type Names | Comma-separated list of component type names. GameObjects with these components will be excluded from ProStream tracking, search operations, and quadtree processing. |
+| Editor Theme | Select the theme for the ProStream Editor. |
+
+## Scene/Setup Tab
+
+These settings dictate how SubScenes are generated.
+
+### SubScene Setup
+
+| Setting | Default | Description |
+|---------|---------|-------------|
+| Filter Incompatible Shaders | Off | When creating SubScenes, whether to include GameObjects which have incompatible shaders. Objects with incompatible shaders are forced to the Shader Error color. Requires *Check for advanced issues* to be true. |
+| Include Disabled Objects | Off | Include disabled objects in the SubScene creation process. Disabled Objects are not converted to Entities, but simply exist in the SubScene. |
+| Auto-Load SubScenes In Editor | Off | Should SubScene Entity visual representations automatically load in the editor after creation? |
+
+*(Note: Additional settings from active Workflow Components may also inject themselves dynamically at the bottom of this tab).*
+
+## Search/Match Tab
 
 These settings affect rule matching and validation during **Calculate Positions**.
 
@@ -3044,18 +3374,12 @@ These settings affect rule matching and validation during **Calculate Positions*
 | Check for basic issues | On | Runs common validation checks during matching (for example missing materials, collider mesh issues, invalid bounds/scale). |
 | Check for advanced issues | On | Runs additional shader compatibility checks (SRP-dependent). More expensive but useful for conversion/runtime safety. |
 
-::: tip
-See [Validation & Diagnostics](/editor-guide/tools/validation-diagnostics) for detailed information on what each validation level checks.
-:::
-
-### Search Keyword Settings
-
-These settings affect how `MatchBySearchQuery` rules match object names.
+### Search Keyword
 
 | Setting | Default | Description |
 |---------|---------|-------------|
 | Use keyword separation | Off | Adds separator characters around search terms to reduce false positives from fuzzy matching. |
-| Keyword separator | `_` | The character used to separate keywords when keyword separation is enabled. |
+| Keyword separator | None | The character used to separate keywords when keyword separation is enabled. |
 
 **Example:**
 
@@ -3066,22 +3390,52 @@ With keyword separation (separator = `_`):
 - Search for `Tree` becomes `_Tree_`
 - Matches: `Environment_Tree_01` but NOT `City_Street_01`
 
-## Scene/Setup Tab (SceneSetupPanel)
+## Streaming Tab
 
-Settings related to SubScene creation and scene preparation.
+*This tab is only active if DataObjects are being used in the project.*
 
-### SubScene Settings
+| Setting | Description |
+|---------|-------------|
+| Section Batch Limiter | Use section batch limiter to limit the number of sections processed per frame when loading SubScenes. |
+| Job Batch Count | The inner loop value for prefab instantiation. |
+| Section Iterations | How many sections should be processed per frame when loading SubScenes. |
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| Filter GameObjects With Incompatible Shaders | Off | Filters objects with incompatible shaders during SubScene creation. Enabling this requires advanced validation. |
-| Include Disabled Objects | Off | Includes disabled objects in creation flow. Disabled objects are not converted to entities. |
-| Auto-Load SubScenes In Editor | Project/scene dependent | Automatically loads SubScene entity visual representations in editor. |
+## Workflows Tab
 
-### Workflow-Specific Settings
+This tab lists all discovered `WorkflowAsset`s in the project (e.g., `InstanceObjectsWorkflow`, `ColliderObjectsWorkflow`).
+You can toggle whether a workflow is **Active** across the project. 
 
-The **Scene/Setup** tab can also show additional foldouts contributed by active workflow components.
-Those settings are workflow-dependent and vary by installed modules.
+*Note: Deactivating a workflow fully disables all associated functionality.*
+
+## Build Tab
+
+Settings relating to the final Unity Build process.
+
+| Setting | Description |
+|---------|-------------|
+| Auto Add GameObject Scenes To Build | Automatically add any GameObject SubScenes to the build settings when creating SubScenes. |
+| Auto Remove GameObject Scenes From Build | Automatically remove generated GameObject SubScenes from the build settings when resetting the scene. |
+| Remove Original Objects In Build | Remove the original source GameObjects which were converted to Entities from the final scene when building. |
+
+## Debugging Tab
+
+Settings to draw useful visual debug bounds in the Unity Scene View.
+
+| Setting | Description |
+|---------|-------------|
+| Loading Distance | Enable SubScene loading distance debugging. |
+| Layer Number | Layer in which to show debug info. |
+| Debug Label Height | Height of debug labels. |
+| SubScene Labels | Should SubScene Labels be displayed. |
+| Position Labels | Should Position Labels be displayed. |
+| SubScene Bounds | Should SubScene Bounds be displayed. |
+| Layer/Section Bounds | Should Layer/Section Bounds be displayed. |
+| SubScene Distances | Should SubScene distance lines be displayed. |
+| SubScene Load Threshold | Should SubScene load threshold be displayed. |
+
+::: tip
+See [Validation & Diagnostics](/editor-guide/tools/validation-diagnostics) for detailed information on what each validation level checks.
+:::
 
 ## Layer Configuration
 
@@ -3095,7 +3449,7 @@ Layer-specific settings are configured in the Layer Editor, not the Settings Pan
 - Enabled/disabled
 - Section index
 
-See [Streaming Layers](/core-concepts/streaming-layers) for details.
+See [Streaming Layers](/core-concepts/layers/streaming-layers) for details.
 
 ## Rule Configuration
 
@@ -3137,12 +3491,12 @@ In practice, most user workflow settings you edit per scene are stored in the sc
 
 - [Standard Workflow](/getting-started/standard-workflow) - Using settings in workflow
 - [Validation & Diagnostics](/editor-guide/tools/validation-diagnostics) - Validation settings
-- [Streaming Layers](/core-concepts/streaming-layers) - Layer configuration
+- [Streaming Layers](/core-concepts/layers/streaming-layers) - Layer configuration
 - [Rule Engine](/editor-guide/engines/rule-engine) - Rule configuration
 
-<a id="doc-19-change-log"></a>
+<a id="doc-23-change-log"></a>
 
-### 19. Change Log
+### 23. Change Log
 
 Release history and changes for ProStream.
 
@@ -3182,9 +3536,9 @@ If you encounter issues or have suggestions:
 - [Troubleshooting](/troubleshooting/troubleshooting) - Common issues
 - [Requirements](/getting-started/requirements) - Requirements
 
-<a id="doc-20-install-and-update"></a>
+<a id="doc-24-install-and-update"></a>
 
-### 20. Install and Update
+### 24. Install and Update
 
 Common issues related to installing or updating ProStream.
 

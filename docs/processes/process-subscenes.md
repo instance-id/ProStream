@@ -48,46 +48,37 @@ This is an **automated process** that handles asset creation, object cloning, hi
 
 ## Process Flow
 
+The Create SubScenes process uses the same **Workflow** architecture as Prepare Scene. For every active workflow (e.g., `InstanceObjectsWorkflow`), it runs through 3 specific stages:
+
 ```
 User Clicks "Create SubScenes" Button
     ↓
-PreCheck Validation
+Set SubSceneCreationInProgress Flag
     ↓
-Create SubScene Assets (Batch)
-    ├── For Each QuadTree Cell:
-    │   ├── Generate SubScene Name
-    │   ├── Create SubScene GameObject
-    │   ├── Create Directory Structure
-    │   ├── Create Scene File (.unity)
-    │   └── Register with AssetDatabase
+CreateSubScenesOp.PerformOperation()
     ↓
-Open All SubScenes (Additive)
-    ↓
-Process Each SubScene
-    ├── Create Section Hierarchies
-    │   ├── Section_Ground (index 0)
-    │   ├── Section_LargeObjects (index 1)
-    │   └── Section_SmallObjects (index 2)
+Iterate Active Workflows (3 Stages Each)
+    ├── STAGE 1: Initialize
+    │   - Verify workflow identifier and component
+    │   - Validate settings
     │
-    ├── Clone Objects to Sections
-    │   ├── Get objects for this QuadTree cell
-    │   ├── Check MatchTracker.SectionId
-    │   ├── Clone to correct section parent
-    │   └── Store cloned references
+    ├── STAGE 2: Execute
+    │   - Process spatial data (e.g., QuadTree from Prepare Scene)
+    │   - Create SubScene Assets (Batch creation on disk)
+    │   - Open all SubScenes additively
+    │   - Process Each SubScene:
+    │       ├── Create Section Hierarchies (Ground, LargeObjects, etc.)
+    │       ├── Clone Objects to Sections
+    │       ├── Run Modifications (BeforeMoveToSubScene, PerSection, etc.)
+    │       └── Move Section Hierarchies to SubScene
+    │   - Close All SubScenes
+    │   - Save main scene
     │
-    ├── Run Modifications
-    │   ├── BeforeObjectCopy
-    │   ├── PerSection
-    │   ├── BeforeMoveToSubScene
-    │   └── AfterMoveToSubScene
-    │
-    └── Move Section Hierarchies to SubScene
-        └── SceneManager.MoveGameObjectToScene()
-    ↓
-Close All SubScenes
-Save Main Scene / asset state
-    ↓
-Finalize streaming state
+    └── STAGE 3: Cleanup
+        - Register scene reload callbacks
+        - Reload current scene (cleans temporary objects)
+        - Create StreamingManager (Runtime bridge)
+        - Run validation and finalize streaming state
     ↓
 Complete - Ready for Play Mode
 ```

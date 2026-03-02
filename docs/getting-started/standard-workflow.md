@@ -1,34 +1,23 @@
 # Standard Workflow
 
-::: info
-Get up and running with ProStream in just a few minutes. This guide walks through the essential steps to set up streaming in a new scene.
+:::info
+This guide walks through the essential steps to set up streaming in a new scene.
 :::
 
-## At a Glance
-
-1. Setup the scene for ProStream
-2. Add Scene Search Filters
-3. Configure Match Rules
-4. Configure Streaming Layers
-5. Run **Prepare Scene**
-6. Run **Create SubScenes**
-7. Validate streaming in Play Mode
+:::details Requirements
 
 <!-- Begin Requirements -->
 <!--@include: ./requirements.md-->
 <!-- End Requirements -->
 
+:::
+
 ::: tip
 If you haven't installed ProStream yet, see [Setup](/getting-started/setup)
 :::
 
-::: warning Prefab Requirement
-Only prefab instances are tracked and processed for streaming. Non-prefab scene GameObjects are ignored.
-:::
 
-## Quick Start Steps
-
-### Step 1: Setup Scene for ProStream
+## Step 1: Setup Scene for ProStream
 
 1. Open the ProStream Editor window: **Tools | instance.id | ProStream | ProStream Editor**
 
@@ -37,8 +26,8 @@ Only prefab instances are tracked and processed for streaming. Non-prefab scene 
    ![Setup Current Scene Button](/images/usage_basic_quick_newscene.png)
 
    - ProStream validates and registers the current scene
-   - ProStream creates and wires required scene objects and assets
-   - Wait for the process to complete
+   - ProStream creates and wires required scene objects and assets in a single synchronous pass
+   - Wait for the process to complete (no scene reload required)
 
 **What just happened:**
 
@@ -143,35 +132,15 @@ You can edit and preview query results by clicking the icon on the right side of
 
 Layers determine loading distances for different object types.
 
-1. In ProStream Editor, open the **Loading** tab
+<!-- Start Layer Basics -->
+<!-- @include: ../core-concepts/layers/layer-basics.md -->
+<!-- End Layer Basics -->
 
-2. In **Settings**, open **Edit LayerData**
-
-3. Click **Edit Loading Distances**
-
-![Access Layer Editor](/images/layer_tab.png)
-
-4. In the Layer Data editor, adjust loading distances:
-
-![Adjust Layer Distances](/images/edit_loading_range.png)
-
-   - **Ground:** 2048 (loads at medium distance)
-   - **LargeObjects:** 1024 (loads farther out)
-   - **SmallObjects:** 512 (loads close up)
-
-::: info What this means
-Objects in "SmallObjects" layer load when camera is within 512 units. Objects in "LargeObjects" layer load when camera is within 1024 units.
-:::
-
-**Persistent Layers:** Layers marked as Persistent are always loaded and don't need a range set:
-
-![Persistent Layers](/images/persistent_range.png)
-
-See [Streaming Layers](/core-concepts/streaming-layers) for detailed configuration.
+See [Streaming Layers](/core-concepts/layers/streaming-layers) for detailed configuration.
 
 ### Step 5: Prepare Scene
 
-This is where ProStream analyzes your scene and assigns objects to layers.
+This is where ProStream utilizes modular **Workflows** (e.g., `InstanceObjectsWorkflow`, `ColliderObjectsWorkflow`) to validate objects, apply your matching rules, and generate spatial data (like QuadTrees) for your scene.
 
 1. In the ProStream Editor window (if closed, reopen via **Tools | instance.id | ProStream | ProStream Editor**)
 
@@ -254,7 +223,7 @@ Congratulations! You now have a working ProStream setup.
 **Optimize Streaming**
 - Adjust layer distances based on object importance
 - Use Persistent layers for always-loaded objects
-- See [Streaming Layers](/core-concepts/streaming-layers)
+- See [Streaming Layers](/core-concepts/layers/streaming-layers)
 
 **Add Modifications**
 - Separate Colliders for physics interaction
@@ -330,7 +299,7 @@ For more issues, see [Troubleshooting](/troubleshooting/troubleshooting)
 
 **Core Concepts**
 - [Rule Engine](/editor-guide/engines/rule-engine)
-- [Streaming Layers](/core-concepts/streaming-layers)
+- [Streaming Layers](/core-concepts/layers/streaming-layers)
 - [Scene Search Filter](/editor-guide/components/scene-search-filter)
 
 **Processes**

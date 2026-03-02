@@ -4,17 +4,13 @@
 The focus of this guide is to get you up and running **quickly** with a new Unity project using the ProStream sample package.
 :::
 
-## At a Glance
+:::details Requirements {open}
 
-1. Create a new Unity URP project
-2. Import the ProStream package
-3. Apply required/recommended project settings
-4. Install ProStream and dependencies
-5. Import sample assets
-6. Open the sample scene and ProStream Main Editor
-7. Run **Prepare Scene**
-8. Run **Create SubScenes**
-9. Play the scene and verify streaming
+<!-- Begin Requirements -->
+<!--@include: ./requirements.md#requirements-->
+<!-- End Requirements -->
+
+:::
 
 ## 1) Create a New Unity URP Project
 

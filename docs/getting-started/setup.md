@@ -6,9 +6,15 @@ Upon first importing the ProStream package, the ProStream setup window appears a
 
 ![ProStream Setup](/images/import_prostream.png)
 
+## Editor Requirements
+
+:::details Requirements {open}
+
 <!-- Begin Requirements -->
-<!--@include: ./requirements.md-->
+<!--@include: ./requirements.md#requirements-->
 <!-- End Requirements -->
+
+:::
 
 ## 1) Open the ProStream Setup Window
 

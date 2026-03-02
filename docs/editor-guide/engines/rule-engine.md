@@ -158,6 +158,13 @@ Each rule is assigned to a specific streaming layer:
 - **Target Layer** - Which layer matched objects go to
 - **Description** - Notes about the rule
 
+### Rule List Persistence
+
+The list of enabled rules is managed by an `ObservableCollection` in the `SceneConnector`.
+- Whenever you add, remove, or reorder a rule in the Rule Editor, the `SceneConnector` is updated dynamically.
+- The `MatchByDefault` rule is always forced to the last position.
+- This collection is saved with the scene, so you do not need to manually save your rules configuration outside of saving your active Unity scene.
+
 ## Testing Rules
 
 ### Preview in Unity Search
@@ -240,7 +247,7 @@ Each rule is assigned to a specific streaming layer:
 
 ## See Also
 
-- [Streaming Layers](/core-concepts/streaming-layers) - Configure layer distances
+- [Streaming Layers](/core-concepts/layers/streaming-layers) - Configure layer distances
 - [Prepare Scene](/processes/prepare-scene) - How rules are applied
 - [Scene Search Filter](/editor-guide/components/scene-search-filter) - Define processing scope
 - [Standard Workflow](/getting-started/standard-workflow) - Complete setup guide

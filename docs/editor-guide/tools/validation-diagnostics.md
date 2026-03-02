@@ -2,98 +2,78 @@
 
 ProStream includes validation and diagnostics tools to catch scene issues before conversion and runtime.
 
-## ValidationEngine (Pipeline Validation)
-
-`ValidationEngine` runs during **Calculate Positions** when validation checks are enabled in settings.
-It validates tracked objects and reports errors/warnings before you proceed.
-
-### Enabling Validation
-
-Validation settings are found in the **Settings Panel** under the **Search/Match** tab:
-
-**Settings:**
-- **Check for basic issues** - Fast scan for common problems
-- **Check for advanced issues** - Deeper analysis (slower)
-
-::: tip
-Current package defaults initialize both options as enabled. Teams may still override per-scene settings.
-:::
-
-### Basic Issues Checked
-
-When **Check for basic issues** is enabled, current validators include:
-
-| Issue | Description |
-|-------|-------------|
-| Missing Materials | Renderer with null/missing material references |
-| Invalid MeshCollider Setup | MeshCollider missing shared mesh |
-| Invalid Bounds | Invalid or zero bounds on non-particle objects |
-| Invalid Scale | Negative, zero, tiny, NaN, or Infinity scale values |
-
-### Advanced Issues Checked
-
-When **Check for advanced issues** is enabled, shader compatibility checks are added (SRP-dependent):
-
-| Issue | Description |
-|-------|-------------|
-| Shader Compatibility | Detects shaders/materials incompatible with DOTS/SRP conversion/runtime |
-
-### Validation Results
-
-After validation completes, results are displayed in the Console:
-
-```
-Validation completed: All 452 objects passed validation
-```
-
-Or if issues are found:
-
-```
-Validation found 3 critical errors and 12 warnings
-```
-
-::: danger
-**Critical errors** indicate objects that will likely fail during SubScene conversion or at runtime. Address these before proceeding.
-
-**Warnings** indicate potential issues that may or may not cause problems depending on your setup.
-:::
-
-If issues are found, ProStream can prompt you to continue or cancel the process.
-
 ## ProStreamDiagnostics (Ad-hoc Diagnostics)
+
+![Diagnostics Window](/images/diagnostics_window.png)
 
 The diagnostics window provides on-demand checks outside the normal workflow.
 
-### Opening Diagnostics
+It is implemented as an editor window that lets you:
+
+- Select a diagnostic engine
+- Optionally scope checks to a specific GameObject hierarchy (default scope is the scene hierarchy)
+- Run a diagnostic pass
+- Apply fixes for diagnostics that provide actionable suggestions
+
+## Opening Diagnostics
 
 **Keyboard Shortcut:** Press **Alt+Shift+D** to open the diagnostics window.
 
 **Menu:** **Tools → instance.id → ProStream → Diagnostics Window**
 
-### Diagnostic Tools
+## Diagnostic Tools
 
-#### Scene Analysis
-- Missing mesh references
-- Missing material references
-- Missing mesh collider meshes
-- Missing scripts
-- Non-DOTS shader checks
-- Extra LOD-in-prefab checks
+The available list depends on which `DiagnosticEngine` assets are discoverable in your project. The built-in diagnostics include:
 
-### Running Diagnostics
+- **Check for Missing Meshes**
+- **Check for Missing Materials**
+- **Check for Missing Collider Meshes**
+- **Objects with Missing Scripts**
+- **Incompatible DOTS Shaders** (only compiled when SRP + URP/HDRP symbols are enabled)
+- **Extra LOD in Prefab** (informational/partial implementation)
+
+## Running Diagnostics
 
 1. Open Diagnostics Window
-2. Select diagnostic tool from list
-3. Configure options (if any)
-4. Click **Run Diagnostic**
-5. Review results in output panel
+2. Select a diagnostic from the selector
+3. Optionally set a target object/folder scope
+4. Configure diagnostic-specific options (if available)
+5. Click **Run Diagnostic**
+6. Review the summary and results table in the same window
 
-### Diagnostic Results
+![Run Diagnostic](/images/diagnostics_select.png)
+![Diagnostic Selected](/images/diagnostic_selected.png)
 
-Results are displayed with:
-- **Pass** - No issues found
-- **Warning** - Potential issues
-- **Error** - Critical issues
+## Diagnostic Results
+
+![Diagnostic Results](/images/diagnostic_results.png)
+
+Results are shown in two parts:
+
+- **Summary row**
+- `Result`: overall run state
+- `Issue Count`: number of diagnostic items returned
+- `Message`: high-level result text
+- **Results table**
+- `Item`: object/material being reported
+- `Message`: per-item message
+- `Details`: suggested replacement pairs or usage details when available
+
+Overall result states come from `DiagnosticResult.Result` and commonly include:
+
+- **NoIssues**: no matching problems found
+- **IssuesFound**: one or more issues were detected
+- **Failure**: diagnostic could not run as expected (for example, required project assets not found)
+- **InvalidType**: unsupported target type was selected
+- **Complete**: a fix operation finished
+
+Per-item states in the table can be different from the overall state:
+
+- **Suggestion**: issue with a suggested target/fix candidate
+- **Warning**: issue found but no suggested replacement
+- **Success/Failure**: individual fix attempt result
+
+`Run Fix` is only shown when the diagnostic supplies suggestions and has a fix method wired.
 
 ## Common Issues and Fixes
 
@@ -102,63 +82,91 @@ Results are displayed with:
 **Issue:** MeshFilter has no mesh assigned
 
 **Fix:**
+
 1. Select the object in hierarchy
 2. Assign a mesh in MeshFilter component
 3. Or remove the MeshFilter if not needed
+
+Notes:
+
+- The diagnostic attempts exact-name mesh matching for suggestions.
+- `Run Fix` applies suggested mesh assignments where available.
 
 ### Null Materials
 
 **Issue:** Renderer has null material slots
 
 **Fix:**
+
 1. Select the object
 2. Assign materials to all slots in Renderer
 3. Or remove unused material slots
+
+Notes:
+
+- Suggestions are based on exact name matching.
+- `Run Fix` fills empty slots when a suggestion exists.
+
+### Missing Collider Meshes
+
+**Issue:** MeshCollider has no shared mesh assigned
+
+**Fix:**
+
+1. Assign a suitable collider mesh manually
+2. Or use **Run Fix** when a suggestion is available
+
+Notes:
+
+- The diagnostic searches for MeshCollider components with missing mesh references.
+- Suggested replacements are generated from mesh matching logic.
+
+### Missing Scripts
+
+**Issue:** GameObject has one or more missing script components
+
+**Fix:**
+
+1. Restore the missing script asset/reference
+2. Or manually remove missing component slots
+
+Notes:
+
+- The current diagnostics UI typically does not show a fix action for this check.
 
 ### Incompatible Shaders
 
 **Issue:** Shader not compatible with DOTS/Entities
 
 **Fix:**
+
 1. Replace with DOTS-compatible shader
 2. Use URP/HDRP Lit shader
 3. Or create custom DOTS shader
 
-### Broken Prefab Connections
+Notes:
 
-**Issue:** Prefab instance disconnected from asset
+- This diagnostic has no automatic fix button.
+- Advanced toggles may be available (for example V2 search and strict verification).
+
+### Extra LOD in Prefab
+
+**Issue:** LODGroup setup may not align with prefab child hierarchy
 
 **Fix:**
-1. Select the object
-2. Use **GameObject → Prefab → Revert** to reconnect
-3. Or delete and re-instantiate prefab
 
-## Best Practices
+1. Review child object structure versus LOD levels
+2. Remove extra children or adjust LODGroup levels as needed
 
-### Run Validation Early
+Notes:
 
-- Enable validation during initial setup
-- Fix issues before Calculate Positions
-- Prevents problems during SubScene creation
+- This diagnostic is informational/partial and does not provide automatic fixes.
 
-### Regular Checks
+## Additional Behavior Notes
 
-- Run diagnostics after major scene changes
-- Validate before creating SubScenes
-- Check after importing new assets
-
-### Document Issues
-
-- Note recurring issues
-- Create custom validation rules if needed
-- Share findings with team
-
-### Automated Validation
-
-Consider enabling validation in your workflow:
-- Pre-commit hooks
-- CI/CD pipeline checks
-- Automated testing
+- **Include Disabled GameObjects** is a window-level option in the header menu.
+- If no diagnostic is selected, the window shows a placeholder with a **Select Diagnostic** action.
+- Missing Scripts currently reports issues, but in the current editor flow it does not surface actionable suggestions, so a fix button is typically not shown.
 
 ## See Also
 

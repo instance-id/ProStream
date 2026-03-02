@@ -27,15 +27,16 @@ This page documents the process name as **Prepare Scene**. In code/events, this 
 ## What It Does
 
 ### Phase 1: Workflow Object Checking
-- Validates workflow-specific requirements
-- Prepares internal data structures
-- Checks for configuration issues
+- Allows active **Workflows** (e.g., `InstanceObjectsWorkflow`, `ColliderObjectsWorkflow`) to validate their objects before rule matching
+- Validates workflow-specific requirements (e.g., checking `InstanceObjectCollection` references)
+- Prepares internal data structures and checks for configuration issues
+- *See [Workflows](/core-concepts/workflows) for more information.*
 
-### Phase 2: Validation (Optional)
+### Phase 2: Validation & Issue Detection
 - Runs ValidationEngine when enabled in Settings
-- Scans for compatibility issues (materials/colliders/bounds/scale and optional shader checks)
-- Reports errors and warnings to console
-- See [Validation & Diagnostics](/editor-guide/tools/validation-diagnostics) for details
+- Identifies problems with tracked objects (missing shaders, broken material references, missing colliders, null GameObjects)
+- Reports errors and warnings to console (does not abort processing unless critical)
+- *See [Validation & Diagnostics](/editor-guide/tools/validation-diagnostics) for details.*
 
 ### Phase 3: Rule Matching (CORE)
 - Applies all enabled match rules in priority order
@@ -43,12 +44,15 @@ This page documents the process name as **Prepare Scene**. In code/events, this 
 - Marks objects as matched/unmatched
 - Assigns section IDs (Ground, LargeObjects, etc.)
 
-### Phase 4: Spatial Calculation
-- Creates QuadTree grid based on scene bounds
-- Assigns objects to spatial cells
-- Calculates data for each future SubScene
-- Generates ObjectSectionDetails
-- Builds QuadSubSceneData structures
+### Phase 4: Workflow Processing (Execute Stage) & Spatial Calculation
+- Executes the main processing for all active workflows
+- **For `InstanceObjectsWorkflow`:**
+  - Automatically calculates total scene bounds based on the bounds of all matched objects
+  - Creates QuadTree grid within those bounds using `InstanceObjectQuadTreeGrid`
+  - Dynamically builds QuadTree cells based on configured settings (Max Objects Per Node, Max QuadTree Depth, Auto Adjust Max Depth)
+  - Calculates data for each future SubScene
+  - Generates `ObjectSectionDetails` for each matched object
+  - Builds `QuadSubSceneData` structures linking cells to their assigned sections
 
 ### Phase 5: Finalization
 - Validates all calculated data
@@ -83,11 +87,11 @@ Run BeforePositionCalculation Modifications (Optional)
 GenerateLocationDataOp.PerformOperation()
     │
     ├── PHASE 1: Workflow Object Checking
-    │   └── Validate workflow-specific objects
+    │   └── For each Workflow: CheckWorkflowObjects() (Validation)
     │
-    ├── PHASE 2: Validation (if enabled)
+    ├── PHASE 2: Validation & Issue Detection (if enabled)
     │   ├── Run ValidationEngine
-    │   └── Report errors/warnings
+    │   └── Report tracked object errors/warnings
     │
     ├── PHASE 3: Rule Matching ⭐ CRITICAL
     │   ├── CheckManualMatches (MatchByComponent)
@@ -96,12 +100,13 @@ GenerateLocationDataOp.PerformOperation()
     │   ├── CheckGoQLMatches (GameObject Query Language)
     │   └── ApplyDefaultMatchRule (Unmatched objects)
     │
-    ├── PHASE 4: Spatial Calculation
-    │   ├── Calculate scene bounds
-    │   ├── Generate QuadTree grid
-    │   ├── Assign objects to cells
-    │   ├── Generate ObjectSectionDetails
-    │   └── Build QuadSubSceneData
+    ├── PHASE 4: Workflow Processing & Spatial Calculation
+    │   └── For each Workflow: Execute()
+    │       ├── Calculate scene bounds
+    │       ├── Generate QuadTree grid (if enabled)
+    │       ├── Assign objects to cells
+    │       ├── Generate ObjectSectionDetails
+    │       └── Build QuadSubSceneData
     │
     └── PHASE 5: Finalization
         ├── Run validation groups
@@ -284,6 +289,6 @@ You can re-run this step anytime to:
 ## See Also
 
 - [Rule Engine](/editor-guide/engines/rule-engine) - Configure matching rules
-- [Streaming Layers](/core-concepts/streaming-layers) - Configure layer distances
+- [Streaming Layers](/core-concepts/layers/streaming-layers) - Configure layer distances
 - [SubScene Creation](/processes/process-subscenes) - Next step in workflow
 - [Standard Workflow](/getting-started/standard-workflow) - Complete guide

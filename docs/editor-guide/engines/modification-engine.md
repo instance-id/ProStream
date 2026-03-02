@@ -16,12 +16,9 @@ A modification is a `ScriptableObject` that inherits from `ModificationEngine` a
 
 **Common Use Cases:**
 - **Mesh Combining** - Merge multiple meshes per section for performance
-- **LOD Generation** - Create LOD groups automatically
+- **Collider Extraction** - Move colliders to separate layers to retain physics interaction
 - **Component Removal** - Strip unnecessary components (e.g., colliders in visual-only sections)
-- **Material Optimization** - Batch materials, reduce draw calls
-- **Physics Baking** - Pre-compute physics data
 - **Custom Data Setup** - Add/configure custom components
-- **Validation** - Check for issues before finalizing SubScenes
 
 ## Execution Placements
 

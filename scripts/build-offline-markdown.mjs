@@ -21,7 +21,8 @@ const sections = [
     group: 'Core Concepts',
     pages: [
       ['Importance of Prefabs', 'core-concepts/importance-of-prefabs.md'],
-      ['Streaming Layers', 'core-concepts/streaming-layers.md'],
+      ['Streaming Layers', 'core-concepts/layers/streaming-layers.md'],
+      ['Workflows', 'core-concepts/workflows.md'],
     ],
   },
   {
@@ -33,7 +34,9 @@ const sections = [
       ['Rule Engine', 'editor-guide/engines/rule-engine.md'],
       ['Modification Engine', 'editor-guide/engines/modification-engine.md'],
       ['Operation Engine', 'editor-guide/engines/operation-engine.md'],
+      ['Workflows Configuration', 'editor-guide/engines/workflows-configuration.md'],
       ['Validation and Diagnostics', 'editor-guide/tools/validation-diagnostics.md'],
+      ['Pipeline Validation', 'editor-guide/tools/validation-pipeline.md'],
     ],
   },
   {
@@ -45,7 +48,10 @@ const sections = [
   },
   {
     group: 'Runtime Systems',
-    pages: [['Runtime Streaming', 'runtime-systems/runtime-streaming.md']],
+    pages: [
+      ['Runtime Streaming', 'runtime-systems/runtime-streaming.md'],
+      ['Advanced Configuration', 'runtime-systems/advanced-configuration.md'],
+    ],
   },
   {
     group: 'Troubleshooting',
@@ -78,7 +84,8 @@ function stripFrontmatter(content) {
 }
 
 function resolveInclude(pagePath, includeTarget) {
-  const resolved = path.resolve(path.dirname(pagePath), includeTarget);
+  const normalizedTarget = includeTarget.split('#')[0].split('?')[0].trim();
+  const resolved = path.resolve(path.dirname(pagePath), normalizedTarget);
   return resolved;
 }
 

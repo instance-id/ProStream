@@ -26,15 +26,21 @@ ProStream provides comprehensive tooling that automates the conversion of tradit
 
 <!-- List the key features of your package -->
 
-Intelligent scene analysis system that identifies optimal streaming boundaries based on object density and relationships
-
-Automatic layer generation that organizes GameObjects into logical streaming groups based on customizable rule sets
+High-Performance Runtime:
 
 ECS-based streaming: Implements SubScene streaming with Unity ECS and multi-threaded Job systems
 
 Jobs + Burst: Parallel distance/state evaluation with Burst-compatible jobs
 
 Proximity-driven decisions: Evaluates distance thresholds for load/unload operations
+
+Scene Analysis & Generation:
+Intelligent scene analysis system that identifies optimal streaming boundaries based on object density and relationships
+
+Automatic layer generation that organizes GameObjects into logical streaming groups based on customizable rule sets
+
+
+
 
 Visualization tools: Built-in debug/distance visualizations that allow you to inspect streaming behavior.
 

@@ -1,6 +1,6 @@
 # Runtime Streaming Systems
 
-ProStream runtime streaming uses DOTS systems plus managed helpers to load and unload scene content based on distance from a loading trigger.
+ProStream runtime streaming uses DOTS systems plus managed helpers to load and unload scene content based on distance from a loading trigger. The architecture (Runtime Streaming v2) combines a managed initialization gate, ECS setup systems, and dynamic execution systems.
 
 ## Overview
 
@@ -11,25 +11,25 @@ At runtime, ProStream supports two streaming paths:
 Streaming only works after editor preparation is complete:
 1. Scene setup
 2. Search filters and enabled rules
-3. Calculate Positions
+3. Calculate Positions (Generates Spatial Data)
 4. Create SubScenes
 
 If SubScenes were not created, there is nothing to stream.
 
 ## Key Runtime Components
 
-- **StreamingManager**: scene bridge holding trigger/layer references and runtime toggles.
-- **StreamingSystemsInitializer**: writes per-frame `StreamingSystemsConfig` (trigger position and flags).
-- **SubSceneStreamingSetupSystem**: validates readiness and prepares ECS data (`LayerLoadingRanges`, bounds, setup singleton).
-- **SubSceneLoadingSystem**: schedules `SubSceneLoadingJob` to add `RequestSceneLoaded`.
-- **SubSceneUnloadingSystem**: schedules `SubSceneUnloadingJob` to remove `RequestSceneLoaded`.
-- **GameObjectSceneLoadingSystem / GameObjectSceneUnloadingSystem**: load/unload GO SubScenes.
+- **StreamingManager**: Scene bridge holding trigger/layer references and runtime toggles.
+- **StreamingSystemsInitializer**: A managed initialization gate (`SystemBase`) that validates prerequisites, initializes `StreamingSystemsManager`, and pushes runtime state into ECS config (`StreamingSystemsConfig`) every frame.
+- **SubSceneStreamingSetupSystem**: An ECS setup system (`SystemBase`) that initializes required entities, components, and dynamic buffers (`LayerLoadingRanges`).
+- **SubSceneLoadingSystem**: An `ISystem` that schedules `SubSceneLoadingJob` to add `RequestSceneLoaded` based on player position and layer ranges.
+- **SubSceneUnloadingSystem**: An `ISystem` that schedules `SubSceneUnloadingJob` to remove `RequestSceneLoaded` using the same prerequisites plus unload controls.
+- **LoadingDistanceSystem**: Provides APIs for live, runtime-adjustable layer ranges (e.g., `SetGlobal`).
 
 ## System Gating (Important)
 
 Entity streaming systems require setup singletons/components to exist before they run:
 - `UseStreamingSystems`
-- `StreamingSystemsConfig`
+- `StreamingSystemsConfig` (Updated every frame by the Initializer)
 - `StreamingSetupComplete`
 - `LayerLoadingRanges`
 
@@ -54,9 +54,18 @@ Sections marked `persistent` are always loaded.
 
 Current initializer value is `1.05f`.
 
+### Runtime-Adjustable Layer Ranges
+
+Loading ranges can be modified at runtime using the `LoadingDistanceSystem`. This allows for dynamic streaming adjustments based on gameplay events.
+For example, updating a specific layer's range:
+```csharp
+// Example: Updating the range for a specific section index at runtime
+LoadingDistanceSystem.SetGlobal(sectionIndex, new float2(newStartDistance, newEndDistance));
+```
+
 ## StreamingManager (User-facing)
 
-`StreamingManager` is created/used during SubScene creation workflow and provides:
+`StreamingManager` is created automatically during the SubScene creation workflow (Cleanup phase) and provides:
 - Loading trigger reference
 - Section collection (`LayerData`)
 - Runtime toggles for entity and GO streaming
@@ -72,11 +81,13 @@ Inspector fields include:
 
 ## Runtime Lifecycle
 
-High-level play mode flow:
-1. Setup/initializer systems verify scene readiness (`StreamingReady`, trigger, layer data, SubScene data).
-2. Streaming config is updated each frame with trigger position and load/unload flags.
-3. Loading/unloading systems evaluate ranges and queue component changes.
-4. Unity processes scene load state asynchronously.
+High-level play mode flow (Runtime v2):
+1. **Scene Readiness:** Scene becomes runtime-ready.
+2. **Initialization:** `StreamingSystemsInitializer` passes prerequisites and initializes `StreamingSystemsManager`.
+3. **Config Update:** The ECS config entity (`StreamingSystemsConfig`) is updated each frame.
+4. **ECS Setup:** `SubSceneStreamingSetupSystem` initializes setup entities and buffers (`LayerLoadingRanges`).
+5. **Execution:** `SubSceneLoadingSystem` schedules distance-based loading jobs, followed by `SubSceneUnloadingSystem`.
+6. **Live Updates (Optional):** At runtime, `LoadingDistanceSystem.Set/SetGlobal` updates layer ranges, which the load/unload jobs will observe on subsequent updates.
 
 ## Troubleshooting Quick Checks
 
@@ -96,7 +107,7 @@ If GO SubScenes work in editor but not build:
 
 ## See Also
 
-- [Streaming Layers](/core-concepts/streaming-layers) - Configure distance ranges
+- [Streaming Layers](/core-concepts/layers/streaming-layers) - Configure distance ranges
 - [SubScene Creation](/processes/process-subscenes) - Build SubScenes used at runtime
 - [Standard Workflow](/getting-started/standard-workflow) - End-to-end setup flow
 - [Troubleshooting](/troubleshooting/troubleshooting) - Common runtime issues

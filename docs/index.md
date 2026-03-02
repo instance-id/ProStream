@@ -28,7 +28,7 @@ features:
 <!--
   - title: Streaming Layers
     details: Configure distance-based loading for optimal performance
-    link: /core-concepts/streaming-layers
+    link: /core-concepts/layers/streaming-layers
   - title: Rule Engine
     details: Categorize objects into layers with powerful matching rules
     link: /editor-guide/engines/rule-engine
@@ -56,14 +56,6 @@ ProStream provides comprehensive tooling that automates the conversion of tradit
 
 ### Key Features
 
-::: info 🎯 Scene Analysis & Generation
-
-**Intelligent scene analysis system** that identifies optimal streaming boundaries based on object density and relationships
-
-**Automatic layer generation** that organizes GameObjects into logical streaming groups based on customizable rule sets
-
-:::
-
 ::: tip ⚡ High-Performance Runtime
 
 **ECS-based streaming**: Implements SubScene streaming with Unity ECS and multi-threaded Job systems
@@ -71,6 +63,14 @@ ProStream provides comprehensive tooling that automates the conversion of tradit
 **Jobs + Burst**: Parallel distance/state evaluation with Burst-compatible jobs
 
 **Proximity-driven decisions**: Evaluates distance thresholds for load/unload operations
+
+:::
+
+::: info 🎯 Scene Analysis & Generation
+
+**Intelligent scene analysis system** that identifies optimal streaming boundaries based on object density and relationships
+
+**Automatic layer generation** that organizes GameObjects into logical streaming groups based on customizable rule sets
 
 :::
 
