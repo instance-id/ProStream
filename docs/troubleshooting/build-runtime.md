@@ -209,8 +209,6 @@ Assign the appropriate SRP asset for each quality level you're using.
 **Recommended:**
 - Scripting Backend: IL2CPP
 - API Compatibility: .NET Standard 2.1
-- Compression: LZ4 or LZ4HC
-- Code Stripping: Enabled (with proper link.xml)
 
 ### Testing
 

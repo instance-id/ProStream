@@ -163,7 +163,7 @@ See [Modification Engine](/editor-guide/engines/modification-engine) for details
 
 ProStream settings are stored in:
 - **Global package settings:** `Packages/id.instance.prostream/AssetFiles/Settings/ProStreamSettings.asset`
-- **Scene settings:** `SceneName/SceneData/SceneName_Settings.asset`
+- **Scene settings:** `SceneName/PSSceneData/SceneName_Settings.asset`
 
 In practice, most user workflow settings you edit per scene are stored in the scene settings asset.
 

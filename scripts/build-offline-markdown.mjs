@@ -57,6 +57,7 @@ const sections = [
     group: 'Troubleshooting',
     pages: [
       ['Common Issues', 'troubleshooting/troubleshooting.md'],
+      ['Install and Update', 'troubleshooting/install-update.md'],
       ['Build and Runtime', 'troubleshooting/build-runtime.md'],
     ],
   },
@@ -65,7 +66,6 @@ const sections = [
     pages: [
       ['Settings Reference', 'reference/settings-reference.md'],
       ['Change Log', 'reference/change-log.md'],
-      ['Install and Update', 'reference/install-update.md'],
     ],
   },
 ];

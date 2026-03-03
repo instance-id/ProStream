@@ -44,7 +44,7 @@ SceneConnector (automatically created)
   VisualizationManager
 ```
 
-- Created asset directory structure in `SceneName/SceneData/`
+- Created asset directory structure in `SceneName/PSSceneData/`
 - Created SceneLock, LayerData, SceneSettings, InstanceObjectCollection and UserRuleCollection assets
 - Initialized default layers (Ground, LargeObjects, MediumObjects, SmallObjects, Foliage)
 - Copied example rules to your scene
@@ -247,7 +247,7 @@ Congratulations! You now have a working ProStream setup.
 
 **SceneConnector not created after setup**
 - Check the Console for any errors during setup
-- Look for `SceneName/SceneData/` folder in your Assets
+- Look for `SceneName/PSSceneData/` folder in your Assets
 
 **No SearchFilter Objects found**
 - Solution: You forgot Step 2! Click "Add Search Filters" in ProStream Editor and select parent GameObjects that contain your prefabs.

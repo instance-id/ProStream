@@ -18,6 +18,8 @@ export default defineConfig({
     ],
 
     sidebar: [
+      // --| Getting Started ----------
+      // --|---------------------------
       {
         text: 'Getting Started',
         collapsed: false,
@@ -27,6 +29,9 @@ export default defineConfig({
           { text: 'Standard Workflow', link: '/getting-started/standard-workflow' },
         ],
       },
+
+      // --| Core Concepts ------------
+      // --|---------------------------
       {
         text: 'Core Concepts',
         collapsed: false,
@@ -36,15 +41,21 @@ export default defineConfig({
           { text: 'Workflows', link: '/core-concepts/workflows' },
         ],
       },
+
+      // --| Editor Guide -------------
+      // --|---------------------------
       {
         text: 'Editor Guide',
         collapsed: false,
         items: [
+          // --| Editor Windows -------
           {
             text: 'Editor Windows',
             collapsed: true,
             items: [{ text: 'ProStream Editor', link: '/editor-guide/windows/prostream-editor' }],
           },
+
+          // --| Components -----------
           {
             text: 'Components',
             collapsed: true,
@@ -53,6 +64,8 @@ export default defineConfig({
               { text: 'Scene Search Filter', link: '/editor-guide/components/scene-search-filter' },
             ],
           },
+
+          // --| Engines --------------
           {
             text: 'Engines',
             collapsed: true,
@@ -63,16 +76,21 @@ export default defineConfig({
               { text: 'Workflows Configuration', link: '/editor-guide/engines/workflows-configuration' },
             ],
           },
+
+          // --| Tools ----------------
           {
             text: 'Tools',
             collapsed: true,
             items: [
-                { text: 'Diagnostics', link: '/editor-guide/tools/validation-diagnostics' },
-                { text: 'Pipeline Validation', link: '/editor-guide/tools/validation-pipeline' }
+              { text: 'Diagnostics', link: '/editor-guide/tools/validation-diagnostics' },
+              { text: 'Pipeline Validation', link: '/editor-guide/tools/validation-pipeline' },
             ],
           },
         ],
       },
+
+      // --| Processes ----------------
+      // --|---------------------------
       {
         text: 'Processes',
         collapsed: false,
@@ -81,6 +99,9 @@ export default defineConfig({
           { text: 'SubScene Creation', link: '/processes/process-subscenes' },
         ],
       },
+
+      // --| Runtime Systems ----------
+      // --|---------------------------
       {
         text: 'Runtime Systems',
         collapsed: false,
@@ -89,21 +110,27 @@ export default defineConfig({
           { text: 'Advanced Configuration', link: '/runtime-systems/advanced-configuration' },
         ],
       },
+
+      // --| Troubleshooting ----------
+      // --|---------------------------
       {
         text: 'Troubleshooting',
         collapsed: false,
         items: [
           { text: 'Common Issues', link: '/troubleshooting/troubleshooting' },
+          { text: 'Install & Update', link: '/reference/install-update' },
           { text: 'Build & Runtime', link: '/troubleshooting/build-runtime' },
         ],
       },
+
+      // --| Reference ----------------
+      // --|---------------------------
       {
         text: 'Reference',
         collapsed: false,
         items: [
           { text: 'Settings Reference', link: '/reference/settings-reference' },
           { text: 'Change Log', link: '/reference/change-log' },
-          { text: 'Install & Update', link: '/reference/install-update' },
         ],
       },
     ],

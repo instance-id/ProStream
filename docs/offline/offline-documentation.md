@@ -1,6 +1,6 @@
 # ProStream Offline Documentation
 
-Generated: 2026-03-02
+Generated: 2026-03-03
 
 This document is generated from the VitePress source docs for offline distribution.
 
@@ -32,11 +32,11 @@ This document is generated from the VitePress source docs for offline distributi
   - 19. [Advanced Configuration](#doc-19-advanced-configuration)
 - Troubleshooting
   - 20. [Common Issues](#doc-20-common-issues)
-  - 21. [Build and Runtime](#doc-21-build-and-runtime)
+  - 21. [Install and Update](#doc-21-install-and-update)
+  - 22. [Build and Runtime](#doc-22-build-and-runtime)
 - Reference
-  - 22. [Settings Reference](#doc-22-settings-reference)
-  - 23. [Change Log](#doc-23-change-log)
-  - 24. [Install and Update](#doc-24-install-and-update)
+  - 23. [Settings Reference](#doc-23-settings-reference)
+  - 24. [Change Log](#doc-24-change-log)
 
 ## Setup Guide (Step by Step)
 
@@ -356,7 +356,7 @@ SceneConnector (automatically created)
   VisualizationManager
 ```
 
-- Created asset directory structure in `SceneName/SceneData/`
+- Created asset directory structure in `SceneName/PSSceneData/`
 - Created SceneLock, LayerData, SceneSettings, InstanceObjectCollection and UserRuleCollection assets
 - Initialized default layers (Ground, LargeObjects, MediumObjects, SmallObjects, Foliage)
 - Copied example rules to your scene
@@ -558,7 +558,7 @@ Congratulations! You now have a working ProStream setup.
 
 **SceneConnector not created after setup**
 - Check the Console for any errors during setup
-- Look for `SceneName/SceneData/` folder in your Assets
+- Look for `SceneName/PSSceneData/` folder in your Assets
 
 **No SearchFilter Objects found**
 - Solution: You forgot Step 2! Click "Add Search Filters" in ProStream Editor and select parent GameObjects that contain your prefabs.
@@ -3083,9 +3083,214 @@ If you're still experiencing issues:
 - [Validation & Diagnostics](/editor-guide/tools/validation-diagnostics) - Validation tools
 - [Runtime Streaming](/runtime-systems/runtime-streaming) - Runtime behavior
 
-<a id="doc-21-build-and-runtime"></a>
+<a id="doc-21-install-and-update"></a>
 
-### 21. Build and Runtime
+### 21. Install and Update
+
+Common issues related to installing or updating ProStream.
+
+This page focuses on behavior in the current package line.
+
+## Installation Issues
+
+### Lost References / Missing Scripts
+
+**Issue:** Components show as "Missing Script" after installation
+
+**Cause:** Installing ProStream while a scene with ProStream components is open
+
+**Solution:**
+1. Close all scenes before installing
+2. Install ProStream
+3. Reopen scenes after installation completes
+4. If references are still lost, you may need to re-run scene setup
+
+**Prevention:**
+- Close scenes before installing packages
+- Save all work before installation
+- Restart Unity after installation if issues persist
+
+### Package Installation Fails
+
+**Issue:** Unity Package Manager fails to install ProStream
+
+**Common Causes:**
+- Network connectivity issues
+- Package cache corruption
+- Unity version incompatibility
+- Insufficient permissions
+
+**Solutions:**
+1. Check Unity version meets requirements (package manifest currently targets Unity `2022.3.0f0+`)
+2. Clear Package Manager cache
+3. Restart Unity
+4. Check internet connection
+5. Try manual package installation
+
+### Dependencies Not Installed
+
+**Issue:** Required packages (Entities, etc.) not installed automatically
+
+**Solution:**
+1. Open Package Manager
+2. Ensure required DOTS/SRP dependencies are present for your project configuration
+3. Confirm `com.unity.entities.graphics` dependency resolves successfully
+4. Restart Unity
+5. Re-run ProStream Setup
+
+## Update Issues
+
+### ObjectDisposedException Errors
+
+**Issue:** Constant "UNKNOWN_OBJECT_TYPE has been deallocated" errors after update
+
+**Cause:** Updating ProStream (specifically the Entities package) while a scene with SubScene components is open
+
+**Solution:**
+1. Close all scenes
+2. Update packages
+3. Restart Unity
+4. Reopen scenes
+5. If errors persist, reimport ProStream
+
+**Prevention:**
+- Close scenes before updating
+- Backup project before updates
+
+### Settings Lost After Update
+
+**Issue:** ProStream settings reset after update
+**Cause:** Settings format changed between versions
+
+**Solution:**
+1. Reconfigure settings in Settings Panel
+2. Re-run scene setup if needed
+3. Check scene-specific settings in SceneSettings asset
+
+### Compilation Errors After Update
+
+**Issue:** C# compilation errors after updating
+
+**Common Causes:**
+- ProStream files deleted or moved in new version
+- API changes between versions
+- Incompatible package versions
+
+**Solutions:**
+1. Close Unity
+2. Delete the ProStream package folder from `Packages/id.instance.prostream`
+3. Open Unity and reimport ProStream
+
+## Version Compatibility
+
+### Unity Version Requirements
+
+| ProStream Version | Minimum Unity Version | Recommended Unity Version |
+|-------------------|----------------------|---------------------------|
+| Current package line | 2022.3.0f0 | Latest LTS or project-validated version |
+
+### Package Dependencies
+
+Declared package dependency (manifest):
+- `com.unity.entities.graphics`
+
+In practice, ProStream workflows also expect compatible DOTS + SRP project setup.
+
+## Best Practices
+
+### Before Installing/Updating
+
+1. Backup your project
+2. Close all scenes
+3. Save all work
+4. Check Unity version compatibility
+5. Read release notes
+
+### After Installing/Updating
+
+1. Check Console for errors
+2. Verify package installation
+3. Test in a simple scene first
+4. Reconfigure settings if needed
+5. Re-run scene setup if required
+
+### Safe Update Process
+
+1. **Backup Project**
+   - Use version control (Git)
+   - Or create a complete copy
+
+2. **Close Everything**
+   - Close all scenes
+
+3. **Update**
+   - Update ProStream package
+
+4. **Verify**
+   - Check for errors
+   - Test basic functionality
+   - Verify existing scenes work
+
+5. **Reconfigure**
+   - Check settings
+   - Re-run setup if needed
+
+## Troubleshooting Installation
+
+### Setup Window Not Appearing
+
+**Issue:** ProStream setup window doesn't open after import
+
+**Solution:**
+1. Open manually from one of these menu items:
+   - **Tools > instance.id > ProStream > Setup ProStream**
+   - **Tools > instance.id > ProStream > Update ProStream**
+2. Check Console for errors
+3. Verify package imported correctly
+4. Restart Unity
+
+### Setup Hangs
+
+**Issue:** Setup appears to hang during installation
+
+**Solution:**
+1. Wait (installation can take several minutes)
+2. Check Unity's progress bar
+3. Check Console for errors
+4. If truly hung, restart Unity and try again
+
+### SRP Not Detected
+
+**Issue:** Setup says SRP not found
+
+**Solution:**
+1. Install URP or HDRP via Package Manager
+2. Create and assign SRP asset in Project Settings
+3. Restart setup
+4. See [Requirements](/getting-started/requirements) for details
+
+## Getting Help
+
+If installation/update issues persist:
+
+1. Check [Troubleshooting](/troubleshooting/troubleshooting) guide
+2. Verify [Requirements](/getting-started/requirements)
+3. Check Unity Console for specific errors
+4. Try clean installation:
+   - Remove ProStream package
+   - Clear Library folder
+   - Restart Unity
+   - Reinstall ProStream
+
+## See Also
+
+- [Setup](/getting-started/setup) - Setup guide
+- [Requirements](/getting-started/requirements) - Requirements
+- [Troubleshooting](/troubleshooting/troubleshooting) - General issues
+
+<a id="doc-22-build-and-runtime"></a>
+
+### 22. Build and Runtime
 
 Common issues related to the build process and runtime behavior.
 
@@ -3296,8 +3501,6 @@ Assign the appropriate SRP asset for each quality level you're using.
 **Recommended:**
 - Scripting Backend: IL2CPP
 - API Compatibility: .NET Standard 2.1
-- Compression: LZ4 or LZ4HC
-- Code Stripping: Enabled (with proper link.xml)
 
 ### Testing
 
@@ -3316,9 +3519,9 @@ Assign the appropriate SRP asset for each quality level you're using.
 
 ## Reference
 
-<a id="doc-22-settings-reference"></a>
+<a id="doc-23-settings-reference"></a>
 
-### 22. Settings Reference
+### 23. Settings Reference
 
 This page documents the settings currently exposed by ProStream in the active Settings Panel UI.
 
@@ -3483,7 +3686,7 @@ See [Modification Engine](/editor-guide/engines/modification-engine) for details
 
 ProStream settings are stored in:
 - **Global package settings:** `Packages/id.instance.prostream/AssetFiles/Settings/ProStreamSettings.asset`
-- **Scene settings:** `SceneName/SceneData/SceneName_Settings.asset`
+- **Scene settings:** `SceneName/PSSceneData/SceneName_Settings.asset`
 
 In practice, most user workflow settings you edit per scene are stored in the scene settings asset.
 
@@ -3494,9 +3697,9 @@ In practice, most user workflow settings you edit per scene are stored in the sc
 - [Streaming Layers](/core-concepts/layers/streaming-layers) - Layer configuration
 - [Rule Engine](/editor-guide/engines/rule-engine) - Rule configuration
 
-<a id="doc-23-change-log"></a>
+<a id="doc-24-change-log"></a>
 
-### 23. Change Log
+### 24. Change Log
 
 Release history and changes for ProStream.
 
@@ -3535,211 +3738,6 @@ If you encounter issues or have suggestions:
 - [Setup](/getting-started/setup) - Getting started
 - [Troubleshooting](/troubleshooting/troubleshooting) - Common issues
 - [Requirements](/getting-started/requirements) - Requirements
-
-<a id="doc-24-install-and-update"></a>
-
-### 24. Install and Update
-
-Common issues related to installing or updating ProStream.
-
-This page focuses on behavior in the current package line.
-
-## Installation Issues
-
-### Lost References / Missing Scripts
-
-**Issue:** Components show as "Missing Script" after installation
-
-**Cause:** Installing ProStream while a scene with ProStream components is open
-
-**Solution:**
-1. Close all scenes before installing
-2. Install ProStream
-3. Reopen scenes after installation completes
-4. If references are still lost, you may need to re-run scene setup
-
-**Prevention:**
-- Close scenes before installing packages
-- Save all work before installation
-- Restart Unity after installation if issues persist
-
-### Package Installation Fails
-
-**Issue:** Unity Package Manager fails to install ProStream
-
-**Common Causes:**
-- Network connectivity issues
-- Package cache corruption
-- Unity version incompatibility
-- Insufficient permissions
-
-**Solutions:**
-1. Check Unity version meets requirements (package manifest currently targets Unity `2022.3.0f0+`)
-2. Clear Package Manager cache
-3. Restart Unity
-4. Check internet connection
-5. Try manual package installation
-
-### Dependencies Not Installed
-
-**Issue:** Required packages (Entities, etc.) not installed automatically
-
-**Solution:**
-1. Open Package Manager
-2. Ensure required DOTS/SRP dependencies are present for your project configuration
-3. Confirm `com.unity.entities.graphics` dependency resolves successfully
-4. Restart Unity
-5. Re-run ProStream Setup
-
-## Update Issues
-
-### ObjectDisposedException Errors
-
-**Issue:** Constant "UNKNOWN_OBJECT_TYPE has been deallocated" errors after update
-
-**Cause:** Updating ProStream (specifically the Entities package) while a scene with SubScene components is open
-
-**Solution:**
-1. Close all scenes
-2. Update packages
-3. Restart Unity
-4. Reopen scenes
-5. If errors persist, reimport ProStream
-
-**Prevention:**
-- Close scenes before updating
-- Backup project before updates
-
-### Settings Lost After Update
-
-**Issue:** ProStream settings reset after update
-**Cause:** Settings format changed between versions
-
-**Solution:**
-1. Reconfigure settings in Settings Panel
-2. Re-run scene setup if needed
-3. Check scene-specific settings in SceneSettings asset
-
-### Compilation Errors After Update
-
-**Issue:** C# compilation errors after updating
-
-**Common Causes:**
-- ProStream files deleted or moved in new version
-- API changes between versions
-- Incompatible package versions
-
-**Solutions:**
-1. Close Unity
-2. Delete the ProStream package folder from `Packages/id.instance.prostream`
-3. Open Unity and reimport ProStream
-
-## Version Compatibility
-
-### Unity Version Requirements
-
-| ProStream Version | Minimum Unity Version | Recommended Unity Version |
-|-------------------|----------------------|---------------------------|
-| Current package line | 2022.3.0f0 | Latest LTS or project-validated version |
-
-### Package Dependencies
-
-Declared package dependency (manifest):
-- `com.unity.entities.graphics`
-
-In practice, ProStream workflows also expect compatible DOTS + SRP project setup.
-
-## Best Practices
-
-### Before Installing/Updating
-
-1. Backup your project
-2. Close all scenes
-3. Save all work
-4. Check Unity version compatibility
-5. Read release notes
-
-### After Installing/Updating
-
-1. Check Console for errors
-2. Verify package installation
-3. Test in a simple scene first
-4. Reconfigure settings if needed
-5. Re-run scene setup if required
-
-### Safe Update Process
-
-1. **Backup Project**
-   - Use version control (Git)
-   - Or create a complete copy
-
-2. **Close Everything**
-   - Close all scenes
-
-3. **Update**
-   - Update ProStream package
-
-4. **Verify**
-   - Check for errors
-   - Test basic functionality
-   - Verify existing scenes work
-
-5. **Reconfigure**
-   - Check settings
-   - Re-run setup if needed
-
-## Troubleshooting Installation
-
-### Setup Window Not Appearing
-
-**Issue:** ProStream setup window doesn't open after import
-
-**Solution:**
-1. Open manually from one of these menu items:
-   - **Tools > instance.id > ProStream > Setup ProStream**
-   - **Tools > instance.id > ProStream > Update ProStream**
-2. Check Console for errors
-3. Verify package imported correctly
-4. Restart Unity
-
-### Setup Hangs
-
-**Issue:** Setup appears to hang during installation
-
-**Solution:**
-1. Wait (installation can take several minutes)
-2. Check Unity's progress bar
-3. Check Console for errors
-4. If truly hung, restart Unity and try again
-
-### SRP Not Detected
-
-**Issue:** Setup says SRP not found
-
-**Solution:**
-1. Install URP or HDRP via Package Manager
-2. Create and assign SRP asset in Project Settings
-3. Restart setup
-4. See [Requirements](/getting-started/requirements) for details
-
-## Getting Help
-
-If installation/update issues persist:
-
-1. Check [Troubleshooting](/troubleshooting/troubleshooting) guide
-2. Verify [Requirements](/getting-started/requirements)
-3. Check Unity Console for specific errors
-4. Try clean installation:
-   - Remove ProStream package
-   - Clear Library folder
-   - Restart Unity
-   - Reinstall ProStream
-
-## See Also
-
-- [Setup](/getting-started/setup) - Setup guide
-- [Requirements](/getting-started/requirements) - Requirements
-- [Troubleshooting](/troubleshooting/troubleshooting) - General issues
 
 ## Script and Systems Reference
 
