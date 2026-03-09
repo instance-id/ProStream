@@ -17,7 +17,7 @@ Common issues and solutions for ProStream.
 **Check:**
 - Setup completed without errors in Console
 - Check the Console for any errors during setup
-- Look for `SceneName/SceneData/` folder in your Assets
+- Look for `SceneName/PSSceneData/` folder in your Assets
 
 ### Lost References / Missing Scripts
 

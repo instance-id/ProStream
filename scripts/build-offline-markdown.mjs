@@ -7,6 +7,9 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 const docsDir = path.join(rootDir, 'docs');
 const outputPath = path.join(docsDir, 'offline', 'offline-documentation.md');
+const offlineDir = path.join(docsDir, 'offline');
+const publicImagesDir = path.join(docsDir, 'public', 'images');
+const offlineImagesDir = path.join(offlineDir, 'images');
 
 const sections = [
   {
@@ -122,6 +125,20 @@ function removeHtmlComments(content) {
   return content.replace(/^<!--.*?-->\s*$/gm, '');
 }
 
+function rewriteStandaloneAssetLinks(content) {
+  let output = content;
+
+  // Rewrite markdown image links from site-root paths to local relative paths.
+  output = output.replace(/!\[([^\]]*)\]\((\/images\/[^)\s]+)\)/g, (_, alt, imagePath) => {
+    return `![${alt}](.${imagePath})`;
+  });
+
+  // Rewrite HTML image src attributes from site-root paths to local relative paths.
+  output = output.replace(/(<img\b[^>]*\ssrc=")\/images\//g, '$1./images/');
+
+  return output;
+}
+
 function readPage(relativePath) {
   const fullPath = path.join(docsDir, relativePath);
   const raw = fs.readFileSync(fullPath, 'utf8');
@@ -129,7 +146,8 @@ function readPage(relativePath) {
   const expanded = expandIncludes(noFrontmatter, fullPath);
   const noTitle = stripTopHeading(expanded);
   const noComments = removeHtmlComments(noTitle);
-  return noComments.trim();
+  const rewritten = rewriteStandaloneAssetLinks(noComments);
+  return rewritten.trim();
 }
 
 function slugify(input) {
@@ -205,6 +223,16 @@ function buildDocument() {
   return parts.join('\n');
 }
 
-fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+function syncOfflineImages() {
+  if (!fs.existsSync(publicImagesDir)) {
+    throw new Error(`Public images directory not found: ${publicImagesDir}`);
+  }
+
+  fs.rmSync(offlineImagesDir, { recursive: true, force: true });
+  fs.cpSync(publicImagesDir, offlineImagesDir, { recursive: true });
+}
+
+fs.mkdirSync(offlineDir, { recursive: true });
+syncOfflineImages();
 fs.writeFileSync(outputPath, `${buildDocument()}\n`, 'utf8');
 console.log(`Generated offline markdown: ${path.relative(rootDir, outputPath)}`);
