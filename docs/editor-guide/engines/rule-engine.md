@@ -190,7 +190,7 @@ The list of enabled rules is managed by an `ObservableCollection` in the `SceneC
 
 ::: tip
 See [Settings Reference](/reference/settings-reference#search-keyword) for information on keyword separation
-::: 
+:::
 
 
 ## Common Issues
