@@ -25,14 +25,14 @@ The RuleEngine system is extensible through rule provider types.
 1. Press the "Scene Match Rules" button
 2. This switches to the Rule Editor menu in the ProStream Editor
 
-![Open Match Files](/images/open_match_files.png)
+![Open Rule Editor](/images/open_rule_editor.png)
 
 ### Enable Example Rules
 
 1. Locate the example items under the MatchBySearchQuery rules category
 2. Double click rule to enable
 
-![Enable Match Rules](/images/pst_2_enable_match_image_psTutorial.png)
+![Enable Match Rules](/images/enable_rule.png)
 
 You can also verify currently enabled rules in the SceneConnector inspector under `ruleList`.
 
@@ -40,7 +40,7 @@ You can also verify currently enabled rules in the SceneConnector inspector unde
 
 You can edit and preview the results of the query by clicking icon on the right side of the query input box.
 
-![Edit Preview Query](/images/pst_2_edit_preview_query_image_psTutorial.png)
+![Edit Preview Query](/images/edit_search_query.png)
 
 ## Rule Providers
 
@@ -49,11 +49,13 @@ You can edit and preview the results of the query by clicking icon on the right 
 Uses Unity's Search Query system to match objects. This is the most powerful and flexible provider.
 
 **Example Queries:**
+
 - `Tree` - Match prefabs with "Tree" in name
 - `size>10` - Match prefabs larger than 10 units
 - `tag:Environment` - Match prefabs with Environment tag
 
 **Benefits:**
+
 - Leverages Unity's built-in search
 - Very flexible and powerful
 - Can combine multiple criteria
@@ -64,14 +66,16 @@ Uses Unity's Search Query system to match objects. This is the most powerful and
 Uses GameObject Query Language for advanced matching.
 
 **Example Queries:**
+
 - `/Parent/**//SM_Bld_Castle*` - Match objects with names starting with SM_Bld_Castle under Parent
-- `/Parent/**//SM_Bld_*!*Castle*` - Match objects with names starting with SM_Bld_ but not containing Castle under Parent
+- `/Parent/**//SM_Bld_*!*Castle*` - Match objects with names starting with SM*Bld* but not containing Castle under Parent
 
 ### MatchByDefault
 
 Fallback rule that matches any unmatched objects.
 
 **Behavior:**
+
 - Always runs last
 - Catches objects not matched by other rules
 - Assigns to a default layer (which must be specified in the rule settings)
@@ -81,6 +85,7 @@ Fallback rule that matches any unmatched objects.
 Uses the `ManualAssignment` component to assign objects to a target section ahead of query-based matching.
 
 **Behavior:**
+
 - Processes before query rules
 - Useful for explicit manual overrides
 - Works well for one-off exceptions
@@ -153,6 +158,7 @@ Each rule is assigned to a specific streaming layer:
 ### Rule Settings
 
 **Common Settings:**
+
 - **Enabled** - Whether rule is active
 - **Priority** - Execution order
 - **Target Layer** - Which layer matched objects go to
@@ -161,32 +167,11 @@ Each rule is assigned to a specific streaming layer:
 ### Rule List Persistence
 
 The list of enabled rules is managed by an `ObservableCollection` in the `SceneConnector`.
+
 - Whenever you add, remove, or reorder a rule in the Rule Editor, the `SceneConnector` is updated dynamically.
 - The `MatchByDefault` rule is always forced to the last position.
 - This collection is saved with the scene, so you do not need to manually save your rules configuration outside of saving your active Unity scene.
 
-## Testing Rules
-
-### Preview in Unity Search
-
-1. Open Unity Search (`Ctrl+K`)
-2. Enter your search query
-3. Verify correct objects are found
-4. Refine query as needed
-
-### Test During Prepare Scene
-
-1. Enable console logging
-2. Run Prepare Scene
-3. Check console for match statistics
-4. Verify objects assigned to correct layers
-
-### Inspect MatchTracker
-
-1. Select a prefab instance in scene
-2. Check MatchTracker component
-3. Verify `IsMatched` is true
-4. Check `SectionId` shows correct layer
 
 ## Best Practices
 
@@ -196,54 +181,44 @@ The list of enabled rules is managed by an `ObservableCollection` in the `SceneC
 - Modify them for your needs
 - Learn by observing what works
 
-### Be Specific
+### Be Specific (but not too specific)
 
 - More specific rules = better control
-- Use multiple criteria in queries
+- Too specific = may miss objects or require many rules
+- Use multiple criteria in queries (inclusive/exclusive if need be)
 - Test queries before enabling
+
+::: tip
+See [Settings Reference](/reference/settings-reference#search-keyword) for information on keyword separation
+::: 
+
 
 ## Common Issues
 
 **No objects matched**
+
 - Check search query syntax
 - Verify objects are prefabs
 - Ensure objects are under search filters
 - Test query in Unity Search window
 
 **Wrong objects matched**
+
 - Query too broad - add more criteria
 - Check rule priority order
 - Verify layer assignments
 
 **Objects matched by wrong rule**
+
 - Reorder rules (priority)
 - Make earlier rules more specific
 - Check for overlapping criteria
 
 **Rule not executing**
+
 - Verify rule is enabled
 - Check that rule is in SceneConnector list
-- Ensure no errors in rule code
-
-## Performance Considerations
-
-**Query Complexity**
-
-- Simple queries are faster
-- Complex queries may slow calculation
-- Balance specificity vs performance
-
-**Rule Count**
-
-- More rules = longer processing
-- Combine similar rules when possible
-- Remove unused rules
-
-**Match Early**
-
-- Put common matches first
-- Reduces checks for most objects
-- Improves overall performance
+- Ensure no errors in rule code (if custom rule)
 
 ## See Also
 

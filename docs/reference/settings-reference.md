@@ -70,6 +70,10 @@ With keyword separation (separator = `_`):
 - Search for `Tree` becomes `_Tree_`
 - Matches: `Environment_Tree_01` but NOT `City_Street_01`
 
+::: info  
+You can achieve similar results by manually including separator characters in your search query (e.g., searching for `_Tree_` instead of `Tree`), but enabling this setting automatically adds separators to all search terms for convenience.
+:::
+
 ## Streaming Tab
 
 *This tab is only active if DataObjects are being used in the project.*
@@ -83,7 +87,7 @@ With keyword separation (separator = `_`):
 ## Workflows Tab
 
 This tab lists all discovered `WorkflowAsset`s in the project (e.g., `InstanceObjectsWorkflow`, `ColliderObjectsWorkflow`).
-You can toggle whether a workflow is **Active** across the project. 
+You can toggle whether a workflow is **Active** across the project.
 
 *Note: Deactivating a workflow fully disables all associated functionality.*
 
@@ -95,7 +99,7 @@ Settings relating to the final Unity Build process.
 |---------|-------------|
 | Auto Add GameObject Scenes To Build | Automatically add any GameObject SubScenes to the build settings when creating SubScenes. |
 | Auto Remove GameObject Scenes From Build | Automatically remove generated GameObject SubScenes from the build settings when resetting the scene. |
-| Remove Original Objects In Build | Remove the original source GameObjects which were converted to Entities from the final scene when building. |
+| Remove Original Objects In Build | Remove the original source GameObjects which were converted to Entities from the final scene when building.   (This is safe, it does not affect your editor scene, only build) |
 
 ## Debugging Tab
 
