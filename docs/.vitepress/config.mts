@@ -135,7 +135,10 @@ export default defineConfig({
       },
     ],
 
-    socialLinks: [{ icon: 'github', link: 'https://github.com/instance-id' }],
+    socialLinks: [
+      { icon: 'youtube', link: 'https://www.youtube.com/@instanceid' },
+      { icon: 'github', link: 'https://github.com/instance-id' },
+    ],
 
     search: {
       provider: 'local',
