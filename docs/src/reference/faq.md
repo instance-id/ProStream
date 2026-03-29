@@ -1,6 +1,6 @@
 # Frequently Asked Questions
 
-## Compatibility
+## Asset Compatibility
 
 **Q**: Is/are (asset pack|kit|model(s) by `X` publisher) compatible with ProStream?
 
