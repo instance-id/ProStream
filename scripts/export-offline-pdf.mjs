@@ -4,14 +4,18 @@ import http from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
+import {
+  getOfflineArtifactsDir,
+  offlinePdfName,
+} from './docs-version.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 const docsDir = path.join(rootDir, 'docs');
 const distDir = path.join(docsDir, '.vitepress', 'dist');
-const outputDir = path.join(rootDir, 'offline-docs');
-const outputPdfPath = path.join(outputDir, 'ProStream-Offline-Documentation.pdf');
+const outputDir = getOfflineArtifactsDir(rootDir);
+const outputPdfPath = path.join(outputDir, offlinePdfName);
 const port = 4179;
 
 function run(command, args) {

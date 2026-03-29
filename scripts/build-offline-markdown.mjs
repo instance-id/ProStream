@@ -1,15 +1,25 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+  getOfflineArtifactsDir,
+  offlineMarkdownName,
+} from './docs-version.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 const docsDir = path.join(rootDir, 'docs');
+const docsSourceDir = path.join(docsDir, 'src');
 const outputPath = path.join(docsDir, 'offline', 'offline-documentation.md');
 const offlineDir = path.join(docsDir, 'offline');
+const offlineArtifactsDir = getOfflineArtifactsDir(rootDir);
+const offlineArtifactsMarkdownPath = path.join(offlineArtifactsDir, offlineMarkdownName);
+const legacyOfflineDir = path.join(docsSourceDir, 'offline');
+const legacyOfflinePath = path.join(legacyOfflineDir, 'offline-documentation.md');
 const publicImagesDir = path.join(docsDir, 'public', 'images');
 const offlineImagesDir = path.join(offlineDir, 'images');
+const offlineArtifactsImagesDir = path.join(offlineArtifactsDir, 'images');
 
 const sections = [
   {
@@ -140,7 +150,7 @@ function rewriteStandaloneAssetLinks(content) {
 }
 
 function readPage(relativePath) {
-  const fullPath = path.join(docsDir, relativePath);
+  const fullPath = path.join(docsSourceDir, relativePath);
   const raw = fs.readFileSync(fullPath, 'utf8');
   const noFrontmatter = stripFrontmatter(raw);
   const expanded = expandIncludes(noFrontmatter, fullPath);
@@ -230,9 +240,24 @@ function syncOfflineImages() {
 
   fs.rmSync(offlineImagesDir, { recursive: true, force: true });
   fs.cpSync(publicImagesDir, offlineImagesDir, { recursive: true });
+  fs.rmSync(offlineArtifactsImagesDir, { recursive: true, force: true });
+  fs.cpSync(publicImagesDir, offlineArtifactsImagesDir, { recursive: true });
+}
+
+function removeLegacyOfflineArtifacts() {
+  fs.rmSync(legacyOfflinePath, { force: true });
+
+  if (fs.existsSync(legacyOfflineDir) && fs.readdirSync(legacyOfflineDir).length === 0) {
+    fs.rmdirSync(legacyOfflineDir);
+  }
 }
 
 fs.mkdirSync(offlineDir, { recursive: true });
+fs.mkdirSync(offlineArtifactsDir, { recursive: true });
+removeLegacyOfflineArtifacts();
 syncOfflineImages();
-fs.writeFileSync(outputPath, `${buildDocument()}\n`, 'utf8');
+const documentContents = `${buildDocument()}\n`;
+fs.writeFileSync(outputPath, documentContents, 'utf8');
+fs.writeFileSync(offlineArtifactsMarkdownPath, documentContents, 'utf8');
 console.log(`Generated offline markdown: ${path.relative(rootDir, outputPath)}`);
+console.log(`Generated offline distributable markdown: ${path.relative(rootDir, offlineArtifactsMarkdownPath)}`);

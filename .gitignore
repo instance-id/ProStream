@@ -20,4 +20,4 @@ ProStream.docs.code-workspace
 # Offline export artifacts
 offline-docs/
 docs/offline/
-
+internal/

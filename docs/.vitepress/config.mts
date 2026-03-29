@@ -1,11 +1,18 @@
-import { defineConfig } from 'vitepress';
+import { defineVersionedConfig } from '@viteplus/versions';
 
 const base = '/';
+const currentVersion = '0.2.1';
 
-export default defineConfig({
+export default defineVersionedConfig({
   title: 'ProStream',
   description: 'High-performance scene streaming for Unity using DOTS/ECS',
   base,
+  versionsConfig: {
+    current: currentVersion,
+    sources: 'src',
+    archive: 'archive',
+    versionSwitcher: false,
+  },
 
   themeConfig: {
     logo: '/logo_image_prostream.png',
@@ -15,6 +22,8 @@ export default defineConfig({
       { text: 'Setup', link: '/getting-started/setup' },
       { text: 'Quick Start', link: '/getting-started/sample-quickstart' },
       { text: 'Reference', link: '/reference/settings-reference' },
+      { text: 'Support', link: 'https://prostream.instance.id' },
+      { component: 'VersionSwitcher' },
     ],
 
     sidebar: [
@@ -129,6 +138,7 @@ export default defineConfig({
         text: 'Reference',
         collapsed: false,
         items: [
+          { text: 'FAQ', link: '/reference/faq' },
           { text: 'Settings Reference', link: '/reference/settings-reference' },
           { text: 'Change Log', link: '/reference/change-log' },
         ],
