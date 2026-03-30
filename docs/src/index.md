@@ -50,35 +50,39 @@ features:
 
  -->
 
+![ProStream Workflow](/images/prostream_scene.png)
+
 ## What is ProStream?
 
-ProStream provides comprehensive tooling that automates the conversion of traditional GameObject scenes to DOTS entity subscenes and performance optimized multi-layer entity subscene streaming systems.
+**ProStream** is a DOTS/ECS world streaming toolkit designed to address the performance overhead of traditional Unity GameObject scene streaming. By providing comprehensive tooling that automates the conversion of large, heavy scenes into fast-loading, memory-efficient Entity SubScenes, ProStream empowers you to build high-performance, seamlessly streaming worlds with exceptional performance.
 
 ### Key Features
 
 ::: tip ⚡ High-Performance Runtime
 
-**ECS-based streaming**: Implements SubScene streaming with Unity ECS and multi-threaded Job systems
+**High-Performance Runtime Streaming:** Implements SubScene streaming utilizing Unity ECS and multi-threaded Burst-compiled jobs for maximum CPU efficiency.
 
-**Jobs + Burst**: Parallel distance/state evaluation with Burst-compatible jobs
+**Proximity-Driven Loading:** Dynamically evaluates distance thresholds in parallel to seamlessly load and unload scene content as the player navigates the world.
 
-**Proximity-driven decisions**: Evaluates distance thresholds for load/unload operations
+**Responsive Streaming Control:** Adjust loading ranges and streaming parameters at runtime for precise, dynamic control over your world's memory footprint.
 
 :::
 
 ::: info 🎯 Scene Analysis & Generation
 
-**Intelligent scene analysis system** that identifies optimal streaming boundaries based on object density and relationships
+**Intelligent Scene Analysis:** The core preprocessing engine evaluates scene object bounds and density, utilizing an adaptive Quadtree algorithm to dynamically partition your world into balanced, memory-efficient streaming chunks.
 
-**Automatic layer generation** that organizes GameObjects into logical streaming groups based on customizable rule sets
+**GameObject-to-Entity Conversion:** Turn massive, complex Unity scenes into streamable, DOTS-ready SubScenes in a fraction of the time.
+
+**Advanced Rule-Based Matching:** Leverage powerful, customizable rules and queries to automatically categorize GameObjects into distinct streaming layers which enables independent loading ranges and streaming behaviors.
 
 :::
 
 ::: warning 🐛 Debugging & Diagnostics
 
-**Visualization tools**: Built-in debug/distance visualizations that allow you to inspect streaming behavior.
+**Built-in Diagnostics & Validation:** A comprehensive diagnostic framework instantly identifies and helps resolve potential Entity conversion issues (e.g., incompatible shaders, missing colliders, invalid bounds) before they become runtime problems.
 
-**Diagnostic framework** to help you identify and fix potential Entity conversion and streaming issues
+**Visual Debugging Tools:** Built-in editor visualizations allow you to inspect distance thresholds and streaming behavior in real-time.
 
 :::
 
