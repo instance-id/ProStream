@@ -2,27 +2,13 @@
 
 Release history and changes for ProStream.
 
-## Version History
+## 0.2.1
 
-::: info
-This page will be updated with version-specific changes as new releases are published.
-:::
-
-## Latest Changes
+- Initial Asset Store Release
 
 ### Recent Improvements
 
-- Enhanced scene setup process (no longer requires scene reload)
-- Improved rule matching performance
-- Better error messages and validation
-- Updated documentation
-
 ### Bug Fixes
-
-- Fixed UserRuleCollection null reference issues
-- Fixed RuleCollectionContainer property getters/setters
-- Improved LayerData initialization
-- Enhanced asset serialization handling
 
 ## Reporting Issues
 

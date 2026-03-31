@@ -106,6 +106,16 @@ function createStaticServer(root) {
   });
 }
 
+async function expandDetailsForPrint(page) {
+  await page.evaluate(() => {
+    const detailsElements = document.querySelectorAll('details');
+
+    for (const detailsElement of detailsElements) {
+      detailsElement.setAttribute('open', '');
+    }
+  });
+}
+
 async function main() {
   await run('node', ['scripts/build-offline-markdown.mjs']);
   await run('npm', ['run', 'docs:build']);
@@ -125,6 +135,8 @@ async function main() {
     await page.goto(`http://127.0.0.1:${port}/offline/offline-documentation.html`, {
       waitUntil: 'networkidle',
     });
+
+    await expandDetailsForPrint(page);
 
     await page.emulateMedia({ media: 'print' });
 

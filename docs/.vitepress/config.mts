@@ -11,7 +11,7 @@ export default defineVersionedConfig({
     current: currentVersion,
     sources: 'src',
     archive: 'archive',
-    versionSwitcher: false,
+    versionSwitcher: false
   },
 
   themeConfig: {
@@ -23,7 +23,7 @@ export default defineVersionedConfig({
       { text: 'Quick Start', link: '/getting-started/sample-quickstart' },
       { text: 'Reference', link: '/reference/settings-reference' },
       { text: 'Support', link: 'https://prostream.instance.id' },
-      { component: 'VersionSwitcher' },
+      { component: 'VersionSwitcher' }
     ],
 
     sidebar: [
@@ -35,8 +35,8 @@ export default defineVersionedConfig({
         items: [
           { text: 'Setup', link: '/getting-started/setup' },
           { text: 'Quick Start', link: '/getting-started/sample-quickstart' },
-          { text: 'Standard Workflow', link: '/getting-started/standard-workflow' },
-        ],
+          { text: 'Standard Workflow', link: '/getting-started/standard-workflow' }
+        ]
       },
 
       // --| Core Concepts ------------
@@ -47,8 +47,8 @@ export default defineVersionedConfig({
         items: [
           { text: 'Importance of Prefabs', link: '/core-concepts/importance-of-prefabs' },
           { text: 'Streaming Layers', link: '/core-concepts/layers/streaming-layers' },
-          { text: 'Workflows', link: '/core-concepts/workflows' },
-        ],
+          { text: 'Workflows', link: '/core-concepts/workflows' }
+        ]
       },
 
       // --| Editor Guide -------------
@@ -61,7 +61,7 @@ export default defineVersionedConfig({
           {
             text: 'Editor Windows',
             collapsed: true,
-            items: [{ text: 'ProStream Editor', link: '/editor-guide/windows/prostream-editor' }],
+            items: [{ text: 'ProStream Editor', link: '/editor-guide/windows/prostream-editor' }]
           },
 
           // --| Components -----------
@@ -70,8 +70,8 @@ export default defineVersionedConfig({
             collapsed: true,
             items: [
               { text: 'Scene Connector', link: '/editor-guide/components/scene-connector' },
-              { text: 'Scene Search Filter', link: '/editor-guide/components/scene-search-filter' },
-            ],
+              { text: 'Scene Search Filter', link: '/editor-guide/components/scene-search-filter' }
+            ]
           },
 
           // --| Engines --------------
@@ -82,8 +82,8 @@ export default defineVersionedConfig({
               { text: 'Rule Engine', link: '/editor-guide/engines/rule-engine' },
               { text: 'Modification Engine', link: '/editor-guide/engines/modification-engine' },
               { text: 'Operation Engine', link: '/editor-guide/engines/operation-engine' },
-              { text: 'Workflows Configuration', link: '/editor-guide/engines/workflows-configuration' },
-            ],
+              { text: 'Workflows Configuration', link: '/editor-guide/engines/workflows-configuration' }
+            ]
           },
 
           // --| Tools ----------------
@@ -92,10 +92,10 @@ export default defineVersionedConfig({
             collapsed: true,
             items: [
               { text: 'Diagnostics', link: '/editor-guide/tools/validation-diagnostics' },
-              { text: 'Pipeline Validation', link: '/editor-guide/tools/validation-pipeline' },
-            ],
-          },
-        ],
+              { text: 'Pipeline Validation', link: '/editor-guide/tools/validation-pipeline' }
+            ]
+          }
+        ]
       },
 
       // --| Processes ----------------
@@ -105,8 +105,8 @@ export default defineVersionedConfig({
         collapsed: false,
         items: [
           { text: 'Prepare Scene', link: '/processes/prepare-scene' },
-          { text: 'SubScene Creation', link: '/processes/process-subscenes' },
-        ],
+          { text: 'SubScene Creation', link: '/processes/process-subscenes' }
+        ]
       },
 
       // --| Runtime Systems ----------
@@ -116,8 +116,8 @@ export default defineVersionedConfig({
         collapsed: false,
         items: [
           { text: 'Runtime Streaming', link: '/runtime-systems/runtime-streaming' },
-          { text: 'Advanced Configuration', link: '/runtime-systems/advanced-configuration' },
-        ],
+          { text: 'Advanced Configuration', link: '/runtime-systems/advanced-configuration' }
+        ]
       },
 
       // --| Troubleshooting ----------
@@ -128,8 +128,8 @@ export default defineVersionedConfig({
         items: [
           { text: 'Common Issues', link: '/troubleshooting/troubleshooting' },
           { text: 'Install & Update', link: '/reference/install-update' },
-          { text: 'Build & Runtime', link: '/troubleshooting/build-runtime' },
-        ],
+          { text: 'Build & Runtime', link: '/troubleshooting/build-runtime' }
+        ]
       },
 
       // --| Reference ----------------
@@ -140,25 +140,25 @@ export default defineVersionedConfig({
         items: [
           { text: 'FAQ', link: '/reference/faq' },
           { text: 'Settings Reference', link: '/reference/settings-reference' },
-          { text: 'Change Log', link: '/reference/change-log' },
-        ],
-      },
+          { text: 'Change Log', link: '/reference/change-log' }
+        ]
+      }
     ],
 
     socialLinks: [
       { icon: 'youtube', link: 'https://www.youtube.com/@instanceid' },
-      { icon: 'github', link: 'https://github.com/instance-id' },
+      { icon: 'github', link: 'https://github.com/instance-id' }
     ],
 
     search: {
-      provider: 'local',
+      provider: 'local'
     },
 
     footer: {
       message: 'ProStream - High-performance scene streaming for Unity',
-      copyright: 'Copyright © 2026 instance.id',
-    },
+      copyright: 'Copyright © 2026 instance.id'
+    }
   },
 
-  head: [['link', { rel: 'icon', href: `${base}prostream_logo_1.png` }]],
+  head: [['link', { rel: 'icon', href: `${base}prostream_logo_1.png` }]]
 });

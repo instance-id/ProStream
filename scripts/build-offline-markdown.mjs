@@ -77,6 +77,7 @@ const sections = [
   {
     group: 'Reference',
     pages: [
+      ['FAQ', 'reference/faq.md'],
       ['Settings Reference', 'reference/settings-reference.md'],
       ['Change Log', 'reference/change-log.md'],
     ],
@@ -149,6 +150,16 @@ function rewriteStandaloneAssetLinks(content) {
   return output;
 }
 
+function expandDetailsBlocks(content) {
+  return content.replace(/^:::\s*details\b[^\n]*$/gm, (match) => {
+    if (match.includes('{open}')) {
+      return match;
+    }
+
+    return `${match.trimEnd()} {open}`;
+  });
+}
+
 function readPage(relativePath) {
   const fullPath = path.join(docsSourceDir, relativePath);
   const raw = fs.readFileSync(fullPath, 'utf8');
@@ -157,7 +168,8 @@ function readPage(relativePath) {
   const noTitle = stripTopHeading(expanded);
   const noComments = removeHtmlComments(noTitle);
   const rewritten = rewriteStandaloneAssetLinks(noComments);
-  return rewritten.trim();
+  const expandedDetails = expandDetailsBlocks(rewritten);
+  return expandedDetails.trim();
 }
 
 function slugify(input) {
