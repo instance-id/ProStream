@@ -23,15 +23,17 @@ Understanding workflows involves a few key types:
 ProStream currently includes two primary workflows for scene generation:
 
 ### 1. InstanceObjectsWorkflow
-This is the default, primary workflow for ProStream. 
+This is the default, primary workflow for ProStream.
 - It handles standard Unity Prefab instances.
 - It is responsible for creating the main spatial **QuadTree**.
 - It organizes visual geometry, props, and environment assets into streaming sections (Ground, LargeObjects, etc.).
 
 ### 2. ColliderObjectsWorkflow
-This workflow is specialized for handling physics colliders.
-- It allows you to separate physical collision data from visual geometry.
-- It can utilize its own separate QuadTree settings or piggyback on existing data to optimize physics streaming independent of visual streaming.
+The **ColliderObjectsWorkflow** separates collision geometry from rendered visual geometry.
+
+**Key Technical Benefits:**
+- **Decoupled Physics & Visuals:** Automatically extracts colliders from your source GameObjects during the ECS conversion process. Visual entities remain extremely lightweight, while physics data remains accessible to legacy Unity Physics systems.
+- **Dynamic Spatial Organization:** Utilizes its own Burst-compiled QuadTree grid to optionally group colliders by proximity.
 
 <!-- Note: DataObjectWorkflow and RemoteSceneWorkflow are currently WIP and will be documented in a future release. -->
 
