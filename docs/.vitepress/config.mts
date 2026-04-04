@@ -21,6 +21,7 @@ export default defineVersionedConfig({
       { text: 'Home', link: '/' },
       { text: 'Setup', link: '/getting-started/setup' },
       { text: 'Quick Start', link: '/getting-started/sample-quickstart' },
+      { text: 'Planned Features', link: '/planned-features/' },
       { text: 'Reference', link: '/reference/settings-reference' },
       { text: 'Support', link: 'https://prostream.instance.id' },
       { component: 'VersionSwitcher' }
@@ -117,6 +118,21 @@ export default defineVersionedConfig({
         items: [
           { text: 'Runtime Streaming', link: '/runtime-systems/runtime-streaming' },
           { text: 'Advanced Configuration', link: '/runtime-systems/advanced-configuration' }
+        ]
+      },
+
+      // --| Planned Features ---------
+      // --|---------------------------
+      {
+        text: 'Planned Features',
+        collapsed: false,
+        items: [
+          { text: 'Overview', link: '/planned-features/' },
+          { text: 'DataObjects Workflow', link: '/planned-features/dataobjects-workflow' },
+          { text: 'RemoteScenes Workflow', link: '/planned-features/remote-scenes-workflow' },
+          { text: 'Terrain System', link: '/planned-features/terrain-system' },
+          { text: 'Visibility and Frustum Culling', link: '/planned-features/visibility-culling' },
+          { text: 'Impostor Baking', link: '/planned-features/impostor-baking' }
         ]
       },
 

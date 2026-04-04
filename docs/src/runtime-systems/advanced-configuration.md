@@ -4,7 +4,7 @@ While ProStream sets up distance-based loading ranges automatically during the _
 
 ## Dynamic Loading Ranges
 
-ProStream utilizes a **Runtime Streaming v2 Architecture** that allows you to easily adjust the loading ranges (start and end distances) for specific streaming sections while the game is running.
+ProStream utilizes a **Runtime Streaming Architecture** that allows you to easily adjust the loading ranges (start and end distances) for specific streaming sections while the game is running.
 
 This is accomplished using the `LoadingDistanceSystem`, an ECS system that provides an API for safely updating the `LayerLoadingRanges` dynamic buffer.
 

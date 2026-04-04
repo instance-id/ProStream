@@ -20,66 +20,77 @@ const legacyOfflinePath = path.join(legacyOfflineDir, 'offline-documentation.md'
 const publicImagesDir = path.join(docsDir, 'public', 'images');
 const offlineImagesDir = path.join(offlineDir, 'images');
 const offlineArtifactsImagesDir = path.join(offlineArtifactsDir, 'images');
+const docsSiteBaseUrl = 'https://psdocs.instance.id';
 
 const sections = [
   {
+    group: 'Planned Features',
+    pages: [
+      {
+        title: 'Planned Features',
+        path: 'planned-features/index.md',
+        exportLinkMode: 'absolute-site',
+      },
+    ],
+  },
+  {
     group: 'Getting Started',
     pages: [
-      ['Setup', 'getting-started/setup.md'],
-      ['Sample Project Quickstart', 'getting-started/sample-quickstart.md'],
-      ['Standard Workflow', 'getting-started/standard-workflow.md'],
+      { title: 'Setup', path: 'getting-started/setup.md' },
+      { title: 'Sample Project Quickstart', path: 'getting-started/sample-quickstart.md' },
+      { title: 'Standard Workflow', path: 'getting-started/standard-workflow.md' },
     ],
   },
   {
     group: 'Core Concepts',
     pages: [
-      ['Importance of Prefabs', 'core-concepts/importance-of-prefabs.md'],
-      ['Streaming Layers', 'core-concepts/layers/streaming-layers.md'],
-      ['Workflows', 'core-concepts/workflows.md'],
+      { title: 'Importance of Prefabs', path: 'core-concepts/importance-of-prefabs.md' },
+      { title: 'Streaming Layers', path: 'core-concepts/layers/streaming-layers.md' },
+      { title: 'Workflows', path: 'core-concepts/workflows.md' },
     ],
   },
   {
     group: 'Editor Guide',
     pages: [
-      ['ProStream Editor', 'editor-guide/windows/prostream-editor.md'],
-      ['Scene Connector', 'editor-guide/components/scene-connector.md'],
-      ['Scene Search Filter', 'editor-guide/components/scene-search-filter.md'],
-      ['Rule Engine', 'editor-guide/engines/rule-engine.md'],
-      ['Modification Engine', 'editor-guide/engines/modification-engine.md'],
-      ['Operation Engine', 'editor-guide/engines/operation-engine.md'],
-      ['Workflows Configuration', 'editor-guide/engines/workflows-configuration.md'],
-      ['Validation and Diagnostics', 'editor-guide/tools/validation-diagnostics.md'],
-      ['Pipeline Validation', 'editor-guide/tools/validation-pipeline.md'],
+      { title: 'ProStream Editor', path: 'editor-guide/windows/prostream-editor.md' },
+      { title: 'Scene Connector', path: 'editor-guide/components/scene-connector.md' },
+      { title: 'Scene Search Filter', path: 'editor-guide/components/scene-search-filter.md' },
+      { title: 'Rule Engine', path: 'editor-guide/engines/rule-engine.md' },
+      { title: 'Modification Engine', path: 'editor-guide/engines/modification-engine.md' },
+      { title: 'Operation Engine', path: 'editor-guide/engines/operation-engine.md' },
+      { title: 'Workflows Configuration', path: 'editor-guide/engines/workflows-configuration.md' },
+      { title: 'Validation and Diagnostics', path: 'editor-guide/tools/validation-diagnostics.md' },
+      { title: 'Pipeline Validation', path: 'editor-guide/tools/validation-pipeline.md' },
     ],
   },
   {
     group: 'Processes',
     pages: [
-      ['Prepare Scene', 'processes/prepare-scene.md'],
-      ['SubScene Creation', 'processes/process-subscenes.md'],
+      { title: 'Prepare Scene', path: 'processes/prepare-scene.md' },
+      { title: 'SubScene Creation', path: 'processes/process-subscenes.md' },
     ],
   },
   {
     group: 'Runtime Systems',
     pages: [
-      ['Runtime Streaming', 'runtime-systems/runtime-streaming.md'],
-      ['Advanced Configuration', 'runtime-systems/advanced-configuration.md'],
+      { title: 'Runtime Streaming', path: 'runtime-systems/runtime-streaming.md' },
+      { title: 'Advanced Configuration', path: 'runtime-systems/advanced-configuration.md' },
     ],
   },
   {
     group: 'Troubleshooting',
     pages: [
-      ['Common Issues', 'troubleshooting/troubleshooting.md'],
-      ['Install and Update', 'troubleshooting/install-update.md'],
-      ['Build and Runtime', 'troubleshooting/build-runtime.md'],
+      { title: 'Common Issues', path: 'troubleshooting/troubleshooting.md' },
+      { title: 'Install and Update', path: 'troubleshooting/install-update.md' },
+      { title: 'Build and Runtime', path: 'troubleshooting/build-runtime.md' },
     ],
   },
   {
     group: 'Reference',
     pages: [
-      ['FAQ', 'reference/faq.md'],
-      ['Settings Reference', 'reference/settings-reference.md'],
-      ['Change Log', 'reference/change-log.md'],
+      { title: 'FAQ', path: 'reference/faq.md' },
+      { title: 'Settings Reference', path: 'reference/settings-reference.md' },
+      { title: 'Change Log', path: 'reference/change-log.md' },
     ],
   },
 ];
@@ -150,6 +161,75 @@ function rewriteStandaloneAssetLinks(content) {
   return output;
 }
 
+function toSitePath(relativeDocPath) {
+  const normalized = relativeDocPath.replace(/\\/g, '/');
+
+  if (normalized === 'index.md') {
+    return '/';
+  }
+
+  if (normalized.endsWith('/index.md')) {
+    return `/${normalized.slice(0, -'/index.md'.length)}/`;
+  }
+
+  if (normalized.endsWith('.md')) {
+    return `/${normalized.slice(0, -3)}`;
+  }
+
+  return `/${normalized}`;
+}
+
+function toAbsoluteSiteUrl(href, pagePath) {
+  const trimmedHref = href.trim();
+
+  if (!trimmedHref || trimmedHref.startsWith('#') || /^[a-z]+:/i.test(trimmedHref) || trimmedHref.startsWith('/images/')) {
+    return null;
+  }
+
+  const [pathAndQuery, hash = ''] = trimmedHref.split('#');
+  const [targetPath, query = ''] = pathAndQuery.split('?');
+
+  if (!targetPath.endsWith('.md')) {
+    return null;
+  }
+
+  const resolvedPath = path.resolve(path.dirname(pagePath), targetPath);
+
+  if (!resolvedPath.startsWith(docsSourceDir)) {
+    return null;
+  }
+
+  const relativeDocPath = path.relative(docsSourceDir, resolvedPath);
+  const sitePath = toSitePath(relativeDocPath);
+  const querySuffix = query ? `?${query}` : '';
+  const hashSuffix = hash ? `#${hash}` : '';
+  return `${docsSiteBaseUrl}${sitePath}${querySuffix}${hashSuffix}`;
+}
+
+function externalizeDocLinks(content, pagePath) {
+  let output = content;
+
+  output = output.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, label, href) => {
+    const absoluteHref = toAbsoluteSiteUrl(href, pagePath);
+    if (!absoluteHref) {
+      return match;
+    }
+
+    return `[${label}](${absoluteHref})`;
+  });
+
+  output = output.replace(/href="([^"]+)"/g, (match, href) => {
+    const absoluteHref = toAbsoluteSiteUrl(href, pagePath);
+    if (!absoluteHref) {
+      return match;
+    }
+
+    return `href="${absoluteHref}"`;
+  });
+
+  return output;
+}
+
 function expandDetailsBlocks(content) {
   return content.replace(/^:::\s*details\b[^\n]*$/gm, (match) => {
     if (match.includes('{open}')) {
@@ -160,7 +240,7 @@ function expandDetailsBlocks(content) {
   });
 }
 
-function readPage(relativePath) {
+function readPage(relativePath, options = {}) {
   const fullPath = path.join(docsSourceDir, relativePath);
   const raw = fs.readFileSync(fullPath, 'utf8');
   const noFrontmatter = stripFrontmatter(raw);
@@ -168,7 +248,10 @@ function readPage(relativePath) {
   const noTitle = stripTopHeading(expanded);
   const noComments = removeHtmlComments(noTitle);
   const rewritten = rewriteStandaloneAssetLinks(noComments);
-  const expandedDetails = expandDetailsBlocks(rewritten);
+  const linkAdjusted = options.exportLinkMode === 'absolute-site'
+    ? externalizeDocLinks(rewritten, fullPath)
+    : rewritten;
+  const expandedDetails = expandDetailsBlocks(linkAdjusted);
   return expandedDetails.trim();
 }
 
@@ -187,9 +270,9 @@ function buildTableOfContents() {
 
   for (const section of sections) {
     lines.push(`- ${section.group}`);
-    for (const [title] of section.pages) {
-      const anchor = `doc-${docIndex}-${slugify(title)}`;
-      lines.push(`  - ${docIndex}. [${title}](#${anchor})`);
+    for (const page of section.pages) {
+      const anchor = `doc-${docIndex}-${slugify(page.title)}`;
+      lines.push(`  - ${docIndex}. [${page.title}](#${anchor})`);
       docIndex += 1;
     }
   }
@@ -221,13 +304,13 @@ function buildDocument() {
     parts.push(`## ${section.group}`);
     parts.push('');
 
-    for (const [title, relativePath] of section.pages) {
-      const anchor = `doc-${docIndex}-${slugify(title)}`;
+    for (const page of section.pages) {
+      const anchor = `doc-${docIndex}-${slugify(page.title)}`;
       parts.push(`<a id="${anchor}"></a>`);
       parts.push('');
-      parts.push(`### ${docIndex}. ${title}`);
+      parts.push(`### ${docIndex}. ${page.title}`);
       parts.push('');
-      parts.push(readPage(relativePath));
+      parts.push(readPage(page.path, { exportLinkMode: page.exportLinkMode }));
       parts.push('');
       docIndex += 1;
     }
