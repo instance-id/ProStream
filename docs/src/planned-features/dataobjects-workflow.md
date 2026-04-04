@@ -7,7 +7,6 @@ description: Compact prefab-and-instance streaming for repeated content in dense
 
 <div class="planned-feature-detail-meta" style="margin-top: 1rem;">
   <Badge type="tip" text="Advanced prototype" />
-  <!-- <Badge type="info" text="Code-verified 2026-04-03" /> -->
 </div>
 
 <!-- <p class="planned-feature-detail-intro">

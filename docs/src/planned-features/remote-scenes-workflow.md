@@ -7,7 +7,6 @@ description: Multi-scene authoring and processing support for larger ProStream w
 
 <div class="planned-feature-detail-meta">
   <Badge type="tip" text="Advanced prototype" />
-  <Badge type="info" text="Code-verified 2026-04-03" />
 </div>
 
 <p class="planned-feature-detail-intro">

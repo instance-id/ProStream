@@ -6,8 +6,7 @@ description: Atlas-based long-range impostor generation for aggressive distant-o
 # Impostor Baking
 
 <div class="planned-feature-detail-meta">
-  <Badge type="danger" text="Archived WIP module" />
-  <Badge type="info" text="Code-verified 2026-04-03" />
+  <Badge type="danger" text="WIP module" />
 </div>
 
 <p class="planned-feature-detail-intro">

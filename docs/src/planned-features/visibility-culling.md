@@ -7,7 +7,6 @@ description: View-aware streamed section activation using frustum extraction and
 
 <div class="planned-feature-detail-meta">
   <Badge type="info" text="Beta-level subsystem" />
-  <Badge type="info" text="Code-verified 2026-04-03" />
 </div>
 
 <p class="planned-feature-detail-intro">

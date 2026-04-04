@@ -295,6 +295,7 @@ img {
   flex-wrap: wrap;
   gap: 0.5rem;
   margin: 0 0 1rem;
+  margin-top: 1rem;
 }
 
 .planned-feature-detail-intro {
