@@ -305,8 +305,185 @@ img {
   line-height: 1.75;
 }
 
+.known-limitations-hero {
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 2rem;
+  padding: 1.75rem;
+  border: 1px solid rgba(225, 167, 43, 0.32);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at top right, rgba(225, 167, 43, 0.18), transparent 40%),
+    linear-gradient(135deg, rgba(225, 167, 43, 0.12), rgba(17, 17, 17, 0.94));
+}
+
+.known-limitations-hero::after {
+  content: '';
+  position: absolute;
+  inset: auto -8% -40% auto;
+  width: 240px;
+  height: 240px;
+  border-radius: 999px;
+  background: rgba(225, 167, 43, 0.12);
+  filter: blur(18px);
+  pointer-events: none;
+}
+
+.known-limitations-eyebrow {
+  margin: 0 0 0.5rem;
+  color: #f1c868;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.known-limitations-hero h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 1.05;
+}
+
+.known-limitations-lead {
+  max-width: 60rem;
+  margin: 0.9rem 0 0;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--vp-c-text-2);
+}
+
+.known-limitations-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.2rem;
+}
+
+.known-limitations-metric {
+  min-width: 180px;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background: rgba(10, 10, 10, 0.52);
+}
+
+.known-limitations-metric strong {
+  display: block;
+  color: #fff;
+  font-size: 1.02rem;
+}
+
+.known-limitations-metric span {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--vp-c-text-3);
+  font-size: 0.92rem;
+}
+
+.known-limitations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.known-limitation-card {
+  display: block;
+  padding: 1rem;
+  border: 1px solid rgba(225, 167, 43, 0.16);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(225, 167, 43, 0.08), rgba(255, 255, 255, 0.02));
+  text-decoration: none;
+  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+.known-limitation-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(225, 167, 43, 0.34);
+  background: linear-gradient(180deg, rgba(225, 167, 43, 0.12), rgba(255, 255, 255, 0.03));
+}
+
+.known-limitation-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.45rem;
+  color: var(--vp-c-text-1);
+}
+
+.known-limitation-card p {
+  margin: 0;
+  color: var(--vp-c-text-2);
+}
+
+.known-limitations-table-wrapper table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(225, 167, 43, 0.05), rgba(255, 255, 255, 0));
+  margin: 1.5rem 0;
+}
+
+.known-limitations-table-wrapper table thead th {
+  border: 0;
+  border-bottom: 1px solid var(--vp-c-border);
+  background: rgba(225, 167, 43, 0.1);
+  color: var(--vp-c-text-1);
+}
+
+.known-limitations-table-wrapper table tbody td {
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: top;
+}
+
+.known-limitations-table-wrapper table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.known-limitations-table-wrapper table a {
+  font-weight: 600;
+}
+
+.known-limitation-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.known-limitation-status--hybrid {
+  color: #fff0c7;
+  background: rgba(225, 167, 43, 0.24);
+}
+
+.known-limitation-status--planned {
+  color: #ffe4bf;
+  background: rgba(194, 115, 40, 0.24);
+}
+
+.known-limitation-status--custom {
+  color: #d6f4ff;
+  background: rgba(39, 150, 215, 0.22);
+}
+
+.known-limitation-status--strict {
+  color: #ffd4d4;
+  background: rgba(187, 75, 96, 0.24);
+}
+
 @media (max-width: 768px) {
   .planned-features-hero {
+    padding: 1.25rem;
+    border-radius: 18px;
+  }
+
+  .known-limitations-hero {
     padding: 1.25rem;
     border-radius: 18px;
   }
@@ -316,9 +493,19 @@ img {
     overflow-x: auto;
   }
 
+  .known-limitations-table-wrapper table {
+    display: block;
+    overflow-x: auto;
+  }
+
   .planned-features-metric {
     min-width: 0;
     flex: 1 1 140px;
+  }
+
+  .known-limitations-metric {
+    min-width: 0;
+    flex: 1 1 160px;
   }
 }
 
@@ -378,6 +565,9 @@ img {
 
   .planned-features-hero,
   .planned-feature-card,
+  .known-limitations-hero,
+  .known-limitation-card,
+  .known-limitations-table-wrapper table,
   .planned-features-table-wrapper table {
     box-shadow: none !important;
     background: transparent !important;

@@ -121,6 +121,14 @@ export default defineVersionedConfig({
         ]
       },
 
+      // --| Known Limitations --------
+      // --|---------------------------
+      {
+        text: 'Known Limitations',
+        collapsed: false,
+        items: [{ text: 'Overview', link: '/known-limitations/overview' }]
+      },
+
       // --| Planned Features ---------
       // --|---------------------------
       {

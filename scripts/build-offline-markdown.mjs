@@ -78,6 +78,12 @@ const sections = [
     ],
   },
   {
+    group: 'Known Limitations',
+    pages: [
+      { title: 'Known Limitations', path: 'known-limitations/overview.md' },
+    ],
+  },
+  {
     group: 'Troubleshooting',
     pages: [
       { title: 'Common Issues', path: 'troubleshooting/troubleshooting.md' },
