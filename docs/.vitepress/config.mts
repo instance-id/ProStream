@@ -48,7 +48,15 @@ export default defineVersionedConfig({
         items: [
           { text: 'Importance of Prefabs', link: '/core-concepts/importance-of-prefabs' },
           { text: 'Streaming Layers', link: '/core-concepts/layers/streaming-layers' },
-          { text: 'Workflows', link: '/core-concepts/workflows' }
+          {
+            text: 'Workflows',
+            link: '/core-concepts/workflows',
+            collapsed: false,
+            items: [
+              { text: 'InstanceObjects Workflow', link: '/core-concepts/workflow-guides/instanceobjects-workflow' },
+              { text: 'ColliderObjects Workflow', link: '/core-concepts/workflow-guides/colliderobjects-workflow' }
+            ]
+          }
         ]
       },
 

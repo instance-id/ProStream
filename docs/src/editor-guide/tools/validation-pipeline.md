@@ -1,6 +1,6 @@
 # ValidationEngine (Pipeline Validation)
 
-`ValidationEngine` runs during **Phase 2 of the Calculate Positions (Prepare Scene)** process when validation checks are enabled in settings.
+<QuickInfo preset="terms.validation-engine"><code>ValidationEngine</code></QuickInfo> runs during **Phase 2 of the Calculate Positions (Prepare Scene)** process when validation checks are enabled in settings.
 It validates tracked objects and reports errors/warnings before ProStream moves on to the Rule Matching phase. By running this step early, it identifies problems that could cause failures during SubScene conversion or at runtime.
 
 ## Enabling Validation

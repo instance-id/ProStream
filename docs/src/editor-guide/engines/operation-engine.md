@@ -29,8 +29,8 @@ Operations are multi-step procedures that orchestrate major processes such as:
 - Applies all enabled match rules
 - Assigns objects to sections
 - Creates QuadTree spatial grid
-- Generates ObjectSectionDetails
-- Builds QuadSubSceneData
+- Generates <QuickInfo preset="terms.object-section-details"><code>ObjectSectionDetails</code></QuickInfo>
+- Builds <QuickInfo preset="terms.quad-subscene-data"><code>QuadSubSceneData</code></QuickInfo>
 
 **Trigger:** **Calculate Positions** button
 
@@ -40,8 +40,8 @@ Operations are multi-step procedures that orchestrate major processes such as:
 **Purpose:** Create SubScene asset files
 
 **Workflow-specific implementations:**
-- `CreateGameObjectSubScenesOp` - For standard GameObject workflow
-- `CreateDataObjectSubScenesOp` - For DataObject workflow
+- <QuickInfo preset="terms.create-gameobject-subscenes-op"><code>CreateGameObjectSubScenesOp</code></QuickInfo> - For standard GameObject workflow
+- <QuickInfo preset="terms.create-dataobject-subscenes-op"><code>CreateDataObjectSubScenesOp</code></QuickInfo> - For DataObject workflow
 - `CreateInstanceObjectSubSceneWorkflow` - For InstanceObject workflow
 
 **What it does:**

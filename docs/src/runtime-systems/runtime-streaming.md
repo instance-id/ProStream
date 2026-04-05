@@ -18,20 +18,20 @@ If SubScenes were not created, there is nothing to stream.
 
 ## Key Runtime Components
 
-- **StreamingManager**: Scene bridge holding trigger/layer references and runtime toggles.
-- **StreamingSystemsInitializer**: A managed initialization gate (`SystemBase`) that validates prerequisites, initializes `StreamingSystemsManager`, and pushes runtime state into ECS config (`StreamingSystemsConfig`) every frame.
-- **SubSceneStreamingSetupSystem**: An ECS setup system (`SystemBase`) that initializes required entities, components, and dynamic buffers (`LayerLoadingRanges`).
-- **SubSceneLoadingSystem**: An `ISystem` that schedules `SubSceneLoadingJob` to add `RequestSceneLoaded` based on player position and layer ranges.
-- **SubSceneUnloadingSystem**: An `ISystem` that schedules `SubSceneUnloadingJob` to remove `RequestSceneLoaded` using the same prerequisites plus unload controls.
-- **LoadingDistanceSystem**: Provides APIs for live, runtime-adjustable layer ranges (e.g., `SetGlobal`).
+- **StreamingManager**: <QuickInfo preset="terms.streaming-manager"><code>StreamingManager</code></QuickInfo> is the scene bridge holding trigger and layer references plus runtime toggles.
+- **StreamingSystemsInitializer**: <QuickInfo preset="terms.streaming-systems-initializer"><code>StreamingSystemsInitializer</code></QuickInfo> is a managed initialization gate (`SystemBase`) that validates prerequisites, initializes `StreamingSystemsManager`, and pushes runtime state into ECS config (<QuickInfo preset="terms.streaming-systems-config"><code>StreamingSystemsConfig</code></QuickInfo>) every frame.
+- **SubSceneStreamingSetupSystem**: An ECS setup system (`SystemBase`) that initializes required entities, components, and dynamic buffers (<QuickInfo preset="terms.layer-loading-ranges"><code>LayerLoadingRanges</code></QuickInfo>).
+- **SubSceneLoadingSystem**: <QuickInfo preset="terms.subscene-loading-system"><code>SubSceneLoadingSystem</code></QuickInfo> is an `ISystem` that schedules `SubSceneLoadingJob` to add `RequestSceneLoaded` based on player position and layer ranges.
+- **SubSceneUnloadingSystem**: <QuickInfo preset="terms.subscene-unloading-system"><code>SubSceneUnloadingSystem</code></QuickInfo> is an `ISystem` that schedules `SubSceneUnloadingJob` to remove `RequestSceneLoaded` using the same prerequisites plus unload controls.
+- **LoadingDistanceSystem**: <QuickInfo preset="terms.loading-distance-system"><code>LoadingDistanceSystem</code></QuickInfo> provides APIs for live, runtime-adjustable layer ranges (e.g., `SetGlobal`).
 
 ## System Gating (Important)
 
 Entity streaming systems require setup singletons/components to exist before they run:
 - `UseStreamingSystems`
-- `StreamingSystemsConfig` (Updated every frame by the Initializer)
+- <QuickInfo preset="terms.streaming-systems-config"><code>StreamingSystemsConfig</code></QuickInfo> (Updated every frame by the Initializer)
 - `StreamingSetupComplete`
-- `LayerLoadingRanges`
+- <QuickInfo preset="terms.layer-loading-ranges"><code>LayerLoadingRanges</code></QuickInfo>
 
 If these are missing, loading/unloading systems will not update.
 
@@ -56,7 +56,7 @@ Current initializer value is `1.05f`.
 
 ### Runtime-Adjustable Layer Ranges
 
-Loading ranges can be modified at runtime using the `LoadingDistanceSystem`. This allows for dynamic streaming adjustments based on gameplay events.
+Loading ranges can be modified at runtime using the <QuickInfo preset="terms.loading-distance-system"><code>LoadingDistanceSystem</code></QuickInfo>. This allows for dynamic streaming adjustments based on gameplay events.
 For example, updating a specific layer's range:
 ```csharp
 // Example: Updating the range for a specific section index at runtime
@@ -65,7 +65,7 @@ LoadingDistanceSystem.SetGlobal(sectionIndex, new float2(newStartDistance, newEn
 
 ## StreamingManager (User-facing)
 
-`StreamingManager` is created automatically during the SubScene creation workflow (Cleanup phase) and provides:
+<QuickInfo preset="terms.streaming-manager"><code>StreamingManager</code></QuickInfo> is created automatically during the SubScene creation workflow (Cleanup phase) and provides:
 - Loading trigger reference
 - Section collection (`LayerData`)
 - Runtime toggles for entity and GO streaming
@@ -83,17 +83,17 @@ Inspector fields include:
 
 High-level play mode flow (Runtime v2):
 1. **Scene Readiness:** Scene becomes runtime-ready.
-2. **Initialization:** `StreamingSystemsInitializer` passes prerequisites and initializes `StreamingSystemsManager`.
-3. **Config Update:** The ECS config entity (`StreamingSystemsConfig`) is updated each frame.
-4. **ECS Setup:** `SubSceneStreamingSetupSystem` initializes setup entities and buffers (`LayerLoadingRanges`).
-5. **Execution:** `SubSceneLoadingSystem` schedules distance-based loading jobs, followed by `SubSceneUnloadingSystem`.
+2. **Initialization:** <QuickInfo preset="terms.streaming-systems-initializer"><code>StreamingSystemsInitializer</code></QuickInfo> passes prerequisites and initializes `StreamingSystemsManager`.
+3. **Config Update:** The ECS config entity (<QuickInfo preset="terms.streaming-systems-config"><code>StreamingSystemsConfig</code></QuickInfo>) is updated each frame.
+4. **ECS Setup:** `SubSceneStreamingSetupSystem` initializes setup entities and buffers (<QuickInfo preset="terms.layer-loading-ranges"><code>LayerLoadingRanges</code></QuickInfo>).
+5. **Execution:** <QuickInfo preset="terms.subscene-loading-system"><code>SubSceneLoadingSystem</code></QuickInfo> schedules distance-based loading jobs, followed by <QuickInfo preset="terms.subscene-unloading-system"><code>SubSceneUnloadingSystem</code></QuickInfo>.
 6. **Live Updates (Optional):** At runtime, `LoadingDistanceSystem.Set/SetGlobal` updates layer ranges, which the load/unload jobs will observe on subsequent updates.
 
 ## Troubleshooting Quick Checks
 
 If sections do not stream:
 1. Verify SubScenes were created successfully.
-2. Verify `StreamingManager` exists and has Trigger + LayerData.
+2. Verify <QuickInfo preset="terms.streaming-manager"><code>StreamingManager</code></QuickInfo> exists and has Trigger + LayerData.
 3. Verify scene progress reached `StreamingReady`.
 4. Verify layer loading ranges are set for your scene scale.
 5. Check Console for streaming setup/system warnings.

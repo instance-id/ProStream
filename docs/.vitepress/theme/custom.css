@@ -53,11 +53,18 @@
 
 .VPDoc {
   background-color: var(--vp-c-bg);
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}
+
+.VPDoc > .container > .content {
+  padding-left: 32px !important;
+  padding-right: 32px !important;
 }
 
 /* Hero text - smaller text */
 .VPHero.has-image.VPHomeHero {
-    padding-bottom: 0px !important;
+  padding-bottom: 0px !important;
 }
 
 .VPHero .text {
@@ -112,17 +119,18 @@ img {
 }
 
 /* --| Sidebar Level 1 ---------------- */
-.VPSidebarItem .level-1{
-    padding-left: 0.25rem;
+.VPSidebarItem .level-1 {
+  padding-left: 0.25rem;
 }
 
-/* --| Content Spacing --------------- */
+/* --| Content Spacing ---------------- */
 .section-spacer {
   margin-top: 3rem;
   display: block;
   height: 0;
 }
 
+/* --| Planned Features --------------- */
 .planned-features-hero {
   position: relative;
   overflow: hidden;
@@ -130,9 +138,7 @@ img {
   padding: 1.75rem;
   border: 1px solid rgba(255, 90, 61, 0.28);
   border-radius: 24px;
-  background:
-    radial-gradient(circle at top right, rgba(255, 122, 92, 0.22), transparent 42%),
-    linear-gradient(135deg, rgba(255, 90, 61, 0.12), rgba(17, 17, 17, 0.92));
+  background: radial-gradient(circle at top right, rgba(255, 122, 92, 0.22), transparent 42%), linear-gradient(135deg, rgba(255, 90, 61, 0.12), rgba(17, 17, 17, 0.92));
 }
 
 .planned-features-hero::after {
@@ -262,7 +268,7 @@ img {
   font-size: 0.8rem;
   font-weight: 700;
   line-height: 1.2;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .planned-status--advanced {
@@ -305,6 +311,62 @@ img {
   line-height: 1.75;
 }
 
+.planned-features-table-wrapper {
+  --pf-cell-pad-y: 0.75rem;
+  --pf-cell-pad-x: 0.75rem;
+  --pf-badge-pad-y: 0.25rem;
+  --pf-badge-pad-x: 0.65rem;
+  --pf-col-feature-min: 9.5rem;
+  --pf-col-status-min: 7.5rem;
+  --pf-col-description-min: 22rem;
+  --pf-col-impact-min: 18rem;
+}
+
+.planned-features-table-wrapper th,
+.planned-features-table-wrapper td {
+  padding: var(--pf-cell-pad-y) var(--pf-cell-pad-x);
+}
+
+.planned-features-table-wrapper .planned-status {
+  padding: var(--pf-badge-pad-y) var(--pf-badge-pad-x);
+  white-space: normal;
+}
+
+.planned-features-table-wrapper th:nth-child(1),
+.planned-features-table-wrapper td:nth-child(1) {
+  min-width: var(--pf-col-feature-min);
+}
+
+.planned-features-table-wrapper th:nth-child(2),
+.planned-features-table-wrapper td:nth-child(2) {
+  min-width: var(--pf-col-status-min);
+}
+
+.planned-features-table-wrapper th:nth-child(3),
+.planned-features-table-wrapper td:nth-child(3) {
+  min-width: var(--pf-col-description-min);
+}
+
+.planned-features-table-wrapper th:nth-child(4),
+.planned-features-table-wrapper td:nth-child(4) {
+  min-width: var(--pf-col-impact-min);
+}
+
+@media (max-width: 768px) and (orientation: portrait) {
+  .planned-features-table-wrapper {
+    --pf-cell-pad-y: 0.5rem;
+    --pf-cell-pad-x: 0.55rem;
+    --pf-badge-pad-y: 0.18rem;
+    --pf-badge-pad-x: 0.45rem;
+    --pf-col-feature-min: 2.5rem;
+    --pf-col-status-min: 6.75rem;
+    --pf-col-description-min: 15rem;
+    --pf-col-impact-min: 13rem;
+  }
+}
+
+/* --| Known Limitations -------------- */
+
 .known-limitations-hero {
   position: relative;
   overflow: hidden;
@@ -312,9 +374,7 @@ img {
   padding: 1.75rem;
   border: 1px solid rgba(225, 167, 43, 0.32);
   border-radius: 24px;
-  background:
-    radial-gradient(circle at top right, rgba(225, 167, 43, 0.18), transparent 40%),
-    linear-gradient(135deg, rgba(225, 167, 43, 0.12), rgba(17, 17, 17, 0.94));
+  background: radial-gradient(circle at top right, rgba(225, 167, 43, 0.18), transparent 40%), linear-gradient(135deg, rgba(225, 167, 43, 0.12), rgba(17, 17, 17, 0.94));
 }
 
 .known-limitations-hero::after {
@@ -394,7 +454,10 @@ img {
   border-radius: 18px;
   background: linear-gradient(180deg, rgba(225, 167, 43, 0.08), rgba(255, 255, 255, 0.02));
   text-decoration: none;
-  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease;
 }
 
 .known-limitation-card:hover {

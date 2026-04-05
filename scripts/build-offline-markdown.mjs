@@ -1,10 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import {
-  getOfflineArtifactsDir,
-  offlineMarkdownName,
-} from './docs-version.mjs';
+import { getOfflineArtifactsDir, offlineMarkdownName } from './docs-version.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -29,25 +26,32 @@ const sections = [
       {
         title: 'Planned Features',
         path: 'planned-features/index.md',
-        exportLinkMode: 'absolute-site',
-      },
-    ],
+        exportLinkMode: 'absolute-site'
+      }
+    ]
   },
   {
     group: 'Getting Started',
     pages: [
       { title: 'Setup', path: 'getting-started/setup.md' },
       { title: 'Sample Project Quickstart', path: 'getting-started/sample-quickstart.md' },
-      { title: 'Standard Workflow', path: 'getting-started/standard-workflow.md' },
-    ],
+      { title: 'Standard Workflow', path: 'getting-started/standard-workflow.md' }
+    ]
   },
   {
     group: 'Core Concepts',
     pages: [
       { title: 'Importance of Prefabs', path: 'core-concepts/importance-of-prefabs.md' },
       { title: 'Streaming Layers', path: 'core-concepts/layers/streaming-layers.md' },
-      { title: 'Workflows', path: 'core-concepts/workflows.md' },
-    ],
+      {
+        title: 'Workflows',
+        path: 'core-concepts/workflows.md',
+        children: [
+          { title: 'InstanceObjects Workflow', path: 'core-concepts/workflow-guides/instanceobjects-workflow.md' },
+          { title: 'ColliderObjects Workflow', path: 'core-concepts/workflow-guides/colliderobjects-workflow.md' }
+        ]
+      }
+    ]
   },
   {
     group: 'Editor Guide',
@@ -60,45 +64,43 @@ const sections = [
       { title: 'Operation Engine', path: 'editor-guide/engines/operation-engine.md' },
       { title: 'Workflows Configuration', path: 'editor-guide/engines/workflows-configuration.md' },
       { title: 'Validation and Diagnostics', path: 'editor-guide/tools/validation-diagnostics.md' },
-      { title: 'Pipeline Validation', path: 'editor-guide/tools/validation-pipeline.md' },
-    ],
+      { title: 'Pipeline Validation', path: 'editor-guide/tools/validation-pipeline.md' }
+    ]
   },
   {
     group: 'Processes',
     pages: [
       { title: 'Prepare Scene', path: 'processes/prepare-scene.md' },
-      { title: 'SubScene Creation', path: 'processes/process-subscenes.md' },
-    ],
+      { title: 'SubScene Creation', path: 'processes/process-subscenes.md' }
+    ]
   },
   {
     group: 'Runtime Systems',
     pages: [
       { title: 'Runtime Streaming', path: 'runtime-systems/runtime-streaming.md' },
-      { title: 'Advanced Configuration', path: 'runtime-systems/advanced-configuration.md' },
-    ],
+      { title: 'Advanced Configuration', path: 'runtime-systems/advanced-configuration.md' }
+    ]
   },
   {
     group: 'Known Limitations',
-    pages: [
-      { title: 'Known Limitations', path: 'known-limitations/overview.md' },
-    ],
+    pages: [{ title: 'Known Limitations', path: 'known-limitations/overview.md' }]
   },
   {
     group: 'Troubleshooting',
     pages: [
       { title: 'Common Issues', path: 'troubleshooting/troubleshooting.md' },
       { title: 'Install and Update', path: 'troubleshooting/install-update.md' },
-      { title: 'Build and Runtime', path: 'troubleshooting/build-runtime.md' },
-    ],
+      { title: 'Build and Runtime', path: 'troubleshooting/build-runtime.md' }
+    ]
   },
   {
     group: 'Reference',
     pages: [
       { title: 'FAQ', path: 'reference/faq.md' },
       { title: 'Settings Reference', path: 'reference/settings-reference.md' },
-      { title: 'Change Log', path: 'reference/change-log.md' },
-    ],
-  },
+      { title: 'Change Log', path: 'reference/change-log.md' }
+    ]
+  }
 ];
 
 function stripFrontmatter(content) {
@@ -192,6 +194,10 @@ function toAbsoluteSiteUrl(href, pagePath) {
     return null;
   }
 
+  if (trimmedHref.startsWith('/')) {
+    return `${docsSiteBaseUrl}${trimmedHref}`;
+  }
+
   const [pathAndQuery, hash = ''] = trimmedHref.split('#');
   const [targetPath, query = ''] = pathAndQuery.split('?');
 
@@ -254,9 +260,7 @@ function readPage(relativePath, options = {}) {
   const noTitle = stripTopHeading(expanded);
   const noComments = removeHtmlComments(noTitle);
   const rewritten = rewriteStandaloneAssetLinks(noComments);
-  const linkAdjusted = options.exportLinkMode === 'absolute-site'
-    ? externalizeDocLinks(rewritten, fullPath)
-    : rewritten;
+  const linkAdjusted = externalizeDocLinks(rewritten, fullPath);
   const expandedDetails = expandDetailsBlocks(linkAdjusted);
   return expandedDetails.trim();
 }
@@ -270,15 +274,32 @@ function slugify(input) {
     .replace(/-+/g, '-');
 }
 
+function flattenPages(pages, depth = 0) {
+  const flattened = [];
+
+  for (const page of pages) {
+    flattened.push({ page, depth });
+
+    if (Array.isArray(page.children) && page.children.length > 0) {
+      flattened.push(...flattenPages(page.children, depth + 1));
+    }
+  }
+
+  return flattened;
+}
+
 function buildTableOfContents() {
   let docIndex = 1;
   const lines = [];
 
   for (const section of sections) {
     lines.push(`- ${section.group}`);
-    for (const page of section.pages) {
+    const flattenedPages = flattenPages(section.pages, 0);
+
+    for (const { page, depth } of flattenedPages) {
       const anchor = `doc-${docIndex}-${slugify(page.title)}`;
-      lines.push(`  - ${docIndex}. [${page.title}](#${anchor})`);
+      const indent = '  '.repeat(depth + 1);
+      lines.push(`${indent}- ${docIndex}. [${page.title}](#${anchor})`);
       docIndex += 1;
     }
   }
@@ -310,11 +331,14 @@ function buildDocument() {
     parts.push(`## ${section.group}`);
     parts.push('');
 
-    for (const page of section.pages) {
+    const flattenedPages = flattenPages(section.pages, 0);
+
+    for (const { page, depth } of flattenedPages) {
       const anchor = `doc-${docIndex}-${slugify(page.title)}`;
+      const headingLevel = '#'.repeat(Math.min(6, 3 + depth));
       parts.push(`<a id="${anchor}"></a>`);
       parts.push('');
-      parts.push(`### ${docIndex}. ${page.title}`);
+      parts.push(`${headingLevel} ${docIndex}. ${page.title}`);
       parts.push('');
       parts.push(readPage(page.path, { exportLinkMode: page.exportLinkMode }));
       parts.push('');

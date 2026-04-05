@@ -6,7 +6,9 @@ description: View-aware streamed section activation using frustum extraction and
 # Visibility And Frustum Culling
 
 <div class="planned-feature-detail-meta">
-  <Badge type="info" text="Beta-level subsystem" />
+  <QuickInfo preset="planned-feature-stage.beta-level-subsystem">
+    <Badge type="info" text="Beta-level subsystem" />
+  </QuickInfo>
 </div>
 
 <p class="planned-feature-detail-intro">
@@ -35,11 +37,11 @@ Primary code anchors:
 
 ### Camera frustum extraction
 
-`CameraFrustumSystem` creates singleton entities for trigger position and frustum plane data, updates those values from the active camera every frame, and stores plane arrays in native containers that other jobs can consume. It also includes optional debug drawing for entity bounds, which is useful when validating culling behavior.
+<QuickInfo preset="terms.camera-frustum-system"><code>CameraFrustumSystem</code></QuickInfo> creates singleton entities for trigger position and frustum plane data, updates those values from the active camera every frame, and stores plane arrays in native containers that other jobs can consume. It also includes optional debug drawing for entity bounds, which is useful when validating culling behavior.
 
 ### Section visibility assignment
 
-`SectionVisibilitySystem` requires frustum data and section bounding volumes, schedules a culling job against all scene-section entities, and then uses command-buffer updates to toggle visibility state. The implementation is focused on section-level results, which makes it a strong fit for streamed subscene content.
+<QuickInfo preset="terms.section-visibility-system"><code>SectionVisibilitySystem</code></QuickInfo> requires frustum data and section bounding volumes, schedules a culling job against all scene-section entities, and then uses command-buffer updates to toggle visibility state. The implementation is focused on section-level results, which makes it a strong fit for streamed subscene content.
 
 ### Terrain and streaming relationship
 

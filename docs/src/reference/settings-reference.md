@@ -70,7 +70,7 @@ With keyword separation (separator = `_`):
 - Search for `Tree` becomes `_Tree_`
 - Matches: `Environment_Tree_01` but NOT `City_Street_01`
 
-::: info  
+::: info
 You can achieve similar results by manually including separator characters in your search query (e.g., searching for `_Tree_` instead of `Tree`), but enabling this setting automatically adds separators to all search terms for convenience.
 :::
 
@@ -86,7 +86,7 @@ You can achieve similar results by manually including separator characters in yo
 
 ## Workflows Tab
 
-This tab lists all discovered `WorkflowAsset`s in the project (e.g., `InstanceObjectsWorkflow`, `ColliderObjectsWorkflow`).
+This tab lists all discovered <QuickInfo preset="terms.workflow-asset"><code>WorkflowAssets</code></QuickInfo> in the project (e.g., <QuickInfo preset="terms.instanceobjects-workflow"><code>InstanceObjectsWorkflow</code></QuickInfo>, <QuickInfo preset="terms.colliderobjects-workflow"><code>ColliderObjectsWorkflow</code></QuickInfo>).
 You can toggle whether a workflow is **Active** across the project.
 
 *Note: Deactivating a workflow fully disables all associated functionality.*

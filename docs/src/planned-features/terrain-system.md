@@ -6,7 +6,10 @@ description: A comprehensive, streaming-first pipeline for seamlessly integratin
 # Terrain System
 
 <div class="planned-feature-detail-meta">
-  <Badge type="tip" text="Substantial prototype" />
+  <QuickInfo preset="planned-feature-stage.substantial-prototype">
+    <Badge type="tip" text="Substantial prototype" />
+  </QuickInfo>
+  <Badge type="info" text="Type: System" />
 </div>
 
 <p class="planned-feature-detail-intro">
@@ -28,6 +31,7 @@ The Terrain System is an overarching pipeline designed to help expansive landsca
 Handling endless, seamless terrain efficiently requires an automated understanding of where every slice of terrain data actually lives. The location generation layer removes the manual burden of classifying terrain chunks.
 
 ### Key Capabilities
+
 - **Automated Scanning:** Identifies and extracts terrain-objects from prepared scene content, calculating precise bounds for localized processing.
 - **Grid Placement:** Maps the terrain onto the ProStream spatial grid, computing placement data through match-job integration.
 - **Pipeline Groundwork:** Feeds terrain-aware location results directly into scene data, selection groups, and validation passes, laying a rock-solid foundation for advanced splitting and mesh conversion.
@@ -39,6 +43,7 @@ Handling endless, seamless terrain efficiently requires an automated understandi
 Once terrain is spatially mapped, the mesh pipeline converts it into streaming-friendly ECS content. Instead of keeping a monolithic Unity Terrain object active, this stage translates the terrain into distinct, manageable data chunks.
 
 ### Key Capabilities
+
 - **LOD-Driven Generation:** Chunks terrain cells and computes multiple LOD levels for each section.
 - **Data Serialization:** Exports textures, detail materials, and highly compressed serialized terrain assets for standalone loading.
 - **ECS Integration:** Creates ECS archetypes for heightmaps and terrain entities. In-depth processing turns heightmaps into array-driven render meshes directly available for Burst-compiled systems.
@@ -51,6 +56,7 @@ Once terrain is spatially mapped, the mesh pipeline converts it into streaming-f
 Dense vegetation, rocks, and surface details easily become the heaviest drag on a rendering pipeline in large outdoor scenes. The detail streaming subsystem replaces static, always-on scatter meshes with a highly efficient proximity-based streaming solution.
 
 ### Key Capabilities
+
 - **Radius-Based Streaming:** Uses ECS jobified instantiation and destruction to load and unload numerous detail instances strictly within the active loading camera radius.
 - **Proximity Control:** Configurable terrain render settings ensure trees and rocks behave dynamically rather than strictly conforming to distance boundaries alone.
 - **Data Extensibility:** Utilizes internal prototype-placement containers and HLOD-style data structures, preparing environments for even more advanced optimization patterns.

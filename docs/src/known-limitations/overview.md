@@ -9,11 +9,11 @@ description: Current DOTS/ECS constraints that affect ProStream workflows, hybri
 
 1. World & Environment
 
-   **Physics Interaction**: The Unity Physics (DOTS) and standard PhysX (GameObjects) systems are isolated. Entities cannot natively collide with GameObjects unless data is manually synced across systems.  
-   [ProStream's ColliderObjectsWorkflow](/core-concepts/workflows.html#_2-colliderobjectsworkflow) provides a streamlined solution for this.
+   **Physics Interaction**: The Unity Physics (DOTS) and standard PhysX (GameObjects) systems are isolated. Entities cannot natively collide with GameObjects unless data is manually synced across systems.
+   [ProStream's ColliderObjects Workflow](/core-concepts/workflow-guides/colliderobjects-workflow) provides a streamlined solution for this.
 
-   **Terrain**: Standard Unity Terrains are not currently supported by DOTS/ECS andcannot be directly converted into high-performance ECS entities.  
-   [ProStream's TerrainWorkflow](/planned-features/terrain-system.html) is in development to address this gap.  
+   **Terrain**: Standard Unity Terrains are not currently supported by DOTS/ECS andcannot be directly converted into high-performance ECS entities.
+   [ProStream's TerrainWorkflow](/planned-features/terrain-system.html) is in development to address this gap.
    [Native Engine Implementations/Plans](https://unity.com/roadmap/detail#unity-platform-dots)
 
    **2D Tools**: Most of the URP 2D suite—including Tilemaps, 2D Lights, and 2D Colliders—is not supported in a pure ECS pipeline.

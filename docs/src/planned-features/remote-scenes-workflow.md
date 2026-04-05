@@ -6,7 +6,10 @@ description: Multi-scene authoring and processing support for larger ProStream w
 # RemoteScenes Workflow
 
 <div class="planned-feature-detail-meta">
-  <Badge type="tip" text="Advanced prototype" />
+  <QuickInfo preset="planned-feature-stage.advanced-prototype">
+    <Badge type="tip" text="Advanced prototype" />
+  </QuickInfo>
+  <Badge type="info"><a href="/core-concepts/workflows" style="text-decoration: none; color: inherit;">Type: Workflow</a> </Badge>
 </div>
 
 <p class="planned-feature-detail-intro">
@@ -37,15 +40,15 @@ Primary code anchors:
 
 ### Remote scene tracking
 
-`RemoteSceneWorkflowComponent` tracks `remoteSceneList`, `remoteSceneProcessQueue`, and a lookup by `ObjectID`. It also enforces scene locking requirements and exposes status checks such as whether remote scenes are loaded. This shows the feature is designed to coordinate multi-scene processing safely in editor workflows.
+<QuickInfo preset="terms.remote-scene-workflow-component"><code>RemoteSceneWorkflowComponent</code></QuickInfo> tracks `remoteSceneList`, `remoteSceneProcessQueue`, and a lookup by `ObjectID`. It also enforces scene locking requirements and exposes status checks such as whether remote scenes are loaded. This shows the feature is designed to coordinate multi-scene processing safely in editor workflows.
 
 ### Authoring model
 
-`RemoteScene` stores a scene reference, scene identifier, load state, generated subscene list, and derived content bounds. The load helpers can open scenes asynchronously, inspect root objects, and calculate bounds for content selection. That implies a user-facing authoring pattern where remote scenes behave as streaming content sources rather than unrelated additive scenes.
+<QuickInfo preset="terms.remote-scene"><code>RemoteScene</code></QuickInfo> stores a scene reference, scene identifier, load state, generated subscene list, and derived content bounds. The load helpers can open scenes asynchronously, inspect root objects, and calculate bounds for content selection. That implies a user-facing authoring pattern where remote scenes behave as streaming content sources rather than unrelated additive scenes.
 
 ### Subscene creation pipeline
 
-`CreateRemoteSceneSubScenesOp` is the core build operation. It validates setup, ensures modification listeners are active, creates or finds the subscene root, iterates queued remote scenes, loads the targeted remote scene, and processes each scene into generated subscenes. The implementation is tied into progress tracking and process orchestration, which makes it a substantial planned production feature rather than a one-off scene utility.
+<QuickInfo preset="terms.create-remote-scene-subscenes-op"><code>CreateRemoteSceneSubScenesOp</code></QuickInfo> is the core build operation. It validates setup, ensures modification listeners are active, creates or finds the subscene root, iterates queued remote scenes, loads the targeted remote scene, and processes each scene into generated subscenes. The implementation is tied into progress tracking and process orchestration, which makes it a substantial planned production feature rather than a one-off scene utility.
 
 ### Reset and cleanup behavior
 

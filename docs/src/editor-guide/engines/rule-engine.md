@@ -8,11 +8,11 @@ The RuleEngine system is extensible through rule provider types.
 
 **Current Providers:**
 
-- `MatchBySearchQuery` (Unity Search query rules)
-- `MatchByGOQLRule` (GameObject Query Language rules)
-- `MatchByComponent` (manual assignment component-based matching)
-- `MatchByDefault` (fallback catch-all rule)
-- Custom rules that inherit `RuleEngine`
+- <QuickInfo preset="terms.match-by-search-query"><code>MatchBySearchQuery</code></QuickInfo> (Unity Search query rules)
+- <QuickInfo preset="terms.match-by-goql-rule"><code>MatchByGOQLRule</code></QuickInfo> (GameObject Query Language rules)
+- <QuickInfo preset="terms.match-by-component"><code>MatchByComponent</code></QuickInfo> (manual assignment component-based matching)
+- <QuickInfo preset="terms.match-by-default"><code>MatchByDefault</code></QuickInfo> (fallback catch-all rule)
+- Custom rules that inherit <QuickInfo preset="terms.rule-engine"><code>RuleEngine</code></QuickInfo>
 
 ## Rule Editor
 
@@ -34,7 +34,7 @@ The RuleEngine system is extensible through rule provider types.
 
 ![Enable Match Rules](/images/enable_rule.png)
 
-You can also verify currently enabled rules in the SceneConnector inspector under `ruleList`.
+You can also verify currently enabled rules in the <QuickInfo preset="terms.scene-connector"><code>SceneConnector</code></QuickInfo> inspector under `ruleList`.
 
 ### Edit and Preview Queries
 
@@ -92,7 +92,7 @@ Uses the `ManualAssignment` component to assign objects to a target section ahea
 
 ## Creating Custom Rules
 
-You can create custom rule providers by extending the `RuleEngine` class:
+You can create custom rule providers by extending the <QuickInfo preset="terms.rule-engine"><code>RuleEngine</code></QuickInfo> class:
 
 ```csharp
 using instance.id.ProStream;
@@ -166,10 +166,10 @@ Each rule is assigned to a specific streaming layer:
 
 ### Rule List Persistence
 
-The list of enabled rules is managed by an `ObservableCollection` in the `SceneConnector`.
+The list of enabled rules is managed by an `ObservableCollection` in the <QuickInfo preset="terms.scene-connector"><code>SceneConnector</code></QuickInfo>.
 
-- Whenever you add, remove, or reorder a rule in the Rule Editor, the `SceneConnector` is updated dynamically.
-- The `MatchByDefault` rule is always forced to the last position.
+- Whenever you add, remove, or reorder a rule in the Rule Editor, the <QuickInfo preset="terms.scene-connector"><code>SceneConnector</code></QuickInfo> is updated dynamically.
+- The <QuickInfo preset="terms.match-by-default"><code>MatchByDefault</code></QuickInfo> rule is always forced to the last position.
 - This collection is saved with the scene, so you do not need to manually save your rules configuration outside of saving your active Unity scene.
 
 

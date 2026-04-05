@@ -6,7 +6,10 @@ description: Compact prefab-and-instance streaming for repeated content in dense
 # DataObjects Workflow
 
 <div class="planned-feature-detail-meta" style="margin-top: 1rem;">
-  <Badge type="tip" text="Advanced prototype" />
+  <QuickInfo preset="planned-feature-stage.advanced-prototype">
+    <Badge type="tip" text="Advanced prototype" />
+  </QuickInfo>
+  <Badge type="info"><a href="/core-concepts/workflows" style="text-decoration: none; color: inherit;">Type: Workflow</a> </Badge>
 </div>
 
 <!-- <p class="planned-feature-detail-intro">
@@ -23,15 +26,15 @@ The DataObjects workflow is an optimized prefab-instance workflow that stores a 
 - Compact subscene authoring using one prefab-authoring entry per unique prefab and buffered transform data per section.
 - Runtime prefab loading and entity spawning from stored transform buffers.
 - Section-based cleanup of spawned DataObject entities when a section unloads.
-- Dedicated editor management through `DataObjectManager`, selectors, validation, and workflow menus.
+- Dedicated editor management through <QuickInfo preset="terms.dataobject-manager"><code>DataObjectManager</code></QuickInfo>, selectors, validation, and workflow menus.
 
 ## Comparison With InstanceObjects
 
-ProStream offers two distinct workflows for handling SubScene content: `InstanceObjects` and `DataObjects`.
+ProStream offers two distinct workflows for handling SubScene content: <QuickInfo preset="terms.instanceobjects"><code>InstanceObjects</code></QuickInfo> and <QuickInfo preset="terms.dataobjects"><code>DataObjects</code></QuickInfo>.
 
 ### InstanceObjects Workflow
 
-The standard `InstanceObjects` path is a scene-copy/conversion workflow.
+The standard <QuickInfo preset="terms.instanceobjects"><code>InstanceObjects</code></QuickInfo> path is a scene-copy/conversion workflow.
 
 - It groups scene objects into sections.
 - ProStream resolves each original scene GameObject and clones the full GameObject hierarchy into the matching subscene section.
@@ -39,7 +42,7 @@ The standard `InstanceObjects` path is a scene-copy/conversion workflow.
 
 ### DataObjects Workflow
 
-The `DataObjects` workflow is materially different.
+The <QuickInfo preset="terms.dataobjects"><code>DataObjects</code></QuickInfo> workflow is materially different.
 
 - It builds a payload around per-instance transform and identity data such as position, rotation, scale, and object IDs.
 - During subscene creation, the workflow creates compact authoring objects that represent prefab definitions and section transform buffers instead of cloning every placed scene instance into the subscene.
@@ -49,7 +52,7 @@ The `DataObjects` workflow is materially different.
 
 ### Lower subscene duplication
 
-InstanceObjects duplicates full GameObject hierarchies into the generated subscenes. DataObjects instead stores one prefab definition path plus per-instance transform data. When many repeated objects use the same prefab, that is substantially more compact.
+<QuickInfo preset="terms.instanceobjects"><code>InstanceObjects</code></QuickInfo> duplicates full GameObject hierarchies into the generated subscenes. <QuickInfo preset="terms.dataobjects"><code>DataObjects</code></QuickInfo> instead stores one prefab definition path plus per-instance transform data. When many repeated objects use the same prefab, that is substantially more compact.
 
 ### Lower build size potential
 
@@ -65,7 +68,7 @@ The workflow is especially well suited for content categories like repeated prop
 
 ### Cleaner separation between definition and placement
 
-DataObjects splits the concept of:
+<QuickInfo preset="terms.dataobjects"><code>DataObjects</code></QuickInfo> splits the concept of:
 
 - the reusable object definition, and
 - the many placements of that object across the world.

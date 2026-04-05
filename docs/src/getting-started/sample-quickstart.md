@@ -106,7 +106,7 @@ When the `Prepare Scene` process is complete, the "Create SubScenes" button will
 
 The "Create SubScenes" process is the final major editor step that converts prepared scene data into actual Unity SubScene assets.
 
-This process takes the QuadTree structure and StreamingManager from the Prepare Scene phase and creates SubScene asset files, populating them with cloned GameObjects organized by streaming sections. This enables streaming based on player position and distance settings per layer.
+This process takes the QuadTree structure and <QuickInfo preset="terms.streaming-manager"><code>StreamingManager</code></QuickInfo> from the Prepare Scene phase and creates SubScene asset files, populating them with cloned GameObjects organized by streaming sections. This enables streaming based on player position and distance settings per layer.
 
 ## 8) Process Complete
 
@@ -115,8 +115,8 @@ This process takes the QuadTree structure and StreamingManager from the Prepare 
 During the "Create SubScenes" process, the following assets/components were generated:
 
 - **SubScene Asset Files**: Unity SubScene Assets stored in `Assets/SubScene_Assets/Sample/Entity/`
-- **SubScene GameObjects**: SubScene GameObjects are located in the hierarchy under the `SubSceneRoot` GameObject
-- **StreamingManager**: Orchestrates editor and runtime streaming systems
+- **SubScene GameObjects**: SubScene GameObjects are located in the hierarchy under the <QuickInfo preset="terms.subscene-root"><code>SubSceneRoot</code></QuickInfo> GameObject
+- **StreamingManager**: <QuickInfo preset="terms.streaming-manager"><code>StreamingManager</code></QuickInfo> orchestrates editor and runtime streaming systems
 
 ![SubScenes and Components](/images/quick_start/subscenes_and_components.png)
 

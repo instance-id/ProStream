@@ -6,7 +6,9 @@ description: Atlas-based long-range impostor generation for aggressive distant-o
 # Impostor Baking
 
 <div class="planned-feature-detail-meta">
-  <Badge type="danger" text="WIP module" />
+  <QuickInfo preset="planned-feature-stage.wip-module">
+    <Badge type="danger" text="WIP module" />
+  </QuickInfo>
 </div>
 
 <p class="planned-feature-detail-intro">
@@ -48,7 +50,7 @@ The module includes legacy/common, URP, ShaderGraph, and conditional HDRP shader
 
 ### Authoring controls
 
-`ImpostorSettings` exposes key user-facing controls such as `framesXY`, `resolution`, and impostor type. Combined with the manager/container classes, that points toward an intended authoring workflow instead of a hidden internal utility.
+<QuickInfo preset="terms.impostor-settings"><code>ImpostorSettings</code></QuickInfo> exposes key user-facing controls such as `framesXY`, `resolution`, and impostor type. Combined with the manager/container classes, that points toward an intended authoring workflow instead of a hidden internal utility.
 
 ## Why Use Impostor Baking?
 

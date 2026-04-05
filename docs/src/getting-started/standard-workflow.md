@@ -73,9 +73,9 @@ Scene Search Filters define which areas of your scene ProStream will process. Yo
 
 **What just happened:**
 
-- ProStream added `SceneSearchFilter` components to your selected GameObjects
+- ProStream added <QuickInfo preset="terms.scene-search-filter"><code>SceneSearchFilter</code></QuickInfo> components to your selected GameObjects
 - Found all prefab instances under those GameObjects
-- Added `MatchTracker` components to each prefab child
+- Added <QuickInfo preset="terms.match-tracker"><code>MatchTracker</code></QuickInfo> components to each prefab child
 - Set tracker status to "Searchable"
 - Only objects under search filters will be processed for streaming
 
@@ -110,14 +110,14 @@ Match rules categorize objects into streaming layers (Ground, Large Objects, Sma
 You can also verify enabled rules by viewing the SceneConnector's inspector:
 
 5. Verify rules are enabled:
-   - Select the `SceneConnector` GameObject
+   - Select the <QuickInfo preset="terms.scene-connector"><code>SceneConnector</code></QuickInfo> GameObject
    - Check the inspector for enabled rules in the list
    - Enabled rules will show up in the `Rule List`
 
 ![SceneConnector Rules](/images/enabled_rules.png)
 
 ::: warning Rule Execution Order
-Rules are processed in list order. The first matching rule wins. The `MatchByDefault` rule automatically runs last to catch any unmatched objects.
+Rules are processed in list order. The first matching rule wins. The <QuickInfo preset="terms.match-by-default"><code>MatchByDefault</code></QuickInfo> rule automatically runs last to catch any unmatched objects.
 :::
 
 ::: tip Quick Tip
@@ -140,7 +140,7 @@ See [Streaming Layers](/core-concepts/layers/streaming-layers) for detailed conf
 
 ### Step 5: Prepare Scene
 
-This is where ProStream utilizes modular **Workflows** (e.g., `InstanceObjectsWorkflow`, `ColliderObjectsWorkflow`) to validate objects, apply your matching rules, and generate spatial data (like QuadTrees) for your scene.
+This is where ProStream utilizes modular **Workflows** (e.g., <QuickInfo preset="terms.instanceobjects-workflow"><code>InstanceObjectsWorkflow</code></QuickInfo>, <QuickInfo preset="terms.colliderobjects-workflow"><code>ColliderObjectsWorkflow</code></QuickInfo>) to validate objects, apply your matching rules, and generate spatial data (like QuadTrees) for your scene.
 
 1. In the ProStream Editor window (if closed, reopen via **Tools | instance.id | ProStream | ProStream Editor**)
 

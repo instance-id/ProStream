@@ -10,7 +10,7 @@ Think of modifications as **middleware** or **plugins** that extend ProStream's 
 
 ### What is a Modification?
 
-A modification is a `ScriptableObject` that inherits from `ModificationEngine` and implements custom logic to transform or enhance GameObjects during the ProStream workflow.
+A modification is a `ScriptableObject` that inherits from <QuickInfo preset="terms.modification-engine"><code>ModificationEngine</code></QuickInfo> and implements custom logic to transform or enhance GameObjects during the ProStream workflow.
 
 ### When to Use Modifications
 

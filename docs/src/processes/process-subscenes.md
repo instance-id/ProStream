@@ -26,7 +26,7 @@ This is an **automated process** that handles asset creation, object cloning, hi
 
 ### 2. Section Hierarchy Creation
 - Creates section GameObjects within each SubScene (e.g., "Section_Ground", "Section_LargeObjects")
-- Adds `SubSceneSection` component (ProStream)
+- Adds <QuickInfo preset="terms.subscene-section"><code>SubSceneSection</code></QuickInfo> component (ProStream)
 - Adds `SceneSectionAuthoring` component (Unity Entities)
 - Configures section indices for distance-based streaming
 
@@ -48,7 +48,7 @@ This is an **automated process** that handles asset creation, object cloning, hi
 
 ## Process Flow
 
-The Create SubScenes process uses the same **Workflow** architecture as Prepare Scene. For every active workflow (e.g., `InstanceObjectsWorkflow`), it runs through 3 specific stages:
+The Create SubScenes process uses the same **Workflow** architecture as Prepare Scene. For every active workflow (e.g., <QuickInfo preset="terms.instanceobjects-workflow"><code>InstanceObjectsWorkflow</code></QuickInfo>), it runs through 3 specific stages:
 
 ```
 User Clicks "Create SubScenes" Button
@@ -122,7 +122,7 @@ MyScene_Quad_0_0.unity
 ### SubScene GameObject
 **Components:**
 - `SubScene` (Unity Entities) - Links to scene asset
-- `SubSceneDataComponent` (ProStream) - Metadata and references
+- <QuickInfo preset="terms.subscene-data-component"><code>SubSceneDataComponent</code></QuickInfo> (ProStream) - Metadata and references
 
 **Properties:**
 - Position: World position of QuadTree cell center
@@ -131,7 +131,7 @@ MyScene_Quad_0_0.unity
 
 ### Section GameObject
 **Components:**
-- `SubSceneSection` (ProStream) - Section metadata
+- <QuickInfo preset="terms.subscene-section"><code>SubSceneSection</code></QuickInfo> (ProStream) - Section metadata
 - `SceneSectionAuthoring` (Unity Entities) - ECS conversion data
 
 **Properties:**

@@ -18,9 +18,9 @@ All GameObjects must be Prefabs to be compatible with ProStream systems. The Pre
 
 **What happens automatically:**
 
-- ProStream adds `SceneSearchFilter` component to selected GameObjects
+- ProStream adds <QuickInfo preset="terms.scene-search-filter"><code>SceneSearchFilter</code></QuickInfo> component to selected GameObjects
 - Locates all prefab instances under those GameObjects
-- Adds `MatchTracker` components to each prefab child
+- Adds <QuickInfo preset="terms.match-tracker"><code>MatchTracker</code></QuickInfo> components to each prefab child
 - Sets tracker status to "Searchable"
 
 ### Method 2: Context Menu (Alternative)
@@ -57,7 +57,7 @@ Scene
 
 ## MatchTracker Component
 
-When you add a search filter, ProStream automatically adds `MatchTracker` components to all prefab children:
+When you add a search filter, ProStream automatically adds <QuickInfo preset="terms.match-tracker"><code>MatchTracker</code></QuickInfo> components to all prefab children:
 
 **MatchTracker Properties:**
 

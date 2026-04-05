@@ -23,7 +23,7 @@ It is implemented as an editor window that lets you:
 
 ## Diagnostic Tools
 
-The available list depends on which `DiagnosticEngine` assets are discoverable in your project. The built-in diagnostics include:
+The available list depends on which <QuickInfo preset="terms.diagnostic-engine"><code>DiagnosticEngine</code></QuickInfo> assets are discoverable in your project. The built-in diagnostics include:
 
 - **Check for Missing Meshes**
 - **Check for Missing Materials**

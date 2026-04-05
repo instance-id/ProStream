@@ -27,13 +27,13 @@ This page documents the process name as **Prepare Scene**. In code/events, this 
 ## What It Does
 
 ### Phase 1: Workflow Object Checking
-- Allows active **Workflows** (e.g., `InstanceObjectsWorkflow`, `ColliderObjectsWorkflow`) to validate their objects before rule matching
+- Allows active **Workflows** (e.g., <QuickInfo preset="terms.instanceobjects-workflow"><code>InstanceObjectsWorkflow</code></QuickInfo>, <QuickInfo preset="terms.colliderobjects-workflow"><code>ColliderObjectsWorkflow</code></QuickInfo>) to validate their objects before rule matching
 - Validates workflow-specific requirements (e.g., checking `InstanceObjectCollection` references)
 - Prepares internal data structures and checks for configuration issues
 - *See [Workflows](/core-concepts/workflows) for more information.*
 
 ### Phase 2: Validation & Issue Detection
-- Runs ValidationEngine when enabled in Settings
+- Runs <QuickInfo preset="terms.validation-engine"><code>ValidationEngine</code></QuickInfo> when enabled in Settings
 - Identifies problems with tracked objects (missing shaders, broken material references, missing colliders, null GameObjects)
 - Reports errors and warnings to console (does not abort processing unless critical)
 - *See [Validation & Diagnostics](/editor-guide/tools/validation-diagnostics) for details.*
@@ -46,13 +46,13 @@ This page documents the process name as **Prepare Scene**. In code/events, this 
 
 ### Phase 4: Workflow Processing (Execute Stage) & Spatial Calculation
 - Executes the main processing for all active workflows
-- **For `InstanceObjectsWorkflow`:**
+- **For <QuickInfo preset="terms.instanceobjects-workflow"><code>InstanceObjectsWorkflow</code></QuickInfo>:**
   - Automatically calculates total scene bounds based on the bounds of all matched objects
-  - Creates QuadTree grid within those bounds using `InstanceObjectQuadTreeGrid`
+    - Creates QuadTree grid within those bounds using <QuickInfo preset="terms.instance-object-quadtree-grid"><code>InstanceObjectQuadTreeGrid</code></QuickInfo>
   - Dynamically builds QuadTree cells based on configured settings (Max Objects Per Node, Max QuadTree Depth, Auto Adjust Max Depth)
   - Calculates data for each future SubScene
-  - Generates `ObjectSectionDetails` for each matched object
-  - Builds `QuadSubSceneData` structures linking cells to their assigned sections
+    - Generates <QuickInfo preset="terms.object-section-details"><code>ObjectSectionDetails</code></QuickInfo> for each matched object
+    - Builds <QuickInfo preset="terms.quad-subscene-data"><code>QuadSubSceneData</code></QuickInfo> structures linking cells to their assigned sections
 
 ### Phase 5: Finalization
 - Validates all calculated data
@@ -78,7 +78,7 @@ Clear Previous Data
     ↓
 Schedule ProcessType.CalculateLocations Event
     ↓
-ProcessRunner Handles Event
+<QuickInfo preset="terms.process-runner"><code>ProcessRunner</code></QuickInfo> Handles Event
     ↓
 Set HierarchyUpdateInProgress Flag
     ↓
@@ -90,11 +90,11 @@ GenerateLocationDataOp.PerformOperation()
     │   └── For each Workflow: CheckWorkflowObjects() (Validation)
     │
     ├── PHASE 2: Validation & Issue Detection (if enabled)
-    │   ├── Run ValidationEngine
+    │   ├── Run <QuickInfo preset="terms.validation-engine"><code>ValidationEngine</code></QuickInfo>
     │   └── Report tracked object errors/warnings
     │
     ├── PHASE 3: Rule Matching ⭐ CRITICAL
-    │   ├── CheckManualMatches (MatchByComponent)
+    │   ├── CheckManualMatches (<QuickInfo preset="terms.match-by-component"><code>MatchByComponent</code></QuickInfo>)
     │   ├── CheckCustomMatches (Custom rules)
     │   ├── CheckSearchQueryMatches (Primary matching)
     │   ├── CheckGoQLMatches (GameObject Query Language)
@@ -105,8 +105,8 @@ GenerateLocationDataOp.PerformOperation()
     │       ├── Calculate scene bounds
     │       ├── Generate QuadTree grid (if enabled)
     │       ├── Assign objects to cells
-    │       ├── Generate ObjectSectionDetails
-    │       └── Build QuadSubSceneData
+    │       ├── Generate <QuickInfo preset="terms.object-section-details"><code>ObjectSectionDetails</code></QuickInfo>
+    │       └── Build <QuickInfo preset="terms.quad-subscene-data"><code>QuadSubSceneData</code></QuickInfo>
     │
     └── PHASE 5: Finalization
         ├── Run validation groups
@@ -124,9 +124,9 @@ This is the **most important phase** - it determines which objects go into which
 
 Rules are processed in this order:
 
-1. **Manual Matches (MatchByComponent)**
+1. **Manual Matches (<QuickInfo preset="terms.match-by-component"><code>MatchByComponent</code></QuickInfo>)**
    - Objects with explicit section assignment
-   - Component: `MatchByComponent`
+    - Component: <QuickInfo preset="terms.match-by-component"><code>MatchByComponent</code></QuickInfo>
    - Highest priority - overrides other rules
 
 2. **Custom Matches**
@@ -136,13 +136,13 @@ Rules are processed in this order:
 
 3. **Search Query Matches (Primary)**
    - Unity Search Query system
-   - Category: `MatchBySearchQuery`
+    - Category: <QuickInfo preset="terms.match-by-search-query"><code>MatchBySearchQuery</code></QuickInfo>
    - **Most commonly used**
    - Examples: `t:MeshRenderer`, `ref:MyPrefab`
 
 4. **GameObject Query Language (GoQL)**
    - Advanced query syntax
-   - Category: `MatchByGOQLRule`
+    - Category: <QuickInfo preset="terms.match-by-goql-rule"><code>MatchByGOQLRule</code></QuickInfo>
    - More complex queries
 
 5. **Default Match Rule (Fallback)**
@@ -153,8 +153,8 @@ Rules are processed in this order:
 ### Match Result
 
 When an object matches a rule:
-- `MatchTracker.IsMatched` = true
-- `MatchTracker.SectionId` = assigned section (e.g., "LargeObjects")
+- <QuickInfo preset="terms.match-tracker"><code>MatchTracker</code></QuickInfo><code>.IsMatched</code> = true
+- <QuickInfo preset="terms.match-tracker"><code>MatchTracker</code></QuickInfo><code>.SectionId</code> = assigned section (e.g., "LargeObjects")
 - Object is added to that section's object list
 - Processing stops for that object (first match wins)
 
@@ -184,7 +184,7 @@ Each cell becomes source data for SubScene creation
 
 ### ObjectSectionDetails
 
-For each matched object, ProStream creates an `ObjectSectionDetails` record:
+For each matched object, ProStream creates an <QuickInfo preset="terms.object-section-details"><code>ObjectSectionDetails</code></QuickInfo> record:
 
 **Properties:**
 - GameObject reference
@@ -196,7 +196,7 @@ For each matched object, ProStream creates an `ObjectSectionDetails` record:
 
 ### QuadSubSceneData
 
-For each QuadTree cell, ProStream creates `QuadSubSceneData`:
+For each QuadTree cell, ProStream creates <QuickInfo preset="terms.quad-subscene-data"><code>QuadSubSceneData</code></QuickInfo>:
 
 **Properties:**
 - Cell coordinates (x, y)
