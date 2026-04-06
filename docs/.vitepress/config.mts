@@ -39,7 +39,7 @@ export default defineVersionedConfig({
       { text: 'Home', link: '/' },
       { text: 'Setup', link: '/getting-started/setup' },
       { text: 'Quick Start', link: '/getting-started/sample-quickstart' },
-      { text: 'Planned Features', link: '/planned-features/' },
+      { text: 'Roadmap', link: '/planned-features/' },
       { text: 'Reference', link: '/reference/settings-reference' },
       { text: 'Support', link: 'https://prostream.instance.id' },
       { component: 'VersionSwitcher' }
