@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getOfflineArtifactsDir, offlineMarkdownName } from './docs-version.mjs';
+import { replaceMermaidFencesWithImageMarkdown } from './mermaid-diagrams.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -259,7 +260,10 @@ function readPage(relativePath, options = {}) {
   const expanded = expandIncludes(noFrontmatter, fullPath);
   const noTitle = stripTopHeading(expanded);
   const noComments = removeHtmlComments(noTitle);
-  const rewritten = rewriteStandaloneAssetLinks(noComments);
+  const withRenderedMermaid = replaceMermaidFencesWithImageMarkdown(noComments, {
+    alt: 'Workflow process diagram'
+  });
+  const rewritten = rewriteStandaloneAssetLinks(withRenderedMermaid);
   const linkAdjusted = externalizeDocLinks(rewritten, fullPath);
   const expandedDetails = expandDetailsBlocks(linkAdjusted);
   return expandedDetails.trim();

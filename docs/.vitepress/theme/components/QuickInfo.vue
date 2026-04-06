@@ -1,153 +1,192 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
-import { getQuickInfoPreset } from '../data/quick-info'
+import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue';
+import { getQuickInfoPreset } from '../data/quick-info';
 
 interface Props {
-  definition?: string
-  preset?: string
-  title?: string
-  position?: 'auto' | 'top' | 'bottom'
+  definition?: string;
+  preset?: string;
+  title?: string;
+  position?: 'auto' | 'top' | 'bottom';
+  renderMode?: 'portal' | 'inline';
 }
 
 const props = withDefaults(defineProps<Props>(), {
   definition: '',
   preset: '',
   title: '',
-  position: 'auto'
-})
+  position: 'auto',
+  renderMode: 'portal'
+});
 
-const presetContent = computed(() => getQuickInfoPreset(props.preset))
-const resolvedTitle = computed(() => props.title || presetContent.value?.title || '')
-const resolvedDefinition = computed(
-  () => props.definition || presetContent.value?.definition || ''
-)
+const presetContent = computed(() => getQuickInfoPreset(props.preset));
+const resolvedTitle = computed(() => props.title || presetContent.value?.title || '');
+const resolvedDefinition = computed(() => props.definition || presetContent.value?.definition || '');
+const isPortalRender = computed(() => props.renderMode === 'portal');
 
-const isOpen = ref(false)
-const actualPlacement = ref<'top' | 'bottom'>('top')
-const rootRef = ref<HTMLElement | null>(null)
-const popoverRef = ref<HTMLElement | null>(null)
+const isOpen = ref(false);
+const actualPlacement = ref<'top' | 'bottom'>('top');
+const rootRef = ref<HTMLElement | null>(null);
+const popoverRef = ref<HTMLElement | null>(null);
+const portalStyles = ref<Record<string, string>>({});
+
+let closeTimeout: number | null = null;
+
+function clearCloseTimeout() {
+  if (closeTimeout === null) {
+    return;
+  }
+
+  window.clearTimeout(closeTimeout);
+  closeTimeout = null;
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max);
+}
 
 function updatePlacement() {
   if (!rootRef.value || !popoverRef.value) {
-    return
+    return;
   }
+
+  const margin = 12;
+  const gap = 14;
+  const triggerRect = rootRef.value.getBoundingClientRect();
+  const popoverRect = popoverRef.value.getBoundingClientRect();
 
   if (props.position !== 'auto') {
-    actualPlacement.value = props.position
-    return
+    actualPlacement.value = props.position;
+  } else {
+    const spaceAbove = triggerRect.top - margin;
+    const spaceBelow = window.innerHeight - triggerRect.bottom - margin;
+
+    if (spaceAbove >= popoverRect.height) {
+      actualPlacement.value = 'top';
+    } else if (spaceBelow >= popoverRect.height) {
+      actualPlacement.value = 'bottom';
+    } else {
+      actualPlacement.value = spaceBelow > spaceAbove ? 'bottom' : 'top';
+    }
   }
 
-  const margin = 12
-  const triggerRect = rootRef.value.getBoundingClientRect()
-  const popoverRect = popoverRef.value.getBoundingClientRect()
-  const spaceAbove = triggerRect.top - margin
-  const spaceBelow = window.innerHeight - triggerRect.bottom - margin
-
-  if (spaceAbove >= popoverRect.height) {
-    actualPlacement.value = 'top'
-    return
+  if (!isPortalRender.value) {
+    portalStyles.value = {};
+    return;
   }
 
-  if (spaceBelow >= popoverRect.height) {
-    actualPlacement.value = 'bottom'
-    return
-  }
+  const minLeft = margin;
+  const maxLeft = Math.max(margin, window.innerWidth - popoverRect.width - margin);
+  const centeredLeft = triggerRect.left + triggerRect.width / 2 - popoverRect.width / 2;
+  const left = clamp(centeredLeft, minLeft, maxLeft);
 
-  actualPlacement.value = spaceBelow > spaceAbove ? 'bottom' : 'top'
+  const top = actualPlacement.value === 'top' ? clamp(triggerRect.top - popoverRect.height - gap, margin, window.innerHeight - popoverRect.height - margin) : clamp(triggerRect.bottom + gap, margin, window.innerHeight - popoverRect.height - margin);
+
+  const arrowInset = 18;
+  const triggerCenter = triggerRect.left + triggerRect.width / 2;
+  const arrowOffset = clamp(triggerCenter - left, arrowInset, popoverRect.width - arrowInset);
+
+  portalStyles.value = {
+    top: `${top}px`,
+    left: `${left}px`,
+    '--quick-info-arrow-offset': `${arrowOffset}px`
+  };
 }
 
 function handleViewportChange() {
   if (!isOpen.value) {
-    return
+    return;
   }
 
-  updatePlacement()
+  updatePlacement();
 }
 
 function bindViewportListeners() {
-  window.addEventListener('resize', handleViewportChange)
-  window.addEventListener('scroll', handleViewportChange, true)
+  window.addEventListener('resize', handleViewportChange);
+  window.addEventListener('scroll', handleViewportChange, true);
 }
 
 function unbindViewportListeners() {
-  window.removeEventListener('resize', handleViewportChange)
-  window.removeEventListener('scroll', handleViewportChange, true)
+  window.removeEventListener('resize', handleViewportChange);
+  window.removeEventListener('scroll', handleViewportChange, true);
 }
 
 function openPopover() {
-  isOpen.value = true
+  clearCloseTimeout();
+  isOpen.value = true;
 }
 
 function closePopover() {
-  isOpen.value = false
+  clearCloseTimeout();
+  isOpen.value = false;
+}
+
+function scheduleClose() {
+  clearCloseTimeout();
+  closeTimeout = window.setTimeout(() => {
+    isOpen.value = false;
+    closeTimeout = null;
+  }, 80);
 }
 
 function togglePopover() {
-  isOpen.value = !isOpen.value
+  clearCloseTimeout();
+  isOpen.value = !isOpen.value;
 }
 
 watch(isOpen, async (open) => {
   if (open) {
-    await nextTick()
-    updatePlacement()
-    bindViewportListeners()
-    return
+    await nextTick();
+    updatePlacement();
+    bindViewportListeners();
+    return;
   }
 
-  unbindViewportListeners()
-})
+  unbindViewportListeners();
+});
 
 watch(
-  () => props.position,
+  () => [props.position, props.renderMode],
   async () => {
     if (!isOpen.value) {
-      return
+      return;
     }
 
-    await nextTick()
-    updatePlacement()
+    await nextTick();
+    updatePlacement();
   }
-)
+);
 
 onBeforeUnmount(() => {
-  unbindViewportListeners()
-})
+  clearCloseTimeout();
+  unbindViewportListeners();
+});
 </script>
 
 <template>
-  <span
-    ref="rootRef"
-    class="quick-info"
-    :class="[`quick-info--${actualPlacement}`, { 'is-open': isOpen }]"
-    @mouseenter="openPopover"
-    @mouseleave="closePopover"
-    @focusin="openPopover"
-    @focusout="closePopover"
-  >
-    <span
-      class="quick-info__trigger"
-      tabindex="0"
-      @click.stop="togglePopover"
-      @keydown.enter.prevent="togglePopover"
-      @keydown.space.prevent="togglePopover"
-      @keydown.esc.prevent="closePopover"
-    >
+  <span ref="rootRef" class="quick-info" :class="{ 'is-open': isOpen }" @mouseenter="openPopover" @mouseleave="scheduleClose" @focusin="openPopover" @focusout="closePopover">
+    <span class="quick-info__trigger" tabindex="0" @click.stop="togglePopover" @keydown.enter.prevent="togglePopover" @keydown.space.prevent="togglePopover" @keydown.esc.prevent="closePopover">
       <slot />
     </span>
 
-    <Transition name="quick-info-fade">
-      <span
-        v-if="isOpen && ($slots.content || resolvedDefinition)"
-        ref="popoverRef"
-        class="quick-info__popover"
-        role="tooltip"
-      >
-        <span v-if="resolvedTitle" class="quick-info__title">{{ resolvedTitle }}</span>
-        <span class="quick-info__body">
-          <slot name="content">{{ resolvedDefinition }}</slot>
+    <Teleport to="body" :disabled="!isPortalRender">
+      <Transition name="quick-info-fade">
+        <span
+          v-if="isOpen && ($slots.content || resolvedDefinition)"
+          ref="popoverRef"
+          class="quick-info__popover"
+          :class="[`quick-info__popover--${actualPlacement}`, { 'quick-info__popover--portal': isPortalRender }]"
+          :style="portalStyles"
+          role="tooltip"
+          @mouseenter="openPopover"
+          @mouseleave="scheduleClose"
+        >
+          <span v-if="resolvedTitle" class="quick-info__title">{{ resolvedTitle }}</span>
+          <span class="quick-info__body">
+            <slot name="content">{{ resolvedDefinition }}</slot>
+          </span>
         </span>
-      </span>
-    </Transition>
+      </Transition>
+    </Teleport>
   </span>
 </template>
 
@@ -187,10 +226,18 @@ onBeforeUnmount(() => {
   transform: translateX(-50%);
 }
 
+.quick-info__popover--portal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 200;
+  transform: none;
+}
+
 .quick-info__popover::after {
   content: '';
   position: absolute;
-  left: 50%;
+  left: var(--quick-info-arrow-offset, 50%);
   width: 12px;
   height: 12px;
   border-right: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 22%, var(--vp-c-border));
@@ -199,19 +246,19 @@ onBeforeUnmount(() => {
   transform: translateX(-50%) rotate(45deg);
 }
 
-.quick-info--top .quick-info__popover {
+.quick-info__popover--top:not(.quick-info__popover--portal) {
   bottom: calc(100% + 0.9rem);
 }
 
-.quick-info--top .quick-info__popover::after {
+.quick-info__popover--top::after {
   top: calc(100% - 7px);
 }
 
-.quick-info--bottom .quick-info__popover {
+.quick-info__popover--bottom:not(.quick-info__popover--portal) {
   top: calc(100% + 0.9rem);
 }
 
-.quick-info--bottom .quick-info__popover::after {
+.quick-info__popover--bottom::after {
   bottom: calc(100% - 7px);
   transform: translateX(-50%) rotate(225deg);
 }
@@ -232,7 +279,9 @@ onBeforeUnmount(() => {
 
 .quick-info-fade-enter-active,
 .quick-info-fade-leave-active {
-  transition: opacity 0.16s ease, transform 0.16s ease;
+  transition:
+    opacity 0.16s ease,
+    transform 0.16s ease;
 }
 
 .quick-info-fade-enter-from,
@@ -240,14 +289,24 @@ onBeforeUnmount(() => {
   opacity: 0;
 }
 
-.quick-info--top .quick-info-fade-enter-from,
-.quick-info--top .quick-info-fade-leave-to {
+.quick-info__popover--top.quick-info-fade-enter-from,
+.quick-info__popover--top.quick-info-fade-leave-to {
   transform: translate(-50%, 4px);
 }
 
-.quick-info--bottom .quick-info-fade-enter-from,
-.quick-info--bottom .quick-info-fade-leave-to {
+.quick-info__popover--bottom.quick-info-fade-enter-from,
+.quick-info__popover--bottom.quick-info-fade-leave-to {
   transform: translate(-50%, -4px);
+}
+
+.quick-info__popover--portal.quick-info-fade-enter-from,
+.quick-info__popover--portal.quick-info-fade-leave-to {
+  transform: translateY(4px);
+}
+
+.quick-info__popover--portal.quick-info__popover--bottom.quick-info-fade-enter-from,
+.quick-info__popover--portal.quick-info__popover--bottom.quick-info-fade-leave-to {
+  transform: translateY(-4px);
 }
 
 @media (max-width: 640px) {

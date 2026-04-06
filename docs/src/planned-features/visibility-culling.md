@@ -6,8 +6,8 @@ description: View-aware streamed section activation using frustum extraction and
 # Visibility And Frustum Culling
 
 <div class="planned-feature-detail-meta">
-  <QuickInfo preset="planned-feature-stage.beta-level-subsystem">
-    <Badge type="info" text="Beta-level subsystem" />
+  <QuickInfo preset="planned-feature-stage.beta-subsystem">
+    <Badge type="info" text="Beta subsystem" />
   </QuickInfo>
 </div>
 
@@ -53,4 +53,4 @@ Strict radial streaming is great, but loading thousands of objects behind the pl
 
 ## Current Status
 
-We have built strong Burst-compiled job structures and frustum-plane extraction systems as beta-level tech, which already succeed at section-level intersection testing. We are currently working on hardening these systems and integrating them smoothly into the modern streaming pipeline alongside terrain and detail instancing features.
+We have built strong Burst-compiled job structures and frustum-plane extraction systems as beta tech, which already succeed at section-level intersection testing. We are currently working on hardening these systems and integrating them smoothly into the modern streaming pipeline alongside terrain and detail instancing features.

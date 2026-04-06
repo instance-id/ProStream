@@ -47,6 +47,10 @@
   border-bottom: 1px solid var(--vp-c-border);
 }
 
+.VPNavBar .VPNavBarMenuLink{
+    padding: 0 6px;
+}
+
 .VPSidebar {
   background-color: var(--vp-sidebar-bg-color);
 }
@@ -88,6 +92,24 @@ img {
 .vp-doc img {
   max-width: 100%;
   height: auto;
+}
+
+.diagram--mermaid {
+  max-width: min(100%, 600px);
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid rgba(255, 90, 61, 0.18);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(20, 20, 22, 0.98), rgba(10, 10, 10, 0.94));
+  overflow-x: auto;
+}
+
+.diagram__image--mermaid {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 0;
 }
 
 .vp-doc table {
@@ -316,8 +338,8 @@ img {
   --pf-cell-pad-x: 0.75rem;
   --pf-badge-pad-y: 0.25rem;
   --pf-badge-pad-x: 0.65rem;
-  --pf-col-feature-min: 9.5rem;
-  --pf-col-status-min: 7.5rem;
+  --pf-col-feature-min: 3.5rem;
+  --pf-col-status-min: 6.75rem;
   --pf-col-description-min: 22rem;
   --pf-col-impact-min: 18rem;
 }

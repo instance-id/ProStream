@@ -43,7 +43,31 @@ Although ColliderObjects is documented alongside other workflows, the normal use
 
 See the [ColliderObjects Workflow guide](./workflow-guides/colliderobjects-workflow.md) for the full activation path and process breakdown.
 
-<!-- Note: DataObjectWorkflow and RemoteSceneWorkflow are currently WIP and will be documented in a future release. -->
+<!-- Note: DataObjects Workflow and RemoteScenes Workflow are currently WIP and will be documented in a future release. -->
+
+## Process Overview
+
+The diagram below shows where the two current workflows share the same pipeline, where ColliderObjects branches through the collider modification path, and where both results contribute to the final streamed scene output.
+
+:::details Process Flow Diagram
+
+```mermaid
+flowchart TD
+   A[SceneConnector discovers active workflows] --> B[Prepare Scene\nValidate workflow objects]
+   B --> C[Prepare Scene\nRun workflow spatial processing]
+   C --> D[InstanceObjects\nBuild main QuadTree\nWrite visual QuadSubSceneData]
+   C --> E{Collider modification\nenabled?}
+   E -->|No| G[Create SubScenes]
+   E -->|Yes| F[ColliderObjects\nBuild collider QuadTree\nWrite collider QuadSubSceneData]
+   D --> G
+   F --> G
+   G --> H[InstanceObjects\nCreate visual Entity SubScenes]
+   G --> I[ColliderObjects\nCreate collider GameObject scenes]
+   H --> J[Final streamed scene output]
+   I --> J
+```
+
+:::
 
 ## Workflow Lifecycle
 

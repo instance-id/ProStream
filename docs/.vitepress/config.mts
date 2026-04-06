@@ -1,4 +1,5 @@
 import { defineVersionedConfig } from '@viteplus/versions';
+import { renderMermaidFenceToHtml } from '../../scripts/mermaid-diagrams.mjs';
 
 const base = '/';
 const currentVersion = '0.2.1';
@@ -7,6 +8,23 @@ export default defineVersionedConfig({
   title: 'ProStream',
   description: 'High-performance scene streaming for Unity using DOTS/ECS',
   base,
+  markdown: {
+    config: (md: any) => {
+      const defaultFence = md.renderer.rules.fence?.bind(md.renderer.rules);
+      if (!defaultFence) return;
+
+      md.renderer.rules.fence = (tokens: any, index: any, options: any, env: any, self: any) => {
+        const token = tokens[index];
+        if (token.info.trim() === 'mermaid') {
+          return renderMermaidFenceToHtml(token.content, {
+            alt: 'Workflow process diagram'
+          });
+        }
+
+        return defaultFence(tokens, index, options, env, self);
+      };
+    }
+  },
   versionsConfig: {
     current: currentVersion,
     sources: 'src',
@@ -53,8 +71,8 @@ export default defineVersionedConfig({
             link: '/core-concepts/workflows',
             collapsed: false,
             items: [
-              { text: 'InstanceObjects Workflow', link: '/core-concepts/workflow-guides/instanceobjects-workflow' },
-              { text: 'ColliderObjects Workflow', link: '/core-concepts/workflow-guides/colliderobjects-workflow' }
+              { text: 'InstanceObjects', link: '/core-concepts/workflow-guides/instanceobjects-workflow' },
+              { text: 'ColliderObjects', link: '/core-concepts/workflow-guides/colliderobjects-workflow' }
             ]
           }
         ]

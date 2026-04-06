@@ -65,5 +65,5 @@ You can create custom layers to better organize your content:
 
 1. Start with defaults and test in Play Mode.
 2. Increase ranges for large landmarks that must appear early.
-3. Decrease ranges for dense small props to reduce memory/load spikes.
+3. Decrease ranges for dense small props that only appear up close.
 4. Use profiler + visual testing together before locking values.

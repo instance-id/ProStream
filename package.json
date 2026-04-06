@@ -4,8 +4,9 @@
   "description": "ProStream Documentation - High-performance scene streaming for Unity using DOTS/ECS",
   "type": "module",
   "scripts": {
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
+    "docs:diagrams": "node scripts/generate-mermaid-diagrams.mjs",
+    "docs:dev": "npm run docs:diagrams && vitepress dev docs",
+    "docs:build": "npm run docs:diagrams && vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "docs:offline:build": "node scripts/build-offline-markdown.mjs",
     "docs:offline:pdf": "node scripts/export-offline-pdf.mjs",
@@ -26,6 +27,7 @@
   "author": "instance.id",
   "license": "ISC",
   "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^11.12.0",
     "@viteplus/versions": "^2.0.6",
     "playwright": "^1.55.0",
     "prettier": "^3.6.2",
