@@ -24,11 +24,11 @@ For optimal performance, use the settings described above.
 
 These settings can be automatically applied in the `Recommended Settings` window.
 
-## 2) Apply Recommended Settings
+## 2) Apply Prerequisite Settings
 
-Use the `Recommended Settings` window to apply required and recommended project changes.
+Press the `View Settings Options` button to show the `Setup Assistant` window to apply required and recommended project changes.
 
-![Recommended Settings](/images/ps_recommended_settings.png)
+![Setup Assistant](/images/ps_recommended_settings.png)
 
 ## 3) Import ProStream
 

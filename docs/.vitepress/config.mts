@@ -177,7 +177,7 @@ export default defineVersionedConfig({
         collapsed: false,
         items: [
           { text: 'Common Issues', link: '/troubleshooting/troubleshooting' },
-          { text: 'Install & Update', link: '/reference/install-update' },
+          { text: 'Install & Update', link: '/troubleshooting/install-update' },
           { text: 'Build & Runtime', link: '/troubleshooting/build-runtime' }
         ]
       },
