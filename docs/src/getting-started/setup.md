@@ -18,11 +18,11 @@ Upon first importing the ProStream package, the ProStream setup window appears a
 
 ## 1) Open the ProStream Setup Window
 
-Upon first importing the ProStream package (or when updating), the ProStream setup window will appear automatically.
+Upon first importing the ProStream package (or when updating), the ProStream setup window will appear automatically.  
 
-For optimal performance, use the settings described above.
-
-These settings can be automatically applied in the `Recommended Settings` window.
+:::tip
+For optimal performance, use the settings described above. These settings can be automatically applied in the `Setup Assistant` window.
+:::
 
 ## 2) Apply Prerequisite Settings
 

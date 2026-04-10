@@ -28,7 +28,7 @@ From the ProStream Setup window, select the "View Settings Options" button.
 
 ![View Settings Options](/images/quick_start/view_settings_options.png)
 
-This window will show you the required and recommended settings for your project (with required items being highlighted)
+The `Setup Assistant` window will show you the required and recommended settings for your project (with required items being highlighted in orange)
 Check the boxes of the changes you wish to apply, then click the "Apply Changes" button to apply them.
 
 ![Check Box and Apply](/images/quick_start/check_box_and_apply.png)

@@ -22,16 +22,6 @@ const docsSiteBaseUrl = 'https://psdocs.instance.id';
 
 const sections = [
   {
-    group: 'Planned Features',
-    pages: [
-      {
-        title: 'Planned Features',
-        path: 'planned-features/index.md',
-        exportLinkMode: 'absolute-site'
-      }
-    ]
-  },
-  {
     group: 'Getting Started',
     pages: [
       { title: 'Setup', path: 'getting-started/setup.md' },
@@ -80,6 +70,16 @@ const sections = [
     pages: [
       { title: 'Runtime Streaming', path: 'runtime-systems/runtime-streaming.md' },
       { title: 'Advanced Configuration', path: 'runtime-systems/advanced-configuration.md' }
+    ]
+  },
+  {
+    group: 'Roadmap',
+    pages: [
+      {
+        title: 'Roadmap',
+        path: 'planned-features/index.md',
+        exportLinkMode: 'absolute-site'
+      }
     ]
   },
   {

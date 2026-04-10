@@ -9,10 +9,12 @@ set shell := ["/usr/bin/env", "pwsh", "-noprofile", "-nologo", "-c"]
 
 set windows-shell := ["pwsh.exe", "-NoLogo", "-noprofile", "-c"]
 
+installer_path := "/mnt/x/GitHub/instance-id/unity/projects/ProStream.package/Assets/instance.id/PSSetup/Documentation"
 output_path := "/mnt/x/GitHub/instance-id/unity/projects/ProStream.package/Packages/id.instance.prostream/Documentation"
 
 build-docs:
     @echo "Building docs..."
     npx playwright install chromium && npm run docs:offline:pdf
     @echo "Copying docs to package..."
-    node scripts/copy-offline-docs-to-package.mjs {{output_path}}
+    node scripts/copy-offline-docs-to-package.mjs {{ output_path }}
+    node scripts/copy-offline-docs-to-package.mjs {{ installer_path }}
