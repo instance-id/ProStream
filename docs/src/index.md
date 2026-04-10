@@ -16,7 +16,7 @@ hero:
 features:
   - title: Setup and Requirements
     details: Prerequisites and recommended settings for optimal performance
-    link: /getting-started/requirements
+    link: /getting-started/setup
   - title: Quick Start Guide
     details: Get started quickly and see ProStream in action with our Sample scene
     link: /getting-started/sample-quickstart
