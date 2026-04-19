@@ -319,7 +319,8 @@ function buildDocument() {
   parts.push('');
   parts.push(`Generated: ${now}`);
   parts.push('');
-  parts.push('This document is generated from the VitePress source docs for offline distribution.');
+  parts.push('This document is generated from the ProStream source docs for offline distribution.');
+  parts.push('For the latest documentation updates and full online navigation, visit [psdocs.instance.id](https://psdocs.instance.id).');
   parts.push('');
   parts.push('## Table of Contents');
   parts.push('');

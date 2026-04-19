@@ -34,7 +34,7 @@ fs.rmSync(outputPdfPath, { force: true });
 fs.rmSync(outputMarkdownPath, { force: true });
 fs.rmSync(outputImagesDir, { recursive: true, force: true });
 fs.copyFileSync(sourcePdfPath, outputPdfPath);
-fs.copyFileSync(sourceMarkdownPath, outputMarkdownPath);
-fs.cpSync(sourceImagesDir, outputImagesDir, { recursive: true });
+// fs.copyFileSync(sourceMarkdownPath, outputMarkdownPath);
+// fs.cpSync(sourceImagesDir, outputImagesDir, { recursive: true });
 
 console.log(`Copied offline docs to: ${outputDir}`);
