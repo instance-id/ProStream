@@ -2,13 +2,27 @@
 
 Release history and changes for ProStream.
 
-## 0.2.1
+## [0.3.2] - 2026-05-06
 
-- Initial Asset Store Release
+- Fix: Enhance entity initialization and validate subscene data handling
 
-### Recent Improvements
+## [0.3.1] - 2026-05-04
 
-### Bug Fixes
+- Fix: Ensure font asset is checked for null before accessing in ModificationEngineEditor
+- Refactor: Simplify ObjectFromItem method to directly return GameObject from item data
+
+## [0.3.0] - 2026-04-26
+
+### Changed
+
+- Update Entities Package 1.4.6
+- Update Entities Graphics 1.4.19
+
+## [0.2.1] - 2026-03-07
+
+### Added
+
+- Initial asset store release
 
 ## Reporting Issues
 
