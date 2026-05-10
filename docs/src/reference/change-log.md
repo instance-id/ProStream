@@ -4,17 +4,16 @@ Release history and changes for ProStream.
 
 ## [0.4.0] - 2026-05-09
 
-* Fix: Rework SRP and sample prefab staging functionality
-* Fix: Adjust tab item label styles for consistent text wrapping
-* Fix: Update tab item styles for better layout and consistency
-
-* Style: Add AppUI overrides for text wrapping in LayerData styles
-* Refactor: Update GetObjectByID methods to use GetObjectFromID for improved clarity and consistency
+- Fix: Rework SRP and sample prefab staging functionality
+- Fix: Adjust tab item label styles for consistent text wrapping
+- Fix: Update tab item styles for better layout and consistency
+- Style: Add AppUI overrides for text wrapping in LayerData styles
+- Refactor: Update GetObjectByID methods to use GetObjectFromID for improved clarity and consistency
 
 ## [0.3.3] - 2026-05-08
 
-* Fix: Update preprocessor directives for Unity version compatibility in GetObjectByID methods
-* Fix: Update getting started URL in PSSetup documentation
+- Fix: Update preprocessor directives for Unity version compatibility in GetObjectByID methods
+- Fix: Update getting started URL in PSSetup documentation
 
 ## [0.3.2] - 2026-05-06
 
