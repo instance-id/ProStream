@@ -2,6 +2,24 @@
 
 Release history and changes for ProStream.
 
+## [0.4.1] - 2026-05-18
+
+- Added: Add Terrain restriction validation and update MatchTracker restrictions
+- Fixed: Add debug logging for workflow and quadtree checks, and clean up unused code
+- Fixed: Enabled new icons and styles for improved UI elements in AppUI
+- Fixed: Enhance asset filtering by adding checks for generated visible meta files and improve deterministic GUID generation for staged assets
+- Fixed: Improve TriggerComponent initialization and add custom editor support
+- Fixed: Enhance QuadTree functionality and diagnostics
+- Fixed: Update InstanceObjectCollection handling and improve scene lock validation
+- Fixed: Schedule delayed highlighting for package import button in TrySelectSamplesTabWithRetry method
+- Fixed: Improve validation logging and enhance prefab search warning message
+- Fixed: Enhance logging and error handling in CreateQuadTree method
+- Fixed: Adjust log level defaults and update current log level initialization
+- Fixed: Add check for streaming scene in ProStreamSceneViewHandler constructor
+- Fixed: Improve warning message for empty prefab search results in AddSearchFilters method
+- Refactor: Refactor object finding methods to use InstanceExtensions for consistency
+- Refactor: Replace Debug.Log calls with Logger.DebugLog to respect log level settings
+
 ## [0.4.0] - 2026-05-09
 
 - Fix: Rework SRP and sample prefab staging functionality
