@@ -2,6 +2,11 @@
 
 Release history and changes for ProStream.
 
+## [0.4.2] - 2026-05-21
+
+- Added: ProStreamWelcomeWindow and ProStreamSamplesWindow structure and styles
+- Added: Introduce AppUIListView component with styling and functionality enhancements
+
 ## [0.4.1] - 2026-05-18
 
 - Added: Add Terrain restriction validation and update MatchTracker restrictions
