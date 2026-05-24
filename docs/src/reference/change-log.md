@@ -2,10 +2,17 @@
 
 Release history and changes for ProStream.
 
-## [0.4.2] - 2026-05-21
+## [0.4.2] - 2026-05-23
 
-- Added: ProStreamWelcomeWindow and ProStreamSamplesWindow structure and styles
+- Added: Add package lookup functionality and more generic asset searching
+- Added: Add asynchronous search functionality for Unity objects in ProStream using Unity Editor Search API
 - Added: Introduce AppUIListView component with styling and functionality enhancements
+- Added: ProStreamWelcomeWindow and ProStreamSamplesWindow structure and styles
+- Changed: Enhance Weclome/Samples UI
+- Changed: Implement property change tracking in AppUIListView and update styles
+- Fixed: Update ProStreamLogo.uxml to correct style source path
+- Fixed: Update AssetDefineProcessor to use editor assembly for samples in non-dev builds
+- Fixed: Update ProStream Setup with enhanced validation and asset management
 
 ## [0.4.1] - 2026-05-18
 
