@@ -2,6 +2,11 @@
 
 Release history and changes for ProStream.
 
+## [0.4.3] - 2026-05-29
+
+- Changed: Update com.unity.entities.graphics dependency version to 1.4.20 (entities to 1.4.7)
+- Fixed: Correct style sheet lookup logic in GetStyleSheet method
+
 ## [0.4.2] - 2026-05-23
 
 - Added: Add package lookup functionality and more generic asset searching
