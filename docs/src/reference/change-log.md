@@ -2,6 +2,19 @@
 
 Release history and changes for ProStream.
 
+## [0.6.0] - 2026-09-04
+
+- Changed: Unity 6.5 compatibility updates
+
+## [0.5.0] - 2026-07-17
+
+- Fixed: Unity 6.5 compatibility updates
+- Fixed: Update entities.graphics to 1.4.21 and adapt to Unity 6000.4+ API changes
+
+## [0.4.4] - 2026-05-30
+
+- Fixed: Refactor SceneSectionAuthoring to improve handling of scene objects and rendering components
+
 ## [0.4.3] - 2026-05-29
 
 - Changed: Update com.unity.entities.graphics dependency version to 1.4.20 (entities to 1.4.7)
