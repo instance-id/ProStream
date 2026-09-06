@@ -2,10 +2,6 @@
 
 Release history and changes for ProStream.
 
-## [0.6.2] - 2026-09-06
-
-- Changed: Unity 6.6 compatibility updates
-
 ## [0.6.0] - 2026-09-04
 
 - Changed: Unity 6.6 compatibility updates
