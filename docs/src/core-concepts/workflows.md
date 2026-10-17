@@ -20,7 +20,7 @@ Understanding workflows involves a few key types:
 
 ## Built-in Workflows
 
-ProStream currently includes two primary workflows for scene generation:
+ProStream currently includes three primary workflows for scene generation:
 
 ### 1. InstanceObjectsWorkflow
 This is the default, primary workflow for ProStream.
@@ -43,11 +43,21 @@ Although ColliderObjects is documented alongside other workflows, the normal use
 
 See the [ColliderObjects Workflow guide](./workflow-guides/colliderobjects-workflow.md) for the full activation path and process breakdown.
 
-<!-- Note: DataObjects Workflow and RemoteScenes Workflow are currently WIP and will be documented in a future release. -->
+### 3. DataObjectsWorkflow
+The **DataObjectsWorkflow** is the repeated-prefab streaming path. Instead of cloning full GameObject hierarchies into SubScenes, it converts scene prefab instances into compact `DataObject` assets (a prefab reference plus per-instance transform data) and rebuilds entity instances from section buffers at runtime.
+
+**Key Technical Benefits:**
+- **Compact SubScenes:** Generated SubScenes contain prefab references and transform buffers rather than duplicated hierarchies, reducing serialized content for heavily repeated prefabs.
+- **Dedicated spatial data:** Builds its own `DataObjectQuadTreeGrid`, independent of the InstanceObjects tree.
+- **Flexible spawning:** Per-section spawn modes let you choose between bake-time instantiation and runtime progressive/immediate spawning.
+
+See the [DataObjects Workflow guide](./workflow-guides/dataobjects-workflow.md) for the full conversion, Prepare Scene, and Create SubScenes flow.
+
+<!-- Note: RemoteScenes Workflow is currently WIP and will be documented in a future release. -->
 
 ## Process Overview
 
-The diagram below shows where the two current workflows share the same pipeline, where ColliderObjects branches through the collider modification path, and where both results contribute to the final streamed scene output.
+The diagram below shows where the workflows share the same pipeline, where ColliderObjects branches through the collider modification path, where DataObjects branches through the prefab-conversion path, and where all results contribute to the final streamed scene output.
 
 :::details Process Flow Diagram
 
@@ -59,12 +69,18 @@ flowchart TD
    C --> E{Collider modification\nenabled?}
    E -->|No| G[Create SubScenes]
    E -->|Yes| F[ColliderObjects\nBuild collider QuadTree\nWrite collider QuadSubSceneData]
+   C --> K{DataObjects converted\nin scene?}
+   K -->|No| G
+   K -->|Yes| L[DataObjects\nBuild DataObject QuadTree\nWrite DataObject QuadSubSceneData]
    D --> G
    F --> G
+   L --> G
    G --> H[InstanceObjects\nCreate visual Entity SubScenes]
    G --> I[ColliderObjects\nCreate collider GameObject scenes]
+   G --> M[DataObjects\nCreate compact prefab + buffer SubScenes]
    H --> J[Final streamed scene output]
    I --> J
+   M --> J
 ```
 
 :::
@@ -91,4 +107,5 @@ When you click **Create SubScenes**:
 
 - [InstanceObjects Workflow](./workflow-guides/instanceobjects-workflow.md)
 - [ColliderObjects Workflow](./workflow-guides/colliderobjects-workflow.md)
+- [DataObjects Workflow](./workflow-guides/dataobjects-workflow.md)
 - [Workflows Configuration Guide](../editor-guide/engines/workflows-configuration.md)

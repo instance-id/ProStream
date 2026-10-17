@@ -37,6 +37,12 @@ Most any asset can be compatible with DOTS/ECS (and therefore ProStream), but it
 
 **A**: Certainly! You can create your own custom DOTS/ECS components, systems, and features which either integrate with ProStream's workflows or run independently alongside them.
 
+## Workflows
+
+**Q**: Should I use the DataObjects workflow or the default InstanceObjects workflow?
+
+**A**: Both can coexist in the same scene. Use the [DataObjects workflow](/core-concepts/workflow-guides/dataobjects-workflow) for prefabs placed many times (scattered props, clutter, modular pieces) - it stores one prefab reference plus compact transform buffers rather than cloning full hierarchies into SubScenes, reducing duplicated content, build size, and runtime memory. Keep unique or one-off objects on the default InstanceObjects path; a prefab placed once gains little from the conversion overhead. Converted objects are automatically excluded from InstanceObjects matching, so the two workflows never process the same object.
+
 ## Content Suitability
 
 **Q**: What types of content should I avoid converting to Entity SubScenes?

@@ -62,4 +62,20 @@ The collider workflow and the Collider modification work together. In practice, 
 
 See the [ColliderObjects Workflow guide](../../core-concepts/workflow-guides/colliderobjects-workflow.md) for the full process and activation flow.
 
-*Note: DataObjectWorkflow and RemoteSceneWorkflow configurations will be documented in a future release.*
+## DataObjectWorkflow Settings
+
+The <QuickInfo preset="terms.dataobjects"><code>DataObjects</code></QuickInfo> workflow exposes its own **DataObject Setup** section in the Scene/Setup panel, mirroring the InstanceObjects QuadTree configuration:
+
+- **Objects Per Node** (default 16): The target instance count per QuadTree cell before it subdivides.
+- **Max Node Depth** (default 4, range 2-15): How small cells are allowed to become.
+- **Auto Adjust Max Depth:** Automatically increases depth until the average objects-per-node falls under your target.
+- **Draw QuadTree / Draw Tree Items:** Scene view visualization of the DataObjects grid, toggled via the menu icon next to the settings. The grid recalculates in the background as you adjust values.
+
+### Spawn settings
+
+- **Auto-Sync Section Settings To SubScenes:** When enabled, Spawn Mode and Tile Size edits on a `SectionData` layer are written back into already-created DataObject SubScenes so they re-bake without re-running Prepare Scene or Create SubScenes.
+- Per-layer **Spawn Mode** and **Tile Size** live on each `SectionData` asset. See [DataObject Spawning](../../runtime-systems/dataobject-spawning.md) for what they control.
+
+Manage converted objects from the [DataObject Manager](../windows/dataobject-manager.md). See the [DataObjects Workflow guide](../../core-concepts/workflow-guides/dataobjects-workflow.md) for the end-to-end process.
+
+*Note: RemoteSceneWorkflow configuration will be documented in a future release.*

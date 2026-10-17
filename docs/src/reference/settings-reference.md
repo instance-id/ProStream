@@ -86,10 +86,24 @@ You can achieve similar results by manually including separator characters in yo
 
 ## Workflows Tab
 
-This tab lists all discovered <QuickInfo preset="terms.workflow-asset"><code>WorkflowAssets</code></QuickInfo> in the project (e.g., <QuickInfo preset="terms.instanceobjects-workflow"><code>InstanceObjectsWorkflow</code></QuickInfo>, <QuickInfo preset="terms.colliderobjects-workflow"><code>ColliderObjectsWorkflow</code></QuickInfo>).
+This tab lists all discovered <QuickInfo preset="terms.workflow-asset"><code>WorkflowAssets</code></QuickInfo> in the project (e.g., <QuickInfo preset="terms.instanceobjects-workflow"><code>InstanceObjectsWorkflow</code></QuickInfo>, <QuickInfo preset="terms.colliderobjects-workflow"><code>ColliderObjectsWorkflow</code></QuickInfo>, `DataObjectWorkflow`).
 You can toggle whether a workflow is **Active** across the project.
 
 *Note: Deactivating a workflow fully disables all associated functionality.*
+
+### DataObjects Workflow Settings
+
+When the <QuickInfo preset="terms.dataobjects"><code>DataObjects</code></QuickInfo> workflow is active, its settings appear in a **DataObject Setup** section of the Scene/Setup panel:
+
+| Setting | Default | Description |
+|---------|---------|-------------|
+| Objects Per Node | 16 | Target instance count per QuadTree cell before subdivision. |
+| Max Node Depth | 4 (2-15) | How small cells are allowed to become. |
+| Auto Adjust Max Depth | On | Automatically increases depth until average objects-per-node falls under the target. |
+| Draw QuadTree / Draw Tree Items | Off | Scene view visualization of the DataObjects grid; toggled via the menu icon next to the settings. Grid recalculates live as values change. |
+| Auto-Sync Section Settings To SubScenes | On | Writes Spawn Mode and Tile Size edits back into existing DataObject SubScenes so they re-bake without re-running the full pipeline. |
+
+Each `SectionData` (streaming layer) also carries a **Spawn Mode** (`BakeTimeOptimized`, `RuntimeProgressive`, `RuntimeImmediate`) and **Tile Size** used by its DataObject sections. See [DataObject Spawning](/runtime-systems/dataobject-spawning).
 
 ## Build Tab
 

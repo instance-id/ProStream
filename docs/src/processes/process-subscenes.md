@@ -36,6 +36,10 @@ This is an **automated process** that handles asset creation, object cloning, hi
 - Preserves hierarchy relationships
 - Removes "(Clone)" suffix from names
 
+::: info DataObjects workflow exception
+Objects converted to DataObjects are **not** cloned into SubScenes. Their SubScenes instead contain a `DataObjectPrefabAuthoring` entry per unique prefab (section 0) plus a `DataObjectSectionAuthoring` object per content section carrying a compact transform buffer, the section index, and the section's Spawn Mode/Tile Size. See [DataObjects Workflow](/core-concepts/workflow-guides/dataobjects-workflow).
+:::
+
 ### 4. Modification Execution
 - Runs enabled modifications at various stages
 - Examples: mesh combining, LOD setup, material optimization
@@ -116,6 +120,10 @@ MyScene_Quad_0_0.unity
     ├── Grass_Patch_001 (cloned from main scene)
     └── ... (more small objects)
 ```
+
+::: tip DataObject SubScene structure
+SubScenes generated for DataObject content differ: section 0 holds `DataObjectPrefabAuthoring` objects (one per unique prefab), and each streamed section holds a `DataObjectSectionAuthoring` object with the prefab-to-instance transform buffer and that section's Spawn Mode and Tile Size. Entities are instantiated from these buffers at runtime or baked in via EntitySceneOptimizations.
+:::
 
 ## Key Components
 

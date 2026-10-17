@@ -72,7 +72,8 @@ export default defineVersionedConfig({
             collapsed: false,
             items: [
               { text: 'InstanceObjects', link: '/core-concepts/workflow-guides/instanceobjects-workflow' },
-              { text: 'ColliderObjects', link: '/core-concepts/workflow-guides/colliderobjects-workflow' }
+              { text: 'ColliderObjects', link: '/core-concepts/workflow-guides/colliderobjects-workflow' },
+              { text: 'DataObjects', link: '/core-concepts/workflow-guides/dataobjects-workflow' }
             ]
           }
         ]
@@ -88,7 +89,10 @@ export default defineVersionedConfig({
           {
             text: 'Editor Windows',
             collapsed: true,
-            items: [{ text: 'ProStream Editor', link: '/editor-guide/windows/prostream-editor' }]
+            items: [
+              { text: 'ProStream Editor', link: '/editor-guide/windows/prostream-editor' },
+              { text: 'DataObject Manager', link: '/editor-guide/windows/dataobject-manager' }
+            ]
           },
 
           // --| Components -----------
@@ -143,6 +147,7 @@ export default defineVersionedConfig({
         collapsed: false,
         items: [
           { text: 'Runtime Streaming', link: '/runtime-systems/runtime-streaming' },
+          { text: 'DataObject Spawning', link: '/runtime-systems/dataobject-spawning' },
           { text: 'Advanced Configuration', link: '/runtime-systems/advanced-configuration' }
         ]
       },
@@ -162,7 +167,6 @@ export default defineVersionedConfig({
         collapsed: false,
         items: [
           { text: 'Overview', link: '/planned-features/' },
-          { text: 'DataObjects Workflow', link: '/planned-features/dataobjects-workflow' },
           { text: 'RemoteScenes Workflow', link: '/planned-features/remote-scenes-workflow' },
           { text: 'Terrain System', link: '/planned-features/terrain-system' },
           { text: 'Visibility and Frustum Culling', link: '/planned-features/visibility-culling' },

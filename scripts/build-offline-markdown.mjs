@@ -39,7 +39,8 @@ const sections = [
         path: 'core-concepts/workflows.md',
         children: [
           { title: 'InstanceObjects Workflow', path: 'core-concepts/workflow-guides/instanceobjects-workflow.md' },
-          { title: 'ColliderObjects Workflow', path: 'core-concepts/workflow-guides/colliderobjects-workflow.md' }
+          { title: 'ColliderObjects Workflow', path: 'core-concepts/workflow-guides/colliderobjects-workflow.md' },
+          { title: 'DataObjects Workflow', path: 'core-concepts/workflow-guides/dataobjects-workflow.md' }
         ]
       }
     ]
@@ -48,6 +49,7 @@ const sections = [
     group: 'Editor Guide',
     pages: [
       { title: 'ProStream Editor', path: 'editor-guide/windows/prostream-editor.md' },
+      { title: 'DataObject Manager', path: 'editor-guide/windows/dataobject-manager.md' },
       { title: 'Scene Connector', path: 'editor-guide/components/scene-connector.md' },
       { title: 'Scene Search Filter', path: 'editor-guide/components/scene-search-filter.md' },
       { title: 'Rule Engine', path: 'editor-guide/engines/rule-engine.md' },
@@ -69,6 +71,7 @@ const sections = [
     group: 'Runtime Systems',
     pages: [
       { title: 'Runtime Streaming', path: 'runtime-systems/runtime-streaming.md' },
+      { title: 'DataObject Spawning', path: 'runtime-systems/dataobject-spawning.md' },
       { title: 'Advanced Configuration', path: 'runtime-systems/advanced-configuration.md' }
     ]
   },
@@ -385,8 +388,8 @@ function removeLegacyOfflineArtifacts() {
 fs.mkdirSync(offlineDir, { recursive: true });
 fs.mkdirSync(offlineArtifactsDir, { recursive: true });
 removeLegacyOfflineArtifacts();
-syncOfflineImages();
 const documentContents = `${buildDocument()}\n`;
+syncOfflineImages();
 fs.writeFileSync(outputPath, documentContents, 'utf8');
 fs.writeFileSync(offlineArtifactsMarkdownPath, documentContents, 'utf8');
 console.log(`Generated offline markdown: ${path.relative(rootDir, outputPath)}`);

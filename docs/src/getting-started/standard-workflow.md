@@ -160,6 +160,10 @@ This is where ProStream utilizes modular **Workflows** (e.g., <QuickInfo preset=
 
 See [Prepare Scene Process](/processes/prepare-scene) for complete details.
 
+::: tip Optional: Convert repeated prefabs to DataObjects
+If your scene places the same prefab many times (scattered props, vegetation-style placements, modular pieces), you can convert those instances to DataObjects before this step via **GameObject > ProStream > Convert Selected to DataObject**. The [DataObjects workflow](/core-concepts/workflow-guides/dataobjects-workflow) stores them as compact prefab + transform data instead of cloned hierarchies, reducing SubScene size and runtime memory. Unique objects should keep the default InstanceObjects path.
+:::
+
 ### Step 6: Create SubScenes
 
 Now create the actual SubScene files that will stream at runtime.
@@ -223,7 +227,8 @@ Congratulations! You now have a working ProStream setup.
 **Optimize Streaming**
 - Adjust layer distances based on object importance
 - Use Persistent layers for always-loaded objects
-- See [Streaming Layers](/core-concepts/layers/streaming-layers)
+- Convert heavily repeated prefabs to DataObjects for compact sections and flexible spawn modes
+- See [Streaming Layers](/core-concepts/layers/streaming-layers) and [DataObjects Workflow](/core-concepts/workflow-guides/dataobjects-workflow)
 
 **Add Modifications**
 - Separate Colliders for physics interaction

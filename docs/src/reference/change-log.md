@@ -2,6 +2,14 @@
 
 Release history and changes for ProStream.
 
+## [0.7.0] - 2026-10-16
+
+- Added: DataObjects workflow for repeated prefab content. Converts placed prefab instances into compact prefab-reference + transform-buffer SubScenes instead of cloning full hierarchies, reducing build size and runtime memory
+- Added: DataObject Manager window for inspecting, re-layering, validating, and removing converted DataObjects
+- Added: Per-section DataObject spawn modes (BakeTimeOptimized, RuntimeProgressive, RuntimeImmediate) and tile-size control, with runtime overrides via DataObjectTileSizeAPI
+- Added: Menu actions to convert selected prefab instances or prefab children to DataObjects
+- Changed: Prepare Scene and Create SubScenes now include a dedicated DataObjects pipeline stage backed by its own QuadTree
+
 ## [0.6.0] - 2026-09-04
 
 - Changed: Unity 6.6 compatibility updates

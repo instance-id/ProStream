@@ -27,8 +27,9 @@ This page documents the process name as **Prepare Scene**. In code/events, this 
 ## What It Does
 
 ### Phase 1: Workflow Object Checking
-- Allows active **Workflows** (e.g., <QuickInfo preset="terms.instanceobjects-workflow"><code>InstanceObjectsWorkflow</code></QuickInfo>, <QuickInfo preset="terms.colliderobjects-workflow"><code>ColliderObjectsWorkflow</code></QuickInfo>) to validate their objects before rule matching
+- Allows active **Workflows** (e.g., <QuickInfo preset="terms.instanceobjects-workflow"><code>InstanceObjectsWorkflow</code></QuickInfo>, <QuickInfo preset="terms.colliderobjects-workflow"><code>ColliderObjectsWorkflow</code></QuickInfo>, `DataObjectWorkflow`) to validate their objects before rule matching
 - Validates workflow-specific requirements (e.g., checking `InstanceObjectCollection` references)
+- For the DataObjects workflow: verifies `DataObject` assets, rebuilds collection lookup tables, and reconciles the workflow component list, `DataObjectContainer`, and `DataObjectCollection` (repairing them automatically if they have drifted)
 - Prepares internal data structures and checks for configuration issues
 - *See [Workflows](/core-concepts/workflows) for more information.*
 
@@ -53,6 +54,11 @@ This page documents the process name as **Prepare Scene**. In code/events, this 
   - Calculates data for each future SubScene
     - Generates <QuickInfo preset="terms.object-section-details"><code>ObjectSectionDetails</code></QuickInfo> for each matched object
     - Builds <QuickInfo preset="terms.quad-subscene-data"><code>QuadSubSceneData</code></QuickInfo> structures linking cells to their assigned sections
+- **For `DataObjectWorkflow`:**
+  - Skips entirely if no converted DataObjects exist in the scene
+  - Builds a dedicated `DataObjectQuadTreeGrid` over all captured instance transforms (separate from the InstanceObjects tree)
+  - Groups each node's contained objects by streaming layer and writes `ObjectSectionDetails`
+  - Stores results as <QuickInfo preset="terms.quad-subscene-data"><code>QuadSubSceneData</code></QuickInfo> tagged `WorkflowObject` for the DataObjects subscene stage - *see [DataObjects Workflow](/core-concepts/workflow-guides/dataobjects-workflow)*
 
 ### Phase 5: Finalization
 - Validates all calculated data

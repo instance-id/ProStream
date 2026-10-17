@@ -76,6 +76,8 @@ features:
 
 **Advanced Rule-Based Matching:** Leverage powerful, customizable rules and queries to automatically categorize GameObjects into distinct streaming layers which enables independent loading ranges and streaming behaviors.
 
+**DataObjects Workflow:** Convert heavily repeated prefab instances into compact prefab-reference and transform-buffer sections, reducing SubScene duplication, build size, and runtime memory while keeping the authoring experience native.
+
 :::
 
 ::: warning 🐛 Debugging & Diagnostics

@@ -89,6 +89,15 @@ High-level play mode flow (Runtime v2):
 5. **Execution:** <QuickInfo preset="terms.subscene-loading-system"><code>SubSceneLoadingSystem</code></QuickInfo> schedules distance-based loading jobs, followed by <QuickInfo preset="terms.subscene-unloading-system"><code>SubSceneUnloadingSystem</code></QuickInfo>.
 6. **Live Updates (Optional):** At runtime, `LoadingDistanceSystem.Set/SetGlobal` updates layer ranges, which the load/unload jobs will observe on subsequent updates.
 
+### DataObject sections
+
+Scenes using the [DataObjects workflow](/core-concepts/workflow-guides/dataobjects-workflow) add a spawn/cleanup stage on top of section streaming:
+
+- On section load, `DataObjectPrefabLoadSystem` loads each referenced prefab (held on a section-independent proxy so it survives individual section unloads), and `DataObjectSpawnSystem` instantiates entities from the section's transform buffer according to its spawn mode.
+- On section unload, `DataObjectSectionUnloadingSystem` destroys the entities tagged with that section's `DataObjectSectionComponent`.
+
+`BakeTimeOptimized` sections skip runtime instantiation entirely - their instances are baked into the entity scene. See [DataObject Spawning](/runtime-systems/dataobject-spawning).
+
 ## Troubleshooting Quick Checks
 
 If sections do not stream:

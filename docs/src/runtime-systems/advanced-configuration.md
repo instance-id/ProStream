@@ -49,3 +49,26 @@ public class MapSampleHelper : MonoBehaviour
 2. It locates the specific index within the dynamic buffer and overwrites the `float2` range.
 3. It increments the `Version` on the <QuickInfo preset="terms.layer-loading-ranges"><code>LayerLoadingRanges</code></QuickInfo> component.
 4. The <QuickInfo preset="terms.subscene-loading-system"><code>SubSceneLoadingSystem</code></QuickInfo> and <QuickInfo preset="terms.subscene-unloading-system"><code>SubSceneUnloadingSystem</code></QuickInfo> detect the version change on their next update and automatically start using the new distances to evaluate whether a subscene should be loaded or unloaded.
+
+## DataObject Spawn Tuning
+
+Scenes using the [DataObjects workflow](/core-concepts/workflow-guides/dataobjects-workflow) can also adjust per-layer spawn behavior at runtime through `DataObjectTileSizeAPI` (namespace `instance.id.ProStream`).
+
+For sections using the `RuntimeProgressive` spawn mode, tile size controls how many instances are spawned per frame:
+
+```csharp
+using instance.id.ProStream;
+
+// Spawn up to 128 instances per frame for layer 2
+DataObjectTileSizeAPI.SetTileSize(2, 128);
+
+// Add a minimum interval (seconds) between spawn bursts for layer 2
+DataObjectTileSizeAPI.SetSpawnInterval(2, 0.05f);
+
+// Restore the baked per-section tile size for layer 2
+DataObjectTileSizeAPI.ResetTileSize(2);
+```
+
+Per-layer overrides take precedence over the baked `Tile Size` on the section. Setting a tile size of `0` (or calling `ResetTileSize`) returns the layer to its baked value. Changes apply to sections that stream in after the call.
+
+See [DataObject Spawning](/runtime-systems/dataobject-spawning) for spawn modes and the full runtime lifecycle.

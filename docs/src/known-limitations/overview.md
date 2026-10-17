@@ -16,7 +16,7 @@ description: Current DOTS/ECS constraints that affect ProStream workflows, hybri
    [ProStream's TerrainWorkflow](/planned-features/terrain-system.html) is in development to address this gap.
    [Native Engine Implementations/Plans](https://unity.com/roadmap/detail#unity-platform-dots)
 
-   **2D Tools**: Most of the URP 2D suite—including Tilemaps, 2D Lights, and 2D Colliders—is not supported in a pure ECS pipeline.
+      **2D Tools**: Most of the URP 2D suite (including Tilemaps, 2D Lights, and 2D Colliders) are not supported in a pure ECS pipeline.
 
 2. Character & Animation
 
@@ -47,3 +47,11 @@ description: Current DOTS/ECS constraints that affect ProStream workflows, hybri
    Main Thread UI: Both UGUI and UI Toolkit run strictly on the main thread. Accessing ECS data for UI display requires manual synchronization, which can lead to performance "spikes" if not handled carefully.
 
    Input System: There is no auto-generated "InputComponent." Input data must be polled on the main thread and manually written into an Entity component for use in ECS Systems.
+
+## DataObjects Workflow Limitations
+
+The [DataObjects workflow](/core-concepts/workflow-guides/dataobjects-workflow) has a few constraints specific to its prefab-buffer approach:
+
+- **Prefab instances only:** Objects must be placed prefab instances to be convertible; plain GameObjects cannot become DataObjects.
+- **Best for repeated content:** A prefab placed only once gains little from the DataObjects path; unique objects are better served by the default InstanceObjects workflow.
+- **Open-SubScene fallback:** `BakeTimeOptimized` sections bake their instances during entity-scene optimization. If a SubScene is streamed while open for editing in the Editor, spawning falls back to the runtime path, so editor performance differs slightly from builds.

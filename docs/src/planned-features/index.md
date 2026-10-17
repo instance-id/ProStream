@@ -40,8 +40,8 @@ These pages document feature areas that are either already partially implemented
 
 <div class="planned-features-grid">
   <div class="planned-feature-card">
-    <h3>Build/Runtime reductions</h3>
-    <p>DataObjects reduce memory usage and build size. Resulting in compact, data-only GameObject representations to drastically reduce MonoBehaviour overhead.</p>
+    <h3>Faster Editor iteration</h3>
+    <p>RemoteScenes splits preparation across referenced scenes so dense environments can be processed in smaller units, easing memory pressure and iteration time.</p>
   </div>
   <div class="planned-feature-card">
     <h3>Terrain-native streaming</h3>
@@ -61,7 +61,6 @@ These pages document feature areas that are either already partially implemented
 | Feature| Status| Description| Why it matters|
 | --- | --- | --- | --- |
 | [Visibility and frustum culling](./visibility-culling.md) |<QuickInfo preset="planned-feature-stage.beta-subsystem"> <span class="planned-status planned-status--beta">Beta subsystem</span></QuickInfo>| Extracts camera frustum planes and applies section-level visibility culling so streamed terrain and scene sections can react to what the camera can actually see.| Can provide a significant increase in runtime efficiency by intelligently unloading dense environments when they move off-screen.|
-| [DataObjects workflow](./dataobjects-workflow.md)| <QuickInfo preset="planned-feature-stage.advanced-prototype"><span class="planned-status planned-status--advanced">Advanced prototype</span></QuickInfo>| Produces compact, data-only GameObject representations, then spawns streamed entity instances from section buffers instead of copying every full GameObject into generated subscenes. | Reduces runtime overhead, minimizes duplication, and actively shrinks build sizes and memory footprint.|
 | [RemoteScenes workflow](./remote-scenes-workflow.md)|<QuickInfo preset="planned-feature-stage.advanced-prototype"> <span class="planned-status planned-status--advanced">Advanced prototype</span></QuickInfo>| Splits preparation work across referenced scenes so complex environments can be processed in smaller scene units without leaving the core ProStream workflow pipeline.| Eases Editor memory pressure and speeds up iteration when working with dense, heavily populated environments.|
 | [Terrain System](./terrain-system.md)|<QuickInfo preset="planned-feature-stage.substantial-prototype"> <span class="planned-status planned-status--substantial">Substantial prototype</span> </QuickInfo>| A comprehensive pipeline for chunking and rendering Unity Terrain environments into highly optimized, streaming-friendly ECS content.| Replaces memory-heavy monolithic Unity Terrain, automating scanning, mesh conversion, and proximity detail streaming to maximize runtime performance. |
 | [Impostor baking](./impostor-baking.md)|<QuickInfo preset="planned-feature-stage.wip-module"> <span class="planned-status planned-status--archived">WIP module</span></QuickInfo>| Bakes complex meshes into multi-frame impostor atlases and materials for aggressive long-range rendering optimization.| Vastly improves long-distance optimization for foliage, structures, and complex world geometry without high polygon counts.|
@@ -73,7 +72,6 @@ These pages document feature areas that are either already partially implemented
 
 These planned features are designed to expand ProStream into a comprehensive, world-building and streaming toolchain:
 
-- **DataObjects:** Compact, reusable prefab data workflows that reduce duplication while actively shrinking memory footprint and build size.
 - **RemoteScenes:** Scene processing workflows that make dense, heavily populated environments easier to prepare and iterate on in smaller units.
 - **Terrain System:** Unity Terrain conversion pipeline for spatial mapping, mesh chunking, and proximity-driven detail streaming.
 - **Visibility Culling:** Frustum-aware section culling designed to reduce unnecessary runtime work when dense scene content moves out of view.
